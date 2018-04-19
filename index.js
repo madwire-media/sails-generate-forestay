@@ -18,7 +18,7 @@ var _ = require('lodash');
  */
 
 module.exports = {
-
+  helm: require("./lib/helm.js")
   /**
    * `before()` is run before executing any of the `targets`
    * defined below.
@@ -45,7 +45,7 @@ module.exports = {
       return done(new Error('Expected a string for `scope.args[0]`, but instead got: '+util.inspect(scope.args[0],{depth: null})));
     }
 
-    
+
 
 
 

@@ -24,7 +24,7 @@
             </td>
             <td>
               <%
-              console.log(helm.id,record[attrKey], attrKey, typeof helm.id)
+              
       var attributeType = _.get(helm.config.attributes[attrKey],"type") ||  _.get(helm.config.attributes, [attrKey]) || ""
       attributeType = attributeType.toLowerCase();
       if(attributeType == "string"){ %>

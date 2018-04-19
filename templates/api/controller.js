@@ -1,3 +1,3 @@
 module.exports = {
-  helm:require("../../sails-generate-helm/lib/helm.js").router
+  helm:require("../../sails-generate-helm/").helm.router
 }

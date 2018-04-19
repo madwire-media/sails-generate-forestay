@@ -11,6 +11,13 @@
   "keywords": [
     "helm",
     "generator",
+    "crud",
+    "model",
+    "scaffold",
+    "scaffolds",
+    "nodejs",
+    "mvc",
+    "controller",
     "sails",
     "generate",
     "plugin"
