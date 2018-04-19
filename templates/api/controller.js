@@ -1,4 +1,4 @@
 module.exports = {
-  //helm:require("../../sails-generate-helm/").helm.router
-  helm:require("@david/sails-generate-helm").helm.router
+  //forestay:require("../../sails-generate-forestay/").forestay.router
+  forestay:require("@david/sails-generate-forestay").forestay.router
 }

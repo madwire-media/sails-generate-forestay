@@ -6,13 +6,13 @@
  */
 
 module.exports = {
-  helm:{
+  forestay:{
     index: {
       itemsPerPage: 10,
       showId:true,
       showCreatedAt:true,
       showUpdatedAt:true,
-      beforeRender: function(helm, next){
+      beforeRender: function(forestay, next){
         /*...*/
         return next();
       },
@@ -38,7 +38,7 @@ module.exports = {
       maxLength: 120,
       example: 'Lisa Microwave van der Jenny',
       meta: {
-        helm:{
+        forestay:{
           label: "Contact Name",
 
         }
