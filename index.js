@@ -31,7 +31,7 @@ module.exports = {
    */
 
   before: function (scope, done) {
-    console.log(scope);
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // // scope.args are the raw command line arguments.
     // //
@@ -46,8 +46,9 @@ module.exports = {
     }
 
 
-
-
+    var globalID: _.str.capitalize(scope.args[0]),
+    scope.controllerfile = scope.args[0] + ".js"
+    sails.log.info("Creating template "+scope.controllerfile + " controller and "+scope.modelfile+" model");
 
     //
     // // Provide defaults for the scope.
