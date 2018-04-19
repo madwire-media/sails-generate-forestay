@@ -8,17 +8,17 @@ var _ = require('lodash');
 
 
 /**
- * @david/sails-generate-helm
+ * @david/sails-generate-forestay
  *
  * Usage:
- * `sails generate helm`
+ * `sails generate forestay`
  *
- * @description Generates a helm.
+ * @description Generates a forestay.
  * @docs https://sailsjs.com/docs/concepts/extending-sails/generators/custom-generators
  */
 
 module.exports = {
-  helm: require("./lib/helm.js"),
+  forestay: require("./lib/forestay.js"),
   /**
    * `before()` is run before executing any of the `targets`
    * defined below.
@@ -36,10 +36,10 @@ module.exports = {
     // // scope.args are the raw command line arguments.
     // //
     // // e.g. if someone runs:
-    // // $ sails generate helm user find create update
+    // // $ sails generate forestay user find create update
     // // then `scope.args` would be `['user', 'find', 'create', 'update']`
     if (_.isUndefined(scope.args[0])) {
-      return done(new Error('Please provide a name for this helm.'));
+      return done(new Error('Please provide a name for this forestay.'));
     }
     if (!_.isString(scope.args[0])) {
       return done(new Error('Expected a string for `scope.args[0]`, but instead got: '+util.inspect(scope.args[0],{depth: null})));

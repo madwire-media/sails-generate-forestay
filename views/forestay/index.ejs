@@ -1,17 +1,17 @@
 <%
   var pageTitle =
-    _.get(helm, ["config","helm","title"]) ||
-    _.get(helm, ["model","name"]) ||
-    "Helm Model";
+    _.get(forestay, ["config","forestay","title"]) ||
+    _.get(forestay, ["model","name"]) ||
+    "forestay Model";
 
-  var showId = (_.get(helm.config.helm.index, ["showId"]) === true)
-  var showCreatedAt = (_.get(helm.config.helm.index, ["showCreatedAt"]) === true)
-  var showUpdatedAt = (_.get(helm.config.helm.index, ["showUpdatedAt"]) === true)
+  var showId = (_.get(forestay.config.forestay.index, ["showId"]) === true)
+  var showCreatedAt = (_.get(forestay.config.forestay.index, ["showCreatedAt"]) === true)
+  var showUpdatedAt = (_.get(forestay.config.forestay.index, ["showUpdatedAt"]) === true)
 
 %>
 <h1><%= pageTitle %></h1>
 
-<a href="<%= _.get(helm, ["config","helm","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(helm, ["model","name"]) %> </button></a>
+<a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(forestay, ["model","name"]) %> </button></a>
 <hr/>
 <table class="table">
 
@@ -19,13 +19,13 @@
     <% if(showId){ %>
       <th>ID</th>
     <% } %>
-    <% Object.keys(helm.config.attributes).forEach(function(attrKey, i){ %>
+    <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
       <th>
         <%
-          var this_attr = helm.config.attributes[attrKey]
+          var this_attr = forestay.config.attributes[attrKey]
         %>
         <%=
-          _.get(this_attr, ["meta","helm","label"]) ||
+          _.get(this_attr, ["meta","forestay","label"]) ||
           attrKey
         %>
       </th>
@@ -39,14 +39,14 @@
     <th>Delete</th>
     <th>Edit</th>
   </thead>
-  <% helm.records.forEach(function(row, index){ %>
+  <% forestay.records.forEach(function(row, index){ %>
     <tr>
       <% if(showId){ %>
         <td>
           <%= row.id %>
         </td>
       <% } %>
-      <% Object.keys(helm.config.attributes).forEach(function(attrKey, i){ %>
+      <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <td>
           <%= row[attrKey] %>
         </td>
@@ -58,16 +58,16 @@
         <td><%= moment(row.updatedAt).fromNow() %></td>
       <% } %>
       <td>
-        <form method="post" action="<%= _.get(helm, ["config","helm","urlPrefix"]) %><%= row.id %>/delete">
+        <form method="post" action="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/delete">
           <button class="btn btn-danger">Delete</button>
         </form>
 
       </td>
       <td>
-        <a href="<%= _.get(helm, ["config","helm","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info">Edit</a>
+        <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info">Edit</a>
       </td>
     </tr>
   <% }) %>
 </table>
 
-<% if (_.get(helm,['config','helm','index','footerHtml'])) { %><%- helm.config.helm.index.footerHtml %><% } %>
+<% if (_.get(forestay,['config','forestay','index','footerHtml'])) { %><%- forestay.config.forestay.index.footerHtml %><% } %>

@@ -1,7 +1,7 @@
 {
-  "name": "@david/sails-generate-helm",
+  "name": "@david/sails-generate-forestay",
   "version": "1.0.0",
-  "description": "sails generate helm",
+  "description": "sails generate forestay",
   "main": "index.js",
   "scripts": {
     "test": "echo 'No further automated tests have been implemented for this generator yet.'",
@@ -9,7 +9,7 @@
     "lint": "node ./node_modules/eslint/bin/eslint . --max-warnings=0"
   },
   "keywords": [
-    "helm",
+    "forestay",
     "generator",
     "crud",
     "model",
@@ -31,10 +31,10 @@
   "devDependencies": {
     "eslint": "3.19.0"
   },
-  "repository": {"type":"git","url":"git://github.com/david/sails-generate-helm.git"},
+  "repository": {"type":"git","url":"git://github.com/david/sails-generate-forestay.git"},
   "sailsGenerator": {
-    "type": "helm",
-    "behavior": "Implements or overrides `sails generate helm`",
+    "type": "forestay",
+    "behavior": "Implements or overrides `sails generate forestay`",
     "sailsVersion": "^1.0.0"
   }
 }

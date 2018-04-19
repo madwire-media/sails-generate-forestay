@@ -1,41 +1,41 @@
 <%
   var pageTitle =
-    _.get(helm, ["config","helm","title"]) ||
-    _.get(helm, ["model","name"]) ||
-    "Helm Model";
+    _.get(forestay, ["config","forestay","title"]) ||
+    _.get(forestay, ["model","name"]) ||
+    "forestay Model";
 
 %>
 
   <h1><%= pageTitle %></h1>
   <h6>
-    <% if(!helm.id) { %>Create New<% } %>
-    <% if(helm.id) { %>Update <% } %>
-    <%= _.get(helm, ["model","name"])%>
-    <% if(helm.id) { %><%= helm.id %><% } %>
+    <% if(!forestay.id) { %>Create New<% } %>
+    <% if(forestay.id) { %>Update <% } %>
+    <%= _.get(forestay, ["model","name"])%>
+    <% if(forestay.id) { %><%= forestay.id %><% } %>
   </h6>
   <hr/>
   <form method="post">
     <table class="table">
-      <% Object.keys(helm.config.attributes).forEach(function(attrKey, i){ %>
+      <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <%
-      var this_attr = helm.config.attributes[attrKey]
+      var this_attr = forestay.config.attributes[attrKey]
     %>
           <tr>
-            <td style="width: <%= _.get(helm.config.helm, ["createUpdate","labelWidth"]) || 200 %>px; text-align: right">
+            <td style="width: <%= _.get(forestay.config.forestay, ["createUpdate","labelWidth"]) || 200 %>px; text-align: right">
               <%=
-          _.get(this_attr, ["meta","helm","label"]) ||
+          _.get(this_attr, ["meta","forestay","label"]) ||
           attrKey
         %>:
             </td>
             <td>
               <%
 
-      var attributeType = _.get(helm.config.attributes[attrKey],"type") ||  _.get(helm.config.attributes, [attrKey]) || ""
+      var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
       attributeType = attributeType.toLowerCase();
       if(attributeType == "string"){ %>
                 <input
                   style="width:100%" name="<%= attrKey %>"
-                  <% if (helm.id) { %>
+                  <% if (forestay.id) { %>
                     value="<%= record[attrKey] %>"
                   <% }%>
                   >
