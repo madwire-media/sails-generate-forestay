@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 
 /**
- * @david/sails-generate-forestay
+ * sails-generate-forestay
  *
  * Usage:
  * `sails generate forestay`
