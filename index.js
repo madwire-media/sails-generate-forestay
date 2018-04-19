@@ -5,7 +5,7 @@
 var util = require('util');
 var path = require('path');
 var _ = require('lodash');
-
+_.str = require('underscore.string');
 
 /**
  * sails-generate-forestay
@@ -46,10 +46,13 @@ module.exports = {
     }
 
 
-    var globalID = _.str.capitalize(scope.args[0]),
+    var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + "Controller.js"
     scope.modelfile = globalID + ".js"
-    sails.log.info("Creating template "+scope.controllerfile + " controller and "+scope.modelfile+" model");
+    console.log("Creating template "+scope.controllerfile + " controller and "+scope.modelfile+" model");
+
+    scope.upperForestay = globalID
+    scope.lowerForestay = globalID.toLowerCase();
 
     //
     // // Provide defaults for the scope.
@@ -79,7 +82,8 @@ module.exports = {
    * @type {Dictionary}
    */
   targets: {
-    './api/controller/:filename': {template: 'controller.template' }
+    './api/controllers/:controllerfile': {template: 'api/controller.js' },
+    './api/models/:modelfile': {template: 'api/model.js' }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // • e.g. create a folder:
     // ```

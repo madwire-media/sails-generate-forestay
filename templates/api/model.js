@@ -21,73 +21,32 @@ module.exports = {
     createUpdate:{
       labelWidth: 200
     },
-    title: "Contacts",
+    title: "Forestay <%= upperForestay %>",
     onSaveLoadIndex : false,
-    urlPrefix :"/contact/",
+    urlPrefix :"/<%= lowerForestay %>/",
   },
   attributes: {
 
     //  ╔═╗╦═╗╦╔╦╗╦╔╦╗╦╦  ╦╔═╗╔═╗
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
-    fullName: {
+    // example
+    // fullName: {
+    //
+    //   type: 'string',
+    //   required: true,
+    //   description: 'Full legal name',
+    //   maxLength: 120,
+    //   example: 'Lisa Microwave van der Jenny',
+    //   meta: {
+    //     forestay:{
+    //       label: "Contact Name",
+    //
+    //     }
+    //
+    //   }
+    // },
 
-      type: 'string',
-      required: true,
-      description: 'Full legal name',
-      maxLength: 120,
-      example: 'Lisa Microwave van der Jenny',
-      meta: {
-        forestay:{
-          label: "Contact Name",
-
-        }
-
-      }
-    },
-    address1:{
-      type: 'string',
-      //required: true,
-      description: 'The address for this contact',
-      maxLength: 120,
-      example: '123 Main Street'
-    },
-    address2:{
-      type: 'string',
-      //required: false,
-      description: 'The address for this contact',
-      maxLength: 120,
-      example: '123 Main Street'
-    },
-    city:{
-      type: 'string',
-      //required: true,
-      description: 'The address for this contact',
-      maxLength: 120,
-      example: '123 Main Street'
-    },
-    state:{
-      type: 'string',
-    //  required: true,
-
-      maxLength: 2,
-      example: 'Colorado'
-    },
-    zip:{
-      type: 'string',
-      //required: true,
-      maxLength: 120,
-      example: '80528'
-    },
-    age:{
-      type:'integer',
-      //required: true,
-      description: "the age of this contact",
-      example: 24,
-    },
-    occupation:{
-      type: "string"
-    }
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
