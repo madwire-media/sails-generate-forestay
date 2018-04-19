@@ -1,0 +1,52 @@
+<%
+  var pageTitle =
+    _.get(helm, ["config","helm","title"]) ||
+    _.get(helm, ["model","name"]) ||
+    "Helm Model";
+
+%>
+
+  <h1><%= pageTitle %></h1>
+  <h6>Create New <%= _.get(helm, ["model","name"])%></h6>
+  <hr/>
+  <form method="post">
+    <table class="table">
+      <% Object.keys(helm.config.attributes).forEach(function(attrKey, i){ %>
+        <%
+      var this_attr = helm.config.attributes[attrKey]
+    %>
+          <tr>
+            <td style="width: <%= _.get(helm.config.helm, ["createUpdate","labelWidth"]) || 200 %>px; text-align: right">
+              <%=
+          _.get(this_attr, ["meta","helm","label"]) ||
+          attrKey
+        %>:
+            </td>
+            <td>
+              <%
+              console.log(helm.id,record[attrKey], attrKey, typeof helm.id)
+      var attributeType = _.get(helm.config.attributes[attrKey],"type") ||  _.get(helm.config.attributes, [attrKey]) || ""
+      attributeType = attributeType.toLowerCase();
+      if(attributeType == "string"){ %>
+                <input
+                  style="width:100%" name="<%= attrKey %>"
+                  <% if (helm.id) { %>
+                    value="<%= record[attrKey] %>"
+                  <% }%>
+                  >
+                <% } else { %>
+                  (can't edit <strong><%= attributeType %></strong> attributes at this time)
+                  <% }%>
+            </td>
+
+          </tr>
+          <% }) %>
+
+
+
+
+
+    </table>
+    <input type="hidden" name='_csrf' value='<%= _csrf %>'>
+    <button class="btn btn-info" style="width:100%">Submit</button>
+  </form>

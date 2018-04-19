@@ -1,1 +1,73 @@
-<h1><%= helm.config.helm.title %></h1>
+<%
+  var pageTitle =
+    _.get(helm, ["config","helm","title"]) ||
+    _.get(helm, ["model","name"]) ||
+    "Helm Model";
+
+  var showId = (_.get(helm.config.helm.index, ["showId"]) === true)
+  var showCreatedAt = (_.get(helm.config.helm.index, ["showCreatedAt"]) === true)
+  var showUpdatedAt = (_.get(helm.config.helm.index, ["showUpdatedAt"]) === true)
+
+%>
+<h1><%= pageTitle %></h1>
+
+<a href="<%= _.get(helm, ["config","helm","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(helm, ["model","name"]) %> </button></a>
+<hr/>
+<table class="table">
+
+  <thead>
+    <% if(showId){ %>
+      <th>ID</th>
+    <% } %>
+    <% Object.keys(helm.config.attributes).forEach(function(attrKey, i){ %>
+      <th>
+        <%
+          var this_attr = helm.config.attributes[attrKey]
+        %>
+        <%=
+          _.get(this_attr, ["meta","helm","label"]) ||
+          attrKey
+        %>
+      </th>
+    <% }) %>
+    <% if(showCreatedAt){ %>
+      <th>Created</th>
+    <% } %>
+    <% if(showUpdatedAt){ %>
+      <th>Updated</th>
+    <% } %>
+    <th>Delete</th>
+    <th>Edit</th>
+  </thead>
+  <% helm.records.forEach(function(row, index){ %>
+    <tr>
+      <% if(showId){ %>
+        <td>
+          <%= row.id %>
+        </td>
+      <% } %>
+      <% Object.keys(helm.config.attributes).forEach(function(attrKey, i){ %>
+        <td>
+          <%= row[attrKey] %>
+        </td>
+      <% }) %>
+      <% if(showCreatedAt){ %>
+        <td><%= moment(row.createdAt).fromNow()%></td>
+      <% } %>
+      <% if(showUpdatedAt){ %>
+        <td><%= moment(row.updatedAt).fromNow() %></td>
+      <% } %>
+      <td>
+        <form method="post" action="<%= _.get(helm, ["config","helm","urlPrefix"]) %><%= row.id %>/delete">
+          <button class="btn btn-danger">Delete</button>
+        </form>
+
+      </td>
+      <td>
+        <a href="<%= _.get(helm, ["config","helm","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info">Edit</a>
+      </td>
+    </tr>
+  <% }) %>
+</table>
+
+<% if (_.get(helm,['config','helm','index','footerHtml'])) { %><%- helm.config.helm.index.footerHtml %><% } %>
