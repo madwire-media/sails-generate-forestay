@@ -75,7 +75,18 @@ module.exports = {
     return done();
   },
   after: function(scope, done){
-    console.log("after callback")
+    console.log("That's done!");
+    console.log("You'll want to add the following code to your routes.js:")
+    console.log(`
+"/${scope.lowerForestay}/*": {
+  controller: "${scope.lowerForestay}",
+  action: "forestay",
+  forestay:{
+    model:"${scope.upperForestay}",
+  }
+},
+      `)
+    return done();
   },
 
 
