@@ -28,7 +28,6 @@ module.exports.routes = {
     action: "helm",
     helm:{
       model:"Contact",
-
     }
   },
 };

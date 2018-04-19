@@ -6,9 +6,23 @@
  */
 
 module.exports = {
-  helm: {
-    items_per_page: 10
+  helm:{
+    index: {
+      itemsPerPage: 10,
+      beforeRender: function(helm, next){
+        /*...*/
+        return next();
+      }
+    },
+    create:{
+      onSaveLoadIndex : false,
+    }
+
+    //title: "...Example",
+
+    //urlPrefix :"/contact/",
   },
+
   attributes: {
     /*
     fullName: {
