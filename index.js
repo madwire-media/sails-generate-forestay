@@ -77,7 +77,9 @@ module.exports = {
    * @type {Dictionary}
    */
   targets: {
-
+    './hey_look_a_folder': {
+      folder: {}
+    }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // • e.g. create a folder:
     // ```
