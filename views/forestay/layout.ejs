@@ -6,26 +6,8 @@
     <% /* Viewport tag for sensible mobile support */ %>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <% /* Script tags should normally be included further down the page- but scripts
-    that load fonts are a special exception to the rule.  (We include them up here
-    above the «body» to prevent the page flickering when fonts load.)  */ %>
-    <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/96cbd61ead.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
-    <% /*
-        Stylesheets
-        ========================
-
-        Stylesheets can be hard-coded as «link» tags, automatically injected
-        by the asset pipeline between "STYLES" and "STYLES END", or both.
-        (https://sailsjs.com/docs/concepts/assets/task-automation)
-    */ %>
-
-    <% /* Auto-injected «link» tags: */ %>
-    <!--STYLES-->
-    <link rel="stylesheet" href="/dependencies/bootstrap-4/bootstrap-4.css">
-    <link rel="stylesheet" href="/styles/importer.css">
-    <!--STYLES END-->
   </head>
 
   <body>
@@ -56,29 +38,9 @@
     </div>
 
 
-    <% /*
-      Client-side JavaScript
-      ========================
-
-      Scripts can be hard-coded as «script» tags, automatically injected
-      by the asset pipeline between "SCRIPTS" and "SCRIPTS END", or both.
-      (https://sailsjs.com/docs/concepts/assets/task-automation)
-    */ %>
-
-    <% /* Load Stripe Checkout */ %>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
-
-    <% /* Delete the global `self` to help avoid client-side bugs.
-    (see https://developer.mozilla.org/en-US/docs/Web/API/Window/self) */ %>
-    <script>delete window.self;</script>
-
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
-    <% /* Auto-injected «script» tags: */ %>
-    <!--SCRIPTS-->
-
-    <!--SCRIPTS END-->
   </body>
 </html>
