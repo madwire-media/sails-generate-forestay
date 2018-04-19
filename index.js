@@ -74,7 +74,9 @@ module.exports = {
     // > and halt generation of all targets.
     return done();
   },
-
+  after: function(scope, done){
+    console.log("after callback")
+  },
 
 
   /**
