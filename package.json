@@ -1,5 +1,5 @@
 {
-  "name": "@david/sails-generate-forestay",
+  "name": "sails-generate-forestay",
   "version": "1.0.0",
   "description": "sails generate forestay",
   "main": "index.js",
