@@ -4,6 +4,8 @@ A `helm` generator for use with the Sails command-line interface.
 
 
 ## Notes
+- Helm requires jquery and bootstrap.  Our default layout uses a CDN for these, so if you want to replace the layout, you'll want to add those.
+
 ### models
 configuration:
 ```JavaScript

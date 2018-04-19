@@ -18,7 +18,7 @@ var _ = require('lodash');
  */
 
 module.exports = {
-  helm: require("./lib/helm.js")
+  helm: require("./lib/helm.js"),
   /**
    * `before()` is run before executing any of the `targets`
    * defined below.
