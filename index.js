@@ -46,8 +46,9 @@ module.exports = {
     }
 
 
-    var globalID: _.str.capitalize(scope.args[0]),
-    scope.controllerfile = scope.args[0] + ".js"
+    var globalID = _.str.capitalize(scope.args[0]),
+    scope.controllerfile = globalID + "Controller.js"
+    scope.modelfile = globalID + ".js"
     sails.log.info("Creating template "+scope.controllerfile + " controller and "+scope.modelfile+" model");
 
     //
