@@ -77,9 +77,7 @@ module.exports = {
    * @type {Dictionary}
    */
   targets: {
-    './hey_look_a_folder': {
-      folder: {}
-    }
+    './api/controller/:filename': {template: 'controller.template' }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     // • e.g. create a folder:
     // ```
