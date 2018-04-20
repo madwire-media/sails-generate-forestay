@@ -2,6 +2,17 @@
 
 Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes.
 
+Note that this is an early release of this software;
+
+![image](https://user-images.githubusercontent.com/444485/39063173-35f0cb30-4487-11e8-8755-2a8709ec7819.png)
+
+*TO DO* :
+- Number, Boolean, JSON, ref attributes
+- Required attributes
+- Model Validation
+- Pagination
+- Filtering
+- Associations
 
 
 
