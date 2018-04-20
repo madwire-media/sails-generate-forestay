@@ -1,27 +1,11 @@
 # sails-generate-forestay
 
-A `forestay` generator for use with the Sails command-line interface.
+Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes. 
 
 
 ## Notes
 - forestay requires jquery and bootstrap.  Our default layout uses a CDN for these, so if you want to replace the layout, you'll want to add those.
 - You can use Forestay on existing controllers and models, using the existing structure.  In your controller, just reference your actions to the Forestay module:
-```JavaScript
-module.exports = {
-  forestay:require("sails-generate-forestay").forestay.router
-}
-```
-### models
-configuration:
-```JavaScript
-forestay:{
-  items_per_page: 10,
-},
-```
-
-otherwise you can configure your models as normal
-
-
 
 ## Installation
 ```sh
