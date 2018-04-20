@@ -1,7 +1,7 @@
 {
   "name": "sails-generate-forestay",
   "version": "0.0.7",
-  "description": "sails generate forestay",
+  "description": "Build dynamic user interfaces quickly and easily! Use the forestay generator to scaffold complete CRUD interfaces using just your SailsJS model attributes.",
   "main": "index.js",
   "scripts": {
     "test": "echo 'No further automated tests have been implemented for this generator yet.'",
@@ -16,6 +16,8 @@
     "scaffold",
     "scaffolds",
     "nodejs",
+    "attributes",
+    "user interface",
     "mvc",
     "controller",
     "sails",
