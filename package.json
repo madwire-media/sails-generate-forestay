@@ -1,6 +1,6 @@
 {
   "name": "sails-generate-forestay",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "sails generate forestay",
   "main": "index.js",
   "scripts": {
