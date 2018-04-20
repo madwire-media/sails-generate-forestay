@@ -2,10 +2,10 @@
  * Module dependencies
  */
 
-const util = require('util');
-const path = require('path');
-const _ = require('lodash');
-_.str = require('underscore.string');
+const util = require('util')
+const path = require('path')
+const _ = require('lodash')
+_.str = require('underscore.string')
 
 /**
  * sails-generate-forestay
@@ -18,34 +18,31 @@ _.str = require('underscore.string');
  */
 
 module.exports = {
-  forestay: require("./lib/forestay.js"),
+  forestay: require('./lib/forestay.js'),
 
-
-  before: function(scope, done) {
-
+  before: function (scope, done) {
     if (_.isUndefined(scope.args[0])) {
-      return done(new Error('Please provide a name for this forestay.'));
+      return done(new Error('Please provide a name for this forestay.'))
     }
     if (!_.isString(scope.args[0])) {
       return done(new Error('Expected a string for `scope.args[0]`, but instead got: ' + util.inspect(scope.args[0], {
         depth: null
-      })));
+      })))
     }
 
-
     var globalID = _.str.capitalize(scope.args[0])
-    scope.controllerfile = globalID + "Controller.js"
-    scope.modelfile = globalID + ".js"
-    console.log("Creating template " + scope.controllerfile + " controller and " + scope.modelfile + " model");
+    scope.controllerfile = globalID + 'Controller.js'
+    scope.modelfile = globalID + '.js'
+    console.log('Creating template ' + scope.controllerfile + ' controller and ' + scope.modelfile + 'model')
 
     scope.upperForestay = globalID
-    scope.lowerForestay = globalID.toLowerCase();
+    scope.lowerForestay = globalID.toLowerCase()
 
-    return done();
+    return done()
   },
-  after: function(scope, done) {
-    console.log("That's done!");
-    console.log("You'll want to add the following code to your routes.js:")
+  after: function (scope, done) {
+    console.log('That\'s done!')
+    console.log('You\'ll want to add the following code to your routes.js:')
     console.log(`
 "/${scope.lowerForestay}/*": {
   controller: "${scope.lowerForestay}",
@@ -55,7 +52,7 @@ module.exports = {
   }
 },
       `)
-    return done();
+    return done()
   },
 
   targets: {
@@ -64,11 +61,9 @@ module.exports = {
     },
     './api/models/:modelfile': {
       template: 'api/model.js'
-    } -
-    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
+    }
   },
 
   templatesDirectory: path.resolve(__dirname, './templates')
 
-};
+}
