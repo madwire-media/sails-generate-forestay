@@ -1,6 +1,6 @@
 {
   "name": "sails-generate-forestay",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "sails generate forestay",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,10 @@
   "devDependencies": {
     "eslint": "3.19.0"
   },
-  "repository": {"type":"git","url":"git://github.com/david/sails-generate-forestay.git"},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/david/sails-generate-forestay.git"
+  },
   "sailsGenerator": {
     "type": "forestay",
     "behavior": "Implements or overrides `sails generate forestay`",
