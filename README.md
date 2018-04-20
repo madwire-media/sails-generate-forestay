@@ -21,24 +21,7 @@ forestay:{
 
 otherwise you can configure your models as normal
 
-### views
-views should be installed automatically ...  layout may require
 
-### controllers
-
-### routes
-User will probably have to configure these
-```JavaScript
-module.exports.routes = {
-  "/contact/*": {
-    controller: "contact",
-    action: "forestay",
-    forestay:{
-      model:"Contact",
-    }
-  },
-};
-```
 
 ## Installation
 ```sh
@@ -51,46 +34,79 @@ or
 $ npm install sails-generate-forestay --save
 ```
 
-Then merge the following into your `.sailsrc` file:
+Then merge the following into your `.sailsrc` file. :
 
 ```json
 {
   "modules": {
-    "forestay": "@david/sails-generate-forestay"
+    "forestay": "sails-generate-forestay"
   }
 }
 ```
-
-> Note that instead of `"@david/sails-generate-forestay"`, you can also choose to provide the path to the generator locally (e.g. "./generators/forestay").
-> This is useful if, for example, you have specific best practices for particular projects or teams within your organization, and you want to be able to check in generators to your code repository.
->
-> Certain generators are installed by default in Sails, but they can be overridden.  Other generators add support for generating entirely new kinds of things.
-> Check out [Concepts > Extending Sails > Generators](https://sailsjs.com/docs/concepts/extending-sails/generators) for information on installing generator overrides / custom generators and information on building your own generators.
-
+In some cases, sailsjs may automatically insert this in.
 
 
 ## Usage
 
+### Creating new models
 ```bash
-$ sails generate forestay
+$ sails generate forestay (modelname)
 ```
 
+You will then be given shown the routing code to place into your `routes.js` file. This will route actions through the Forestay controllers and give you a complete CRUD interface.
 
-## Need help?
+### Using forestay with existing models
+If you have existing models, and you'd like to use the Forestay CRUD interface with them, just add the appropriate code to your router, model and controller. Note to make sure you replace "modelname" with the name of your intended model and route, following the same capitlization convention.
 
-See [Extending Sails > Generators > Custom Generators](https://sailsjs.com/docs/concepts/extending-sails/generators/custom-generators) in the [Sails documentation](https://sailsjs.com/documentation), or check out [recommended support options](https://sailsjs.com/support).
+##### Routes
+```JavaScript
+/* Append routes.js */
+module.exports.routes = {
+  "/modelname/*": {
+    controller: "modelname",
+    action: "forestay",
+    forestay:{
+      model:"Modelname",
+    }
+  },
+};
+```
+##### Controller
+```JavaScript
+/* Create your controller action */
+module.exports = {
+  forestay:require("sails-generate-forestay").forestay.router
+}
+```
 
-<a href="https://sailsjs.com" target="_blank" title="Node.js framework for building realtime APIs."><img src="https://github-camo.global.ssl.fastly.net/9e49073459ed4e0e2687b80eaf515d87b0da4a6b/687474703a2f2f62616c64657264617368792e6769746875622e696f2f7361696c732f696d616765732f6c6f676f2e706e67" width=60 alt="Sails.js logo (small)"/></a>
+##### Model
+```JavaScript
+/* Merge this code into your model */
+module.exports = {
+  forestay:{
+    index: {
+      itemsPerPage: 10,
+      showId:true,
+      showCreatedAt:true,
+      showUpdatedAt:true,
+      beforeRender: function(forestay, next){
+        /*...*/
+        return next();
+      },
+      footerHtml:"<p style='font-size: 8px'>Note that these CRUD scaffolds are really meant only for administration purposes, and not for public users to use. Use at your own risk</p>"
+    },
+    createUpdate:{
+      labelWidth: 200
+    },
+    title: "Forestay Model",
+    onSaveLoadIndex : false,
+    urlPrefix :"/modelname/",
+  },
+  attributes: {
+    /* ... */
 
-
-## Bugs &nbsp; [![NPM version](https://badge.fury.io/js/@david/sails-generate-forestay.svg)](http://npmjs.com/package/@david/sails-generate-forestay)
-
-To report a bug, [click here](https://sailsjs.com/bugs).
-
-
-## Contributing
-
-Please observe the guidelines and conventions laid out in the [Sails project contribution guide](https://sailsjs.com/documentation/contributing) when opening issues or submitting pull requests.
+  }
+```
 
 [![NPM](https://nodei.co/npm/@david/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/@david/sails-generate-forestay)
 
