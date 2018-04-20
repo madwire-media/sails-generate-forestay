@@ -34,7 +34,7 @@ module.exports = {
     var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + 'Controller.js'
     scope.modelfile = globalID + '.js'
-    console.log('Creating template ' + scope.controllerfile + ' controller and ' + scope.modelfile + ' model'.blue)
+    console.log('Creating template ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
 
     scope.upperForestay = globalID
     scope.lowerForestay = globalID.toLowerCase()
@@ -52,7 +52,7 @@ module.exports = {
     model:"${scope.upperForestay}",
   }
 },
-      `.white)
+      `.blue)
     return done()
   },
 
