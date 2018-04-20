@@ -6,24 +6,23 @@
  */
 
 module.exports = {
-  forestay:{
+  forestay: {
     index: {
       itemsPerPage: 10,
-      showId:true,
-      showCreatedAt:true,
-      showUpdatedAt:true,
-      beforeRender: function(forestay, next){
-        /*...*/
-        return next();
+      showId: true,
+      showCreatedAt: true,
+      showUpdatedAt: true,
+      beforeRender: function (forestay, next) {
+        return next()
       },
-      footerHtml:"<p style='font-size: 8px'>Note that these CRUD scaffolds are really meant only for administration purposes, and not for public users to use. Use at your own risk</p>"
+      footerHtml: `<p style='font-size: 8px'>Note that these CRUD scaffolds are really meant only for administration purposes, and not for public users to use. Use at your own risk</p>`
     },
-    createUpdate:{
+    createUpdate: {
       labelWidth: 200
     },
-    title: "Forestay <%= upperForestay %>",
-    onSaveLoadIndex : false,
-    urlPrefix :"/<%= lowerForestay %>/",
+    title: 'Forestay <%= upperForestay %>',
+    onSaveLoadIndex: false,
+    urlPrefix: '/<%= lowerForestay %>/'
   },
   attributes: {
 
@@ -46,17 +45,12 @@ module.exports = {
     //
     //   }
     // },
-
-
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
-    //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═╝
-
+    //  ╚═╝╩ ╩╚═╝╚═╝═╩╝╚═
 
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-
-  },
-
-};
+  }
+}
