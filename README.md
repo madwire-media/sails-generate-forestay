@@ -41,9 +41,14 @@ module.exports.routes = {
 ```
 
 ## Installation
+```sh
+$ npm install https://github.com/madwire-media/sails-generate-forestay.git --save
+```
+
+or
 
 ```sh
-$ npm install @david/sails-generate-forestay --save
+$ npm install sails-generate-forestay --save
 ```
 
 Then merge the following into your `.sailsrc` file:
