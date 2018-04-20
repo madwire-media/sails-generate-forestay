@@ -2,9 +2,10 @@
 
 Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes.
 
+![image](https://user-images.githubusercontent.com/444485/39064374-8b8ef608-448b-11e8-9a94-9477ff820551.png)
+
 Note that this is an early release of this software;
 
-![2018-04-20 11_06_07](https://user-images.githubusercontent.com/444485/39064195-d8ec12ec-448a-11e8-9d7b-ead98a718039.gif)
 
 
 *TO DO* :
@@ -52,6 +53,10 @@ $ sails generate forestay (modelname)
 ```
 
 You will then be given shown the routing code to place into your `routes.js` file. This will route actions through the Forestay controllers and give you a complete CRUD interface.
+
+![2018-04-20 11_06_07](https://user-images.githubusercontent.com/444485/39064195-d8ec12ec-448a-11e8-9d7b-ead98a718039.gif)
+
+
 
 ### Using forestay with existing models
 If you have existing models, and you'd like to use the Forestay CRUD interface with them, just add the appropriate code to your router, model and controller. Note to make sure you replace "modelname" with the name of your intended model and route, following the same capitlization convention.
