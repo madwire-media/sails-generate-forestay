@@ -34,7 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/david/sails-generate-forestay.git"
+    "url": "git://github.com/madwire-media/sails-generate-forestay.git"
   },
   "sailsGenerator": {
     "type": "forestay",
