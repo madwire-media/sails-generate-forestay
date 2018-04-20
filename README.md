@@ -1,6 +1,8 @@
 # sails-generate-forestay
 
-Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes. 
+Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes.
+
+
 
 
 ## Notes
@@ -92,7 +94,7 @@ module.exports = {
   }
 ```
 
-[![NPM](https://nodei.co/npm/@david/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/@david/sails-generate-forestay)
+[![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
 
 
 
