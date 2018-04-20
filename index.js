@@ -6,6 +6,7 @@ const util = require('util')
 const path = require('path')
 const _ = require('lodash')
 _.str = require('underscore.string')
+const colors = require('colors')
 
 /**
  * sails-generate-forestay
@@ -33,7 +34,7 @@ module.exports = {
     var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + 'Controller.js'
     scope.modelfile = globalID + '.js'
-    console.log('Creating template ' + scope.controllerfile + ' controller and ' + scope.modelfile + 'model')
+    console.log('Creating template ' + scope.controllerfile + ' controller and ' + scope.modelfile + ' model'.blue)
 
     scope.upperForestay = globalID
     scope.lowerForestay = globalID.toLowerCase()
@@ -42,7 +43,7 @@ module.exports = {
   },
   after: function (scope, done) {
     console.log('That\'s done!')
-    console.log('You\'ll want to add the following code to your routes.js:')
+    console.log('You\'ll want to add the following code to your routes.js:'.red)
     console.log(`
 "/${scope.lowerForestay}/*": {
   controller: "${scope.lowerForestay}",
@@ -51,7 +52,7 @@ module.exports = {
     model:"${scope.upperForestay}",
   }
 },
-      `)
+      `.white)
     return done()
   },
 
