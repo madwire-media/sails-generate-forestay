@@ -43,7 +43,7 @@ module.exports = {
   },
   after: function (scope, done) {
     console.log('That\'s done!')
-    console.log('You\'ll want to add the following code to your routes.js:'.red)
+    console.log('You\'ll want to add the following code to '.red + 'routes.js'.yellow + 'file.'.red)
     console.log(`
 "/${scope.lowerForestay}/*": {
   controller: "${scope.lowerForestay}",
