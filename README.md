@@ -2,6 +2,7 @@
 
 Build dynamic user interfaces quickly and easily! Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes.
 
+
 ![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
 Note that this is an early release of this generator;
 
