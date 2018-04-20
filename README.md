@@ -4,7 +4,8 @@ Use the `forestay` generator to scaffold complete CRUD interfaces using just you
 
 Note that this is an early release of this software;
 
-![image](https://user-images.githubusercontent.com/444485/39063173-35f0cb30-4487-11e8-8755-2a8709ec7819.png)
+![2018-04-20 11_06_07](https://user-images.githubusercontent.com/444485/39064195-d8ec12ec-448a-11e8-9d7b-ead98a718039.gif)
+
 
 *TO DO* :
 - Number, Boolean, JSON, ref attributes
