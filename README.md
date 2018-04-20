@@ -1,17 +1,17 @@
 # sails-generate-forestay
 
-Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes.
+Build dynamic user interfaces quickly and easily! Use the `forestay` generator to scaffold complete CRUD interfaces using just your model attributes.
 
-![image](https://user-images.githubusercontent.com/444485/39064374-8b8ef608-448b-11e8-9a94-9477ff820551.png)
-
-Note that this is an early release of this software;
-
-
+![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
+Note that this is an early release of this generator;
 
 *TO DO* :
 - Number, Boolean, JSON, ref attributes
 - Required attributes
 - Model Validation
+- Options
+- Dynamic Actions
+- Data manipulation for display
 - Pagination
 - Filtering
 - Associations
