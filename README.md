@@ -9,7 +9,7 @@ Note that this is an early release of this generator;
 - Number, Boolean, JSON, ref attributes
 - Required attributes
 - Model Validation
-- Options
+- `enum` model selction
 - Dynamic Actions
 - Data manipulation for display
 - Pagination
