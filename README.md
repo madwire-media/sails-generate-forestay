@@ -8,20 +8,6 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 ![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
 Note that this is an early release of this generator;
 
-*TO DO* :
-
-- JSON, ref attributes
-- date type UI
-- defaultsTo on create/update template
-- index beforeRender callback
-- Model Validation
-- Dynamic Actions (Buttons)
-- Pagination
-- Filtering
-- Associations
-
-
-
 ## Notes
 - forestay requires jquery and bootstrap.  Our default layout uses a CDN for these, so if you want to replace the layout, you'll want to add those.
 - You can use Forestay on existing controllers and models, using the existing structure.  In your controller, just reference your actions to the Forestay module:
@@ -113,21 +99,32 @@ module.exports = {
     /* ... */
 
   }
-
-### Attribute Features
-- string
-- number
-- boolean
-- required
-- enum
-
-
-
 ```
 
+### Attribute Features
+- `string`
+- `number`
+- `boolean` 
+
+### Attribute Property Features
+- `required` - Suppored by `required` input attribute
+- `enum` will show as a `<select>` list
+
+
+### TODO
+
+- JSON, ref attributes
+- date type UI
+- defaultsTo on create/update template
+- index beforeRender callback
+- Model Validation
+- Dynamic Actions (Buttons)
+- Pagination
+- Filtering
+- Associations
+
+
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
-
-
 
 ## License
 
