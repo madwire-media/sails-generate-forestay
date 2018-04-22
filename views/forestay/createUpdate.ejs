@@ -3,6 +3,7 @@
     _.get(forestay, ["config","forestay","title"]) ||
     _.get(forestay, ["model","name"]) ||
     "forestay Model";
+      console.log(forestay.config.attributes)
 
 %>
 
@@ -32,27 +33,52 @@
 
       var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
       attributeType = attributeType.toLowerCase();
+
+      if(attributeType == "string" && Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))){
+        attributeType = "enum"
+        var enumOptions = _.get(forestay.config.attributes[attrKey],["validations","isIn"])
+      }
+
       var value = "";
-              %>
-      <% if (forestay.id) {
+      var required = "";
+
+
+      console.log(_.get(forestay.config.attributes[attrKey], "required") )
+      if (_.get(forestay.config.attributes[attrKey], "required") === true) {
+        required = "required"
+      }
+      if (forestay.id) {
         value = `value='${record[attrKey]}'`
-      }%>
+      }
+
+      console.log(_.get(forestay.config.attributes,[attrKey]))
+
+              %>
 
     <% if(attributeType == "string"){ %>
-                  <input style="width:100%" name="<%= attrKey %>" <%- value %>>
+                  <input style="width:100%" name="<%= attrKey %>" <%- value %> <%= required %>>
                 <% } else if(attributeType == "number"){ %>
-                  <input style="width:100%" type="number" name="<%= attrKey %>" <%- value %>>
+                  <input style="width:100%" type="number" name="<%= attrKey %>" <%- value %> <%= required %>>
                 <% } else if(attributeType == "boolean"){
                     var trueSelected = ""
                     var falseSelected = ""
                     if(forestay.id && record[attrKey] == true) trueSelected = "selected"
                     if(forestay.id && record[attrKey] == false) falseSelected = "selected"
                   %>
-                  <select name="<%= attrKey %>">
+                  <select name="<%= attrKey %>" <%= required %>>
                     <option></option>
                     <option value="true" <%= trueSelected %>>True</option>
                     <option value="false" <%= falseSelected %>>False</option>
                   </select>
+                <% } else if (attributeType == "enum"){ %>
+                  <select name="<%= attrKey %>" <%= required %>>
+                    <option></option>
+                    <% enumOptions.forEach(function(o){ %>
+                      <% var isSelected = "" %>
+                      <% if(o === record[attrKey]) isSelected = "selected" %>
+                      <option value="<%= o %>" <%= isSelected %>><%= o %></option>
+                    <% }) %>
+                </select>
                 <% }else { // unknown attribute type %>
                   (can't edit <strong><%= attributeType %></strong> attributes at this time)
                   <% }%>

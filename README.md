@@ -1,5 +1,7 @@
 # sails-generate-forestay
 
+Built and tested as of SailsJS version 1.01
+
 Build dynamic user interfaces quickly and easily! Use the `forestay` generator to scaffold complete CRUD interfaces using just your SailsJS model attributes.
 
 
@@ -9,12 +11,11 @@ Note that this is an early release of this generator;
 *TO DO* :
 
 - JSON, ref attributes
+- date type UI
 - defaultsTo on create/update template
-- Required attributes
+- index beforeRender callback
 - Model Validation
-- `enum` model selction
-- Dynamic Actions
-- Data manipulation for display
+- Dynamic Actions (Buttons)
 - Pagination
 - Filtering
 - Associations
@@ -112,6 +113,16 @@ module.exports = {
     /* ... */
 
   }
+
+### Attribute Features
+- string
+- number
+- boolean
+- required
+- enum
+
+
+
 ```
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
