@@ -7,6 +7,7 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 Note that this is an early release of this generator;
 
 *TO DO* :
+
 - JSON, ref attributes
 - defaultsTo on create/update template
 - Required attributes
