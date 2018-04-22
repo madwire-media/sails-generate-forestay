@@ -30,11 +30,11 @@ module.exports = {
         depth: null
       })))
     }
-
+    console.log("hi")
     var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + 'Controller.js'
     scope.modelfile = globalID + '.js'
-    console.log('Creating template ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
+    console.log('Creating ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
 
     scope.upperForestay = globalID
     scope.lowerForestay = globalID.toLowerCase()
