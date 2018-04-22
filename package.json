@@ -30,7 +30,8 @@
     "colors": "^1.2.1",
     "lodash": "3.10.1",
     "moment": "^2.22.1",
-    "underscore.string": "^3.3.4"
+    "underscore.string": "^3.3.4",
+    "xss": "^0.3.8"
   },
   "devDependencies": {
     "eslint": "3.19.0"
