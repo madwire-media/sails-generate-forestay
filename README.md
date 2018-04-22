@@ -7,6 +7,7 @@ Note that this is an early release of this generator;
 
 *TO DO* :
 - Number, Boolean, JSON, ref attributes
+- Prevent XSS!
 - Required attributes
 - Model Validation
 - Options
