@@ -30,11 +30,10 @@ module.exports = {
         depth: null
       })))
     }
-
     var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + 'Controller.js'
     scope.modelfile = globalID + '.js'
-    console.log('Creating template ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
+    console.log('Creating ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
 
     scope.upperForestay = globalID
     scope.lowerForestay = globalID.toLowerCase()
@@ -44,6 +43,7 @@ module.exports = {
   after: function (scope, done) {
     console.log('That\'s done!')
     console.log('You\'ll want to add the following code to the '.red + 'config/routes.js'.yellow + ' file.'.red)
+    /* Template for routes.js */
     console.log(`
 "/${scope.lowerForestay}/*": {
   controller: "${scope.lowerForestay}",

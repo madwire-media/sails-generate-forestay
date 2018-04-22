@@ -32,14 +32,28 @@
 
       var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
       attributeType = attributeType.toLowerCase();
-      if(attributeType == "string"){ %>
-                <input
-                  style="width:100%" name="<%= attrKey %>"
-                  <% if (forestay.id) { %>
-                    value="<%= record[attrKey] %>"
-                  <% }%>
-                  >
-                <% } else { %>
+      var value = "";
+              %>
+      <% if (forestay.id) {
+        value = `value='${record[attrKey]}'`
+      }%>
+
+    <% if(attributeType == "string"){ %>
+                  <input style="width:100%" name="<%= attrKey %>" <%- value %>>
+                <% } else if(attributeType == "number"){ %>
+                  <input style="width:100%" type="number" name="<%= attrKey %>" <%- value %>>
+                <% } else if(attributeType == "boolean"){
+                    var trueSelected = ""
+                    var falseSelected = ""
+                    if(forestay.id && record[attrKey] == true) trueSelected = "selected"
+                    if(forestay.id && record[attrKey] == false) falseSelected = "selected"
+                  %>
+                  <select name="<%= attrKey %>">
+                    <option></option>
+                    <option value="true" <%= trueSelected %>>True</option>
+                    <option value="false" <%= falseSelected %>>False</option>
+                  </select>
+                <% }else { // unknown attribute type %>
                   (can't edit <strong><%= attributeType %></strong> attributes at this time)
                   <% }%>
             </td>
