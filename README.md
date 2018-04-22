@@ -7,12 +7,13 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 Note that this is an early release of this generator;
 
 *TO DO* :
-- Number, Boolean, JSON, ref attributes
+- JSON, ref attributes
+- defaultsTo on create/update template
 - Required attributes
 - Model Validation
 - Options
-- Dynamic Actions
-- Data manipulation for display
+- Dynamic Actions (buttons)
+- Data manipulation for display (callback)
 - Pagination
 - Filtering
 - Associations

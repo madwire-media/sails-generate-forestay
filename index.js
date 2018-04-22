@@ -30,7 +30,6 @@ module.exports = {
         depth: null
       })))
     }
-    console.log("hi")
     var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + 'Controller.js'
     scope.modelfile = globalID + '.js'
@@ -44,6 +43,7 @@ module.exports = {
   after: function (scope, done) {
     console.log('That\'s done!')
     console.log('You\'ll want to add the following code to the '.red + 'config/routes.js'.yellow + ' file.'.red)
+    /* Template for routes.js */
     console.log(`
 "/${scope.lowerForestay}/*": {
   controller: "${scope.lowerForestay}",
