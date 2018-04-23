@@ -32,6 +32,11 @@
               <%
 
       var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
+      console.log("ATTRIBUTE TYPE: ", attributeType)
+
+      if(typeof attributeType != "string") attributeType ="";
+
+      if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
       attributeType = attributeType.toLowerCase();
 
       if(attributeType == "string" && Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))){
@@ -75,7 +80,7 @@
                     <option></option>
                     <% enumOptions.forEach(function(o){ %>
                       <% var isSelected = "" %>
-                      <% if(o === record[attrKey]) isSelected = "selected" %>
+                      <% if(forestay.id && o === record[attrKey]) isSelected = "selected" %>
                       <option value="<%= o %>" <%= isSelected %>><%= o %></option>
                     <% }) %>
                 </select>

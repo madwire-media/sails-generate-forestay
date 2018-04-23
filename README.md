@@ -104,7 +104,7 @@ module.exports = {
 ### Attribute Features
 - `string`
 - `number`
-- `boolean` 
+- `boolean`
 
 ### Attribute Property Features
 - `required` - Suppored by `required` input attribute
@@ -118,10 +118,14 @@ module.exports = {
 - defaultsTo on create/update template
 - index beforeRender callback
 - Model Validation
+- Hide attribute on form option
 - Dynamic Actions (Buttons)
 - Pagination
 - Filtering
 - Associations
+- forestay.js in config folder
+-- Main title/header
+-- Global Menu
 
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
