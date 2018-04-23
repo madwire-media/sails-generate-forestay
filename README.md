@@ -125,7 +125,7 @@ module.exports = {
 - Pagination
 - Filtering
 - Associations
-- forestay.js in config folder
+- `forestay.js` global configurations in config folder
 -- Main title/header
 -- Global Menu
 
