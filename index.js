@@ -62,6 +62,9 @@ module.exports = {
     },
     './api/models/:modelfile': {
       template: 'api/model.js'
+    },
+    './config/forestay.js': {
+      template: 'config/forestay.js'
     }
   },
 

@@ -42,7 +42,7 @@ In some cases, sailsjs may automatically insert this in.
 $ sails generate forestay (modelname)
 ```
 
-You will then be given shown the routing code to place into your `routes.js` file. This will route actions through the Forestay controllers and give you a complete CRUD interface.
+You will then be shown the routing code to place into your `routes.js` file. This will route actions through the Forestay controllers and give you a complete CRUD interface.
 
 ![2018-04-20 11_06_07](https://user-images.githubusercontent.com/444485/39064195-d8ec12ec-448a-11e8-9d7b-ead98a718039.gif)
 
@@ -114,6 +114,9 @@ module.exports = {
 - `model.attributes.meta.hideInIndex === true` Hide this field in the forestay index
 - `model.attributes.meta.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
 
+### `config/forestay.js` Features
+- `defaultLayout` - use an alternate local layout instead of the default Forestay layout
+
 ### TODO
 
 - JSON, ref attributes
@@ -129,7 +132,6 @@ module.exports = {
 - `forestay.js` global configurations in config folder
   - Main title/header
   - Global Menu
-  - Alternate default layout
 
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
