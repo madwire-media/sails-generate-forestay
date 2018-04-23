@@ -125,9 +125,11 @@ module.exports = {
 - Pagination
 - Filtering
 - Associations
+- Alternate layout per model
 - `forestay.js` global configurations in config folder
--- Main title/header
--- Global Menu
+ - Main title/header
+ - Global Menu
+ - Alternate default layout
 
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
