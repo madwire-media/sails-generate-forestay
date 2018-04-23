@@ -110,6 +110,9 @@ module.exports = {
 - `required` - Suppored by `required` input attribute
 - `enum` will show as a `<select>` list
 
+### Attribute meta features
+- `model.attributes.meta.hideInIndex === true` Hide this field in the forestay index
+- `model.attributes.meta.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
 
 ### TODO
 
@@ -118,7 +121,6 @@ module.exports = {
 - defaultsTo on create/update template
 - index beforeRender callback
 - Model Validation
-- Hide attribute on form option
 - Dynamic Actions (Buttons)
 - Pagination
 - Filtering

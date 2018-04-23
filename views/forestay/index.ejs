@@ -20,6 +20,13 @@
       <th>ID</th>
     <% } %>
     <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
+      <%
+
+      if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","hideInIndex"]) === true){
+        // do nothing if this field is meant to be hidden
+      }
+      else {
+      %>
       <th>
         <%
           var this_attr = forestay.config.attributes[attrKey]
@@ -29,6 +36,7 @@
           attrKey
         %>
       </th>
+      <% } // end hideInIndex else %>
     <% }) %>
     <% if(showCreatedAt){ %>
       <th>Created</th>
@@ -38,8 +46,11 @@
     <% } %>
     <th>Delete</th>
     <th>Edit</th>
+
   </thead>
   <% forestay.records.forEach(function(row, index){ %>
+
+
     <tr>
       <% if(showId){ %>
         <td>
@@ -47,9 +58,15 @@
         </td>
       <% } %>
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
-        <td>
-          <%= row[attrKey] %>
-        </td>
+
+      <% if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","hideInIndex"]) === true){
+          // do nothing if this field is meant to be hidden
+        }
+        else { %>
+          <td>
+            <%= row[attrKey] %>
+          </td>
+        <% } // end else for if hideInIndex %>
       <% }) %>
       <% if(showCreatedAt){ %>
         <td><%= moment(row.createdAt).fromNow()%></td>
@@ -67,6 +84,7 @@
         <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info">Edit</a>
       </td>
     </tr>
+
   <% }) %>
 </table>
 

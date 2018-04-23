@@ -3,7 +3,7 @@
     _.get(forestay, ["config","forestay","title"]) ||
     _.get(forestay, ["model","name"]) ||
     "forestay Model";
-      console.log(forestay.config.attributes)
+
 
 %>
 
@@ -20,6 +20,11 @@
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <%
       var this_attr = forestay.config.attributes[attrKey]
+      
+      if (_.get(this_attr, ["meta","forestay","hideInForm"]) === true){
+        // do nothing if this field is meant to be hidden
+      }
+      else {
     %>
           <tr>
             <td style="width: <%= _.get(forestay.config.forestay, ["createUpdate","labelWidth"]) || 200 %>px; text-align: right">
@@ -32,7 +37,6 @@
               <%
 
       var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
-      console.log("ATTRIBUTE TYPE: ", attributeType)
 
       if(typeof attributeType != "string") attributeType ="";
 
@@ -48,7 +52,7 @@
       var required = "";
 
 
-      console.log(_.get(forestay.config.attributes[attrKey], "required") )
+
       if (_.get(forestay.config.attributes[attrKey], "required") === true) {
         required = "required"
       }
@@ -56,7 +60,7 @@
         value = `value='${record[attrKey]}'`
       }
 
-      console.log(_.get(forestay.config.attributes,[attrKey]))
+
 
               %>
 
@@ -90,6 +94,7 @@
             </td>
 
           </tr>
+          <% } // End if !== hideInForm %>
           <% }) %>
 
 
