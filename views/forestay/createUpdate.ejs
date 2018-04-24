@@ -41,6 +41,7 @@
       if(typeof attributeType != "string") attributeType ="";
 
       if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
+      if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
       attributeType = attributeType.toLowerCase();
 
       if(attributeType == "string" && Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))){
@@ -90,6 +91,8 @@
                 </select>
                 <% } else if (attributeType == "collection"){ %>
                   <%- include createUpdateCollections.ejs %>
+                <% } else if (attributeType == "model"){ %>
+                  <%- include createUpdateModels.ejs %>
                 <% }else { // unknown attribute type %>
                   (can't edit <strong><%= attributeType %></strong> attributes at this time)
                   <% }%>

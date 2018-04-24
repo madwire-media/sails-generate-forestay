@@ -131,6 +131,7 @@ module.exports = {
 - Filtering
 - Associations
   - Additional fields to show for associative lists
+  - Show populateBy fields in indexes.  Currently ids show for models, and nothing shows for collections
 - Alternate layout per model
 - `forestay.js` global configurations in config folder
   - Main title/header
