@@ -3,7 +3,7 @@
   <% } else { %>
     <select name="<%= attrKey %>">
       <option></option>
-      <% console.log(forestay.id) %>
+      
     <% forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
         <%
           var selected = "";
@@ -13,7 +13,7 @@
             var sv = forestay.config.attributes[attrKey].selectedValue[0]
             var sv = sv[forestay.config.attributes[attrKey].model]
               if(typeof sv != "undefined" && sv) {
-                console.log("attrKey",attrKey, "f.c.a.a",forestay.config.attributes[attrKey], "sv",sv.id,"av", av.id)
+
                 if(sv.id == av.id) selected = "selected"
               }
           }

@@ -1,11 +1,17 @@
-# sails-generate-forestay
+# <img src="https://github.com/madwire-media/sails-generate-forestay/raw/master/templates/assets/forestay/img/logo.png" width="40"> sails-generate-forestay
 
 Built and tested as of SailsJS version 1.01
 
 Build dynamic user interfaces quickly and easily! Use the `forestay` generator to scaffold complete CRUD interfaces using just your SailsJS model attributes.
 
+Index:
 
 ![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
+
+Create/Update:
+
+<img src="https://user-images.githubusercontent.com/444485/39210690-af6e5332-47c6-11e8-9e5c-e738de2a9ba5.png" width="400">
+
 Note that this is an early release of this generator;
 
 ## Installation
@@ -45,12 +51,40 @@ You will then be shown the routing code to place into your `routes.js` file. Thi
 - `string` - Text inputs
 - `number` - Integers though input `number` attribute
 - `boolean` - truthy/falsey represented by HTML select
-- `collection` - association of many records
-- `model` - association of a single record
+- `enum` will show as a `<select>` list
+```javascript
+instrumentType: {
+    type:"string",
+    enum: ["stringed","woodwind","keys","electronic","brass"]
+  },
+```
+- `collection` - association of many records. Note that `populateBy` is required for the UI to know which field to use.
+```javascript
+musicians: {
+    collection:"musician",
+    via: "instruments",
+    meta: {
+      forestay:{
+        populateBy: "name"
+      }
+    }
+  }
+```
+- `model` - association of a single record. `populateBy` is also required here.
+```javascript
+make: {
+    model: 'make',
+    meta:{
+      forestay: {
+        populateBy: "name"
+      }
+    }
+}
+```
 
 ### Attribute Property Features
 - `required` - Suppored by `required` input attribute
-- `enum` will show as a `<select>` list
+
 
 ### Attribute meta features
 - `model.attributes.meta.hideInIndex === true` Hide this field in the forestay index
@@ -87,7 +121,4 @@ You will then be shown the routing code to place into your `routes.js` file. Thi
 
 This forestay generator is available under the **MIT license**.
 
-The [Sails framework](https://sailsjs.com) is free and open-source under the [MIT License](https://sailsjs.com/license).
-
-
-![image_squidhome@2x.png](http://i.imgur.com/RIvu9.png)
+This is a generator for the  [Sails framework](https://sailsjs.com).

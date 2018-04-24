@@ -9,7 +9,6 @@
         <%
           if(forestay.id){
             forestay.config.attributes[attrKey].selectedValues.forEach(function(sv){
-              console.log(sv.id, av.id)
               if(sv.id == av.id) selected = "checked"
             })
           }
