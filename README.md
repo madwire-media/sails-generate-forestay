@@ -9,11 +9,6 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 Note that this is an early release of this generator;
 
 ## Installation
-```sh
-$ npm install https://github.com/madwire-media/sails-generate-forestay.git --save
-```
-
-or
 
 ```sh
 $ npm install sails-generate-forestay --save
@@ -29,7 +24,6 @@ You may need to merge following into your `.sailsrc` file. :
 }
 ```
 
-
 ## Usage
 
 ### Creating new models
@@ -44,92 +38,9 @@ You will then be shown the routing code to place into your `routes.js` file. Thi
 
 
 ### Using forestay with existing models
-If you have existing models, and you'd like to use the Forestay CRUD interface with them, just add the appropriate code to your router, model and controller. Note to make sure you replace "modelname" with the name of your intended model and route, following the same capitlization convention.
+[Please visit the wiki article on using existing models](https://github.com/madwire-media/sails-generate-forestay/wiki/Using-Forestay-with-existing-models)
 
-##### Routes
-```JavaScript
-/* Append routes.js */
-module.exports.routes = {
-  "/modelname/*": {
-    controller: "modelname",
-    action: "forestay",
-    forestay:{
-      model:"Modelname",
-    }
-  },
-};
-```
-##### Controller
-```JavaScript
-/* Create your controller action */
-module.exports = {
-  forestay:require("sails-generate-forestay").forestay.router
-}
-```
 
-##### Model
-```JavaScript
-/* Musician.js - example forestay model */
-module.exports = {
-  forestay:{
-    index: {
-      showId:true,
-      showCreatedAt:true,
-      showUpdatedAt:true,
-      footerHtml:"<p style='font-size: 8px'>Copyright (c) 2020</p>"
-    },
-    createUpdate:{
-      labelWidth: 200
-    },
-    title: "Musician's Database",
-    urlPrefix :"/modelname/",
-  },
-  attributes: {
-
-    // basic strings
-    name:{
-      type:"string",
-      required: true
-    },
-
-    // Enum stirngs will result in a <select> list of items.
-    instrumentType:{
-      type:"string",
-      enum: ["acoustic","electric"],  // allowed values
-      meta:{
-        forestay: {
-             label: "Instrument Type" // User friendly display label
-         }
-
-      }
-    },
-
-    // boolean types will display as a <select> list of true/false
-    touring:"boolean"
-
-    // Collections are used for multiple associations, one-to-many (model-to-collection) many-to-many (collection-to-collection)
-    instruments:{
-      collection:"instrument",
-      via: "musician",
-      meta: {
-        forestay:{
-          populateBy: "name"
-        }
-      }
-    },
-
-    // Models are used for single association, one-to-one (model-to-model) or one-to-many (model-to-collection)
-    style:{
-      model:"styles"
-      meta: {
-        forestay: {
-          populateByle: "styleName"
-        }
-      }
-    }    
-  }
-
-```
 ### Attribute Features
 - `string` - Text inputs
 - `number` - Integers though input `number` attribute
