@@ -35,7 +35,6 @@ module.exports = {
     var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + 'Controller.js'
     scope.modelfile = globalID + '.js'
-    console.log('Creating ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
 
     scope.upperForestay = globalID
     scope.lowerForestay = globalID.toLowerCase()
@@ -44,6 +43,7 @@ module.exports = {
       if (err) throw err
       ncp(path.resolve(__dirname, './templates/config'), './config', {clobber: false}, function (err) {
         if (err) throw err
+        console.log('Creating ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
         return done()
       })
     })
