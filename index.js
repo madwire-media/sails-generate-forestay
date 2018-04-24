@@ -57,7 +57,7 @@ module.exports = {
   controller: "${scope.lowerForestay}",
   action: "forestay",
   forestay:{
-    linkName:"${scope.upperForestay},"
+    linkName:"${scope.upperForestay}",
     model:"${scope.upperForestay}",
   }
 },
