@@ -8,9 +8,7 @@ Index:
 
 ![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
 
-Create/Update:
-
-<img src="https://user-images.githubusercontent.com/444485/39210690-af6e5332-47c6-11e8-9e5c-e738de2a9ba5.png" width="400">
+<img src="https://user-images.githubusercontent.com/444485/39218824-d2618770-47e3-11e8-8bf5-ae7b90819618.png" width="400">
 
 Note that this is an early release of this generator;
 
