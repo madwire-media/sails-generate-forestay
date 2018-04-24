@@ -6,7 +6,9 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 
 Index:
 
-![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
+<img src="https://user-images.githubusercontent.com/444485/39219498-11545dbe-47e8-11e8-87e7-3f655e2e7fda.png" width="400">
+
+Create/Update:
 
 <img src="https://user-images.githubusercontent.com/444485/39218824-d2618770-47e3-11e8-8bf5-ae7b90819618.png" width="400">
 
