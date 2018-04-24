@@ -20,7 +20,7 @@
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <%
       var this_attr = forestay.config.attributes[attrKey]
-      
+
       if (_.get(this_attr, ["meta","forestay","hideInForm"]) === true){
         // do nothing if this field is meant to be hidden
       }
@@ -41,6 +41,7 @@
       if(typeof attributeType != "string") attributeType ="";
 
       if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
+      if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
       attributeType = attributeType.toLowerCase();
 
       if(attributeType == "string" && Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))){
@@ -88,6 +89,10 @@
                       <option value="<%= o %>" <%= isSelected %>><%= o %></option>
                     <% }) %>
                 </select>
+                <% } else if (attributeType == "collection"){ %>
+                  <%- include createUpdateCollections.ejs %>
+                <% } else if (attributeType == "model"){ %>
+                  <%- include createUpdateModels.ejs %>
                 <% }else { // unknown attribute type %>
                   (can't edit <strong><%= attributeType %></strong> attributes at this time)
                   <% }%>

@@ -1,0 +1,21 @@
+<% if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","populateBy"]) != "string"){ %>
+  <p>Please add attribute <strong>populateBy</strong> to your model to display these optoins, or hide this field from the form.</p>
+  <% } else { %>
+    <% forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
+      <div>
+        <%
+          var selected = "";
+        %>
+        <%
+          if(forestay.id){
+            forestay.config.attributes[attrKey].selectedValues.forEach(function(sv){
+              console.log(sv.id, av.id)
+              if(sv.id == av.id) selected = "checked"
+            })
+          }
+        %>
+        <input type="checkbox" name="<%= attrKey %>[]" value="<%= av.id %>" <%= selected %>>
+        <label for="<%= attrKey %>[]"><%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></label>
+      </div>
+      <% }) %>
+<% } /* end else popualteBy !=string */ %>

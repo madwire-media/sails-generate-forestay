@@ -7,22 +7,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+    <link rel="icon" type="image/png" href="/forestay/img/logo.png">
   </head>
 
   <body>
     <div id="page-wrap">
-      <header id="page-header" class="navbar navbar-expand-sm navbar-dark bg-dark flex-column flex-md-row justify-content-between">
-        <a class="navbar-brand mr-0" href="/">
-          <% if(typeof pageTitle == "string"){ %>
-            <%= pageTitle %>
-            <% } else { %>Sails Forestay!<% }%>
+      <header id="page-header" class="navbar bg-dark flex-column flex-md-row justify-content-between">
+        <div>
 
-        </a>
-        <div class="navbar-nav flex-row">
 
+          <div class="dropdown">
+            <a class="navbar-brand" href="/">
+              <img src="/forestay/img/logo.png" width="20">
+            </a>
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+          <% Object.keys(forestay.routes).forEach(function(link){ %>
+
+              <%
+                if(link.toLowerCase().startsWith("post") || link.toLowerCase().startsWith("put") || link.toLowerCase().startsWith("delete") || link.toLowerCase().startsWith("options") || link.toLowerCase().startsWith("head") || link.toLowerCase().startsWith("head")) return
+                var l = link
+                l = l.split(" ");
+                if(l.length > 1) l = l[1]; else l = l[0]
+                l = l.split("*")[0].split(":")[0];
+
+
+
+              %>
+              <a href="<%= l %>" class="dropdown-item" ><%= _.get(forestay.routes[link], ["forestay","linkName"]) || l %></a>
+          <%  }) %>
 
         </div>
+      </div>
+      
+</div>
+
+
       </header>
 
 

@@ -8,10 +8,6 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 ![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
 Note that this is an early release of this generator;
 
-## Notes
-- forestay requires jquery and bootstrap.  Our default layout uses a CDN for these, so if you want to replace the layout, you'll want to add those.
-- You can use Forestay on existing controllers and models, using the existing structure.  In your controller, just reference your actions to the Forestay module:
-
 ## Installation
 ```sh
 $ npm install https://github.com/madwire-media/sails-generate-forestay.git --save
@@ -23,7 +19,7 @@ or
 $ npm install sails-generate-forestay --save
 ```
 
-Then merge the following into your `.sailsrc` file. :
+You may need to merge following into your `.sailsrc` file. :
 
 ```json
 {
@@ -32,7 +28,6 @@ Then merge the following into your `.sailsrc` file. :
   }
 }
 ```
-In some cases, sailsjs may automatically insert this in.
 
 
 ## Usage
@@ -74,37 +69,73 @@ module.exports = {
 
 ##### Model
 ```JavaScript
-/* Merge this code into your model */
+/* Musician.js - example forestay model */
 module.exports = {
   forestay:{
     index: {
-      itemsPerPage: 10,
       showId:true,
       showCreatedAt:true,
       showUpdatedAt:true,
-      beforeRender: function(forestay, next){
-        /*...*/
-        return next();
-      },
-      footerHtml:"<p style='font-size: 8px'>Note that these CRUD scaffolds are really meant only for administration purposes, and not for public users to use. Use at your own risk</p>"
+      footerHtml:"<p style='font-size: 8px'>Copyright (c) 2020</p>"
     },
     createUpdate:{
       labelWidth: 200
     },
-    title: "Forestay Model",
-    onSaveLoadIndex : false,
+    title: "Musician's Database",
     urlPrefix :"/modelname/",
   },
   attributes: {
-    /* ... */
 
+    // basic strings
+    name:{
+      type:"string",
+      required: true
+    },
+
+    // Enum stirngs will result in a <select> list of items.
+    instrumentType:{
+      type:"string",
+      enum: ["acoustic","electric"],  // allowed values
+      meta:{
+        forestay: {
+             label: "Instrument Type" // User friendly display label
+         }
+
+      }
+    },
+
+    // boolean types will display as a <select> list of true/false
+    touring:"boolean"
+
+    // Collections are used for multiple associations, one-to-many (model-to-collection) many-to-many (collection-to-collection)
+    instruments:{
+      collection:"instrument",
+      via: "musician",
+      meta: {
+        forestay:{
+          populateBy: "name"
+        }
+      }
+    },
+
+    // Models are used for single association, one-to-one (model-to-model) or one-to-many (model-to-collection)
+    style:{
+      model:"styles"
+      meta: {
+        forestay: {
+          populateByle: "styleName"
+        }
+      }
+    }    
   }
-```
 
+```
 ### Attribute Features
-- `string`
-- `number`
-- `boolean`
+- `string` - Text inputs
+- `number` - Integers though input `number` attribute
+- `boolean` - truthy/falsey represented by HTML select
+- `collection` - association of many records
+- `model` - association of a single record
 
 ### Attribute Property Features
 - `required` - Suppored by `required` input attribute
@@ -119,15 +150,20 @@ module.exports = {
 
 ### TODO
 
-- JSON, ref attributes
-- date type UI
-- defaultsTo on create/update template
+- JSON editor
+- Wysiwyg editor
+- Ref attributes
+- datetime & date type UI
+- defaultsTo on create template
 - index beforeRender callback
-- Model Validation
+- More Validations
 - Dynamic Actions (Buttons)
+- Modal actions
 - Pagination
 - Filtering
 - Associations
+  - Additional fields to show for associative lists
+  - Show populateBy fields in indexes.  Currently ids show for models, and nothing shows for collections
 - Alternate layout per model
 - `forestay.js` global configurations in config folder
   - Main title/header

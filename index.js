@@ -7,6 +7,7 @@ const path = require('path')
 const _ = require('lodash')
 _.str = require('underscore.string')
 const colors = require('colors')
+const ncp = require('ncp').ncp
 
 /**
  * sails-generate-forestay
@@ -30,15 +31,22 @@ module.exports = {
         depth: null
       })))
     }
+
     var globalID = _.str.capitalize(scope.args[0])
     scope.controllerfile = globalID + 'Controller.js'
     scope.modelfile = globalID + '.js'
-    console.log('Creating ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
 
     scope.upperForestay = globalID
     scope.lowerForestay = globalID.toLowerCase()
-
-    return done()
+    console.log('Copying Forestay files (this will not overwrite anything, only create files that do not exist)')
+    ncp(path.resolve(__dirname, './templates/assets/forestay'), './assets/forestay', {clobber: false}, function (err) {
+      if (err) throw err
+      ncp(path.resolve(__dirname, './templates/config'), './config', {clobber: false}, function (err) {
+        if (err) throw err
+        console.log('Creating ' + scope.controllerfile.blue + ' controller and ' + scope.modelfile.blue + ' model')
+        return done()
+      })
+    })
   },
   after: function (scope, done) {
     console.log('That\'s done!')
@@ -49,6 +57,7 @@ module.exports = {
   controller: "${scope.lowerForestay}",
   action: "forestay",
   forestay:{
+    linkName:"${scope.upperForestay}",
     model:"${scope.upperForestay}",
   }
 },
@@ -62,12 +71,16 @@ module.exports = {
     },
     './api/models/:modelfile': {
       template: 'api/model.js'
-    },
-    './config/forestay.js': {
-      template: 'config/forestay.js'
     }
   },
 
   templatesDirectory: path.resolve(__dirname, './templates')
 
 }
+//   './config/forestay.js': {
+//     template: 'config/forestay.js'
+//   },
+//   './assets/forestay': {folder: {}},
+//   './assets/forestay/img': {folder: {}},
+//   './assets/forestay/js': {folder: {}},
+//   './assets/forestay/img/logo.png': {copy: 'assets/forestay/img/logo.png'}

@@ -1,0 +1,24 @@
+<% if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","populateBy"]) != "string"){ %>
+  <p>Please add attribute <strong>populateBy</strong> to your model to display these optoins, or hide this field from the form.</p>
+  <% } else { %>
+    <select name="<%= attrKey %>">
+      <option></option>
+      <% console.log(forestay.id) %>
+    <% forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
+        <%
+          var selected = "";
+        %>
+        <%
+          if(forestay.id){
+            var sv = forestay.config.attributes[attrKey].selectedValue[0]
+            var sv = sv[forestay.config.attributes[attrKey].model]
+              if(typeof sv != "undefined" && sv) {
+                console.log("attrKey",attrKey, "f.c.a.a",forestay.config.attributes[attrKey], "sv",sv.id,"av", av.id)
+                if(sv.id == av.id) selected = "selected"
+              }
+          }
+        %>
+        <option  value="<%= av.id %>" <%= selected %>><%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></option>
+      <% }) %>
+    </select>
+<% } /* end else popualteBy !=string */ %>

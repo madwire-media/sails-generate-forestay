@@ -1,6 +1,6 @@
 {
   "name": "sails-generate-forestay",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Build dynamic user interfaces quickly and easily! Use the forestay generator to scaffold complete CRUD interfaces using just your SailsJS model attributes.",
   "main": "index.js",
   "scripts": {
@@ -27,9 +27,11 @@
   "author": "david",
   "license": "MIT",
   "dependencies": {
+    "async": "^2.6.0",
     "colors": "^1.2.1",
     "lodash": "3.10.1",
     "moment": "^2.22.1",
+    "ncp": "^2.0.0",
     "underscore.string": "^3.3.4",
     "xss": "^0.3.8"
   },
