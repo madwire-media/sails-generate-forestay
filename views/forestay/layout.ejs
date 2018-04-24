@@ -12,17 +12,36 @@
 
   <body>
     <div id="page-wrap">
-      <header id="page-header" class="navbar navbar-expand-sm navbar-dark bg-dark flex-column flex-md-row justify-content-between">
-        <a class="navbar-brand mr-0" href="/">
-          <% if(typeof pageTitle == "string"){ %>
-            <%= pageTitle %>
-            <% } else { %>Sails Forestay!<% }%>
+      <header id="page-header" class="navbar bg-dark flex-column flex-md-row justify-content-between">
+        <div>
+          <a class="navbar-brand" href="/">
+            <% if(typeof pageTitle == "string"){ %>
+              <%= pageTitle %>
+              <% } else { %>Sails Forestay!<% }%>
+          </a>
+          <% if(typeof _.get(forestay.localConfig,["mainMenu"]) === "object" && Object.keys(forestay.localConfig.mainMenu).length > 0){ %>
+          <div class="dropdown">
 
-        </a>
-        <div class="navbar-nav flex-row">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Menu
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
+          <% Object.keys(forestay.localConfig.mainMenu).forEach(function(link){ console.log("")%>
+              <a href="<%= link %>" class="dropdown-item" ><%= forestay.localConfig.mainMenu[link] %></a>
+          <%  }) %>
 
         </div>
+      </div>
+      <% } %>
+</div>
+
+
+
+
+
+
+
       </header>
 
 

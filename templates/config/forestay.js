@@ -1,4 +1,5 @@
 var path = require('path')
+
 module.exports = {
   /*
   If you want to use the local default layout, or a custom layout, uncomment below.
@@ -6,4 +7,7 @@ module.exports = {
   */
 
   // defaultLayout: path.join(__dirname, '..', 'views', 'layouts', 'layout.ejs')
+  mainMenu: {
+    // "/link/":"Title"
+  }
 }

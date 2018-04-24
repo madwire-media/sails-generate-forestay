@@ -99,12 +99,14 @@ module.exports = {
     /* ... */
 
   }
-```
 
+```
 ### Attribute Features
-- `string`
-- `number`
-- `boolean`
+- `string` - Text inputs
+- `number` - Integers though input `number` attribute
+- `boolean` - truthy/falsey represented by HTML select
+- `collection` - association of many records
+- `model` - association of a single record
 
 ### Attribute Property Features
 - `required` - Suppored by `required` input attribute
@@ -128,6 +130,7 @@ module.exports = {
 - Pagination
 - Filtering
 - Associations
+  - Additional fields to show for associative lists
 - Alternate layout per model
 - `forestay.js` global configurations in config folder
   - Main title/header

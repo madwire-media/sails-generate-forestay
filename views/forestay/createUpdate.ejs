@@ -20,7 +20,7 @@
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <%
       var this_attr = forestay.config.attributes[attrKey]
-      
+
       if (_.get(this_attr, ["meta","forestay","hideInForm"]) === true){
         // do nothing if this field is meant to be hidden
       }
@@ -88,6 +88,8 @@
                       <option value="<%= o %>" <%= isSelected %>><%= o %></option>
                     <% }) %>
                 </select>
+                <% } else if (attributeType == "collection"){ %>
+                  <%- include createUpdateCollections.ejs %>
                 <% }else { // unknown attribute type %>
                   (can't edit <strong><%= attributeType %></strong> attributes at this time)
                   <% }%>

@@ -63,10 +63,14 @@ module.exports = {
     './api/models/:modelfile': {
       template: 'api/model.js'
     },
-    './config/forestay.js': {
-      template: 'config/forestay.js'
-    }
-  },
+  //   './config/forestay.js': {
+  //     template: 'config/forestay.js'
+  //   },
+  //   './assets/forestay': {folder: {}},
+  //   './assets/forestay/img': {folder: {}},
+  //   './assets/forestay/js': {folder: {}},
+  //   './assets/forestay/img/logo.png': {copy: 'assets/forestay/img/logo.png'}
+   },
 
   templatesDirectory: path.resolve(__dirname, './templates')
 
