@@ -76,12 +76,12 @@ module.exports = {
       showId:true,
       showCreatedAt:true,
       showUpdatedAt:true,
-      footerHtml:"<p style='font-size: 8px'>Note that these CRUD scaffolds are really meant only for administration purposes, and not for public users to use. Use at your own risk</p>"
+      footerHtml:"<p style='font-size: 8px'>Copyright (c) 2020</p>"
     },
     createUpdate:{
       labelWidth: 200
     },
-    title: "Forestay Model",
+    title: "Musician's Database",
     urlPrefix :"/modelname/",
   },
   attributes: {
