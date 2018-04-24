@@ -14,21 +14,30 @@
     <div id="page-wrap">
       <header id="page-header" class="navbar bg-dark flex-column flex-md-row justify-content-between">
         <div>
-          <a class="navbar-brand" href="/">
-            <% if(typeof pageTitle == "string"){ %>
-              <%= pageTitle %>
-              <% } else { %>Sails Forestay!<% }%>
-          </a>
+
           <% if(typeof _.get(forestay.localConfig,["mainMenu"]) === "object" && Object.keys(forestay.localConfig.mainMenu).length > 0){ %>
           <div class="dropdown">
-
+            <a class="navbar-brand" href="/">
+              <img src="/forestay/img/logo.png" width="20">
+            </a>
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Menu
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-          <% Object.keys(forestay.localConfig.mainMenu).forEach(function(link){ console.log("")%>
-              <a href="<%= link %>" class="dropdown-item" ><%= forestay.localConfig.mainMenu[link] %></a>
+          <% Object.keys(forestay.routes).forEach(function(link){ %>
+
+              <%
+                if(link.toLowerCase().startsWith("post") || link.toLowerCase().startsWith("put") || link.toLowerCase().startsWith("delete") || link.toLowerCase().startsWith("options") || link.toLowerCase().startsWith("head") || link.toLowerCase().startsWith("head")) return
+                var l = link
+                l = l.split(" ");
+                if(l.length > 1) l = l[1]; else l = l[0]
+                l = l.split("*")[0].split(":")[0];
+
+
+
+              %>
+              <a href="<%= l %>" class="dropdown-item" ><%= _.get(forestay.routes[link], ["forestay","linkName"]) || l %></a>
           <%  }) %>
 
         </div>
