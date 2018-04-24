@@ -69,30 +69,64 @@ module.exports = {
 
 ##### Model
 ```JavaScript
-/* Merge this code into your model */
+/* Musician.js - example forestay model */
 module.exports = {
   forestay:{
     index: {
-      itemsPerPage: 10,
       showId:true,
       showCreatedAt:true,
       showUpdatedAt:true,
-      beforeRender: function(forestay, next){
-        /*...*/
-        return next();
-      },
       footerHtml:"<p style='font-size: 8px'>Note that these CRUD scaffolds are really meant only for administration purposes, and not for public users to use. Use at your own risk</p>"
     },
     createUpdate:{
       labelWidth: 200
     },
     title: "Forestay Model",
-    onSaveLoadIndex : false,
     urlPrefix :"/modelname/",
   },
   attributes: {
-    /* ... */
 
+    // basic strings
+    name:{
+      type:"string",
+      required: true
+    },
+
+    // Enum stirngs will result in a <select> list of items.
+    instrumentType:{
+      type:"string",
+      enum: ["acoustic","electric"],  // allowed values
+      meta:{
+        forestay: {
+             label: "Instrument Type" // User friendly display label
+         }
+
+      }
+    },
+
+    // boolean types will display as a <select> list of true/false
+    touring:"boolean"
+
+    // Collections are used for multiple associations, one-to-many (model-to-collection) many-to-many (collection-to-collection)
+    instruments:{
+      collection:"instrument",
+      via: "musician",
+      meta: {
+        forestay:{
+          populateBy: "name"
+        }
+      }
+    },
+
+    // Models are used for single association, one-to-one (model-to-model) or one-to-many (model-to-collection)
+    style:{
+      model:"styles"
+      meta: {
+        forestay: {
+          populateByle: "styleName"
+        }
+      }
+    }    
   }
 
 ```
