@@ -8,10 +8,6 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 ![image](https://user-images.githubusercontent.com/444485/39064481-e652975c-448b-11e8-8a77-383440127a1d.png)
 Note that this is an early release of this generator;
 
-## Notes
-- forestay requires jquery and bootstrap.  Our default layout uses a CDN for these, so if you want to replace the layout, you'll want to add those.
-- You can use Forestay on existing controllers and models, using the existing structure.  In your controller, just reference your actions to the Forestay module:
-
 ## Installation
 ```sh
 $ npm install https://github.com/madwire-media/sails-generate-forestay.git --save
@@ -23,7 +19,7 @@ or
 $ npm install sails-generate-forestay --save
 ```
 
-Then merge the following into your `.sailsrc` file. :
+You may need to merge following into your `.sailsrc` file. :
 
 ```json
 {
@@ -32,7 +28,6 @@ Then merge the following into your `.sailsrc` file. :
   }
 }
 ```
-In some cases, sailsjs may automatically insert this in.
 
 
 ## Usage
@@ -121,12 +116,15 @@ module.exports = {
 
 ### TODO
 
-- JSON, ref attributes
-- date type UI
-- defaultsTo on create/update template
+- JSON editor
+- Wysiwyg editor
+- Ref attributes
+- datetime & date type UI
+- defaultsTo on create template
 - index beforeRender callback
-- Model Validation
+- More Validations
 - Dynamic Actions (Buttons)
+- Modal actions
 - Pagination
 - Filtering
 - Associations
