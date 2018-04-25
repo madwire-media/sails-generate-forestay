@@ -12,6 +12,13 @@
 <h1><%= pageTitle %></h1>
 
 <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(forestay, ["model","name"]) %> </button></a>
+<% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
+  <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
+    <% if(forestay.config.forestay.actions[actionKey].type == "index"){ %>
+      <a href="<%= actionKey %>" class="btn btn-success"><%= forestay.config.forestay.actions[actionKey].label %></a>
+    <% } %>
+  <% }) %>
+<% } %>
 <hr/>
 <table class="table">
 
@@ -45,7 +52,15 @@
       <th>Updated</th>
     <% } %>
     <th>Delete</th>
+    <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
+      <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
+        <% if(forestay.config.forestay.actions[actionKey].type == "record"){ %>
+          <th><%= forestay.config.forestay.actions[actionKey].label %></th>
+        <% } %>
+      <% }) %>
+    <% } %>
     <th>Edit</th>
+
 
   </thead>
   <% forestay.records.forEach(function(row, index){ %>
@@ -78,7 +93,9 @@
         <form method="post" action="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/delete">
           <button class="btn btn-danger">Delete</button>
         </form>
-
+      </td>
+      <td>
+        <% include indexActionsRecordRow.ejs %>
       </td>
       <td>
         <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info">Edit</a>
