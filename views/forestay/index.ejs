@@ -94,9 +94,9 @@
           <button class="btn btn-danger">Delete</button>
         </form>
       </td>
-      <td>
-        <% include indexActionsRecordRow.ejs %>
-      </td>
+
+      <% include indexActionsRecordRow.ejs %>
+
       <td>
         <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info">Edit</a>
       </td>

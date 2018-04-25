@@ -121,7 +121,7 @@ actions:{
 - index beforeRender callback
 - More Validations
 - Separate controller actions for Index/createView/createPost/updateView/updatePost/delete so that they can be run through policies.
-- Dynamic Actions (Buttons)
+- Hide record action button (used in beforeRender)
 - Modal action modals
 - Pagination
 - Filtering

@@ -1,7 +1,7 @@
 <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
   <%Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
     <% if(forestay.config.forestay.actions[actionKey].type == "record"){ %>
-      <a href="<%= row.actions[actionKey].link %>" class="btn btn-success"><%= row.actions[actionKey].label %></a>
+      <td><a href="<%= row.actions[actionKey].link %>" class="btn btn-success"><%= row.actions[actionKey].label %></a></td>
     <% } %>
   <% }) %>
 <% } %>
