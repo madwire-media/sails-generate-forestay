@@ -122,16 +122,15 @@ actions:{
 - More Validations
 - Separate controller actions for Index/createView/createPost/updateView/updatePost/delete so that they can be run through policies.
 - Dynamic Actions (Buttons)
-- Modal actions
+- Modal action modals
 - Pagination
 - Filtering
-- Associations
-  - Additional fields to show for associative lists
-  - Show populateBy fields in indexes.  Currently ids show for models, and nothing shows for collections
+- Associations - Additional fields to show for associative lists
+- Associations - Show populateBy fields in index list.  Currently ids show for models, and nothing shows for collections
 - Alternate layout per model
 - `forestay.js` global configurations in config folder
-  - Main title/header
-  - Global Menu
+- Main title/header
+
 
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
