@@ -10,7 +10,6 @@
 
 %>
 <h1><%= pageTitle %></h1>
-
 <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(forestay, ["model","name"]) %> </button></a>
 <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
   <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
@@ -21,10 +20,13 @@
 <% } %>
 <hr/>
 <table class="table">
-
   <thead>
     <% if(showId){ %>
-      <th>ID</th>
+      <th>ID
+        <% if (_.get(forestay,"hasFilters") === true) { %>
+          <div class="filterBox"></div>
+        <% } %>
+      </th>
     <% } %>
     <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
       <%
@@ -35,6 +37,8 @@
       else {
       %>
       <th>
+
+
         <%
           var this_attr = forestay.config.attributes[attrKey]
         %>
@@ -42,24 +46,62 @@
           _.get(this_attr, ["meta","forestay","label"]) ||
           attrKey
         %>
+        <% if (_.get(forestay,"hasFilters") === true) { %>
+          <div class="filterBox">
+        <% } %>
+            <% if(_.get(this_attr, ["meta","forestay","filterable"]) == true) { %>
+              <% var value = "" %>
+              <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
+              <input value="<%= value %>">
+            <% } %>
+        <% if (_.get(forestay,"hasFilters") === true) { %>
+          </div>
+        <% } %>
+
+
       </th>
       <% } // end hideInIndex else %>
     <% }) %>
     <% if(showCreatedAt){ %>
-      <th>Created</th>
+      <th>
+        Created
+        <% if (_.get(forestay,"hasFilters") === true) { %>
+          <div class="filterBox"></div>
+        <% } %>
+      </th>
     <% } %>
     <% if(showUpdatedAt){ %>
-      <th>Updated</th>
+      <th>
+        Updated
+        <% if (_.get(forestay,"hasFilters") === true) { %>
+          <div class="filterBox"></div>
+        <% } %>
+      </th>
     <% } %>
-    <th>Delete</th>
+    <th>
+      Delete
+      <% if (_.get(forestay,"hasFilters") === true) { %>
+        <div class="filterBox"></div>
+      <% } %>
+    </th>
     <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
       <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
         <% if(forestay.config.forestay.actions[actionKey].type == "record"){ %>
-          <th><%= forestay.config.forestay.actions[actionKey].label %></th>
+          <th>
+            <%= forestay.config.forestay.actions[actionKey].label %>
+            <% if (_.get(forestay,"hasFilters") === true) { %>
+              <div class="filterBox"></div>
+            <% } %>
+          </th>
         <% } %>
       <% }) %>
     <% } %>
-    <th>Edit</th>
+    <th>
+      Edit
+      <% if (_.get(forestay,"hasFilters") === true) { %>
+        <div class="filterBox"></div>
+      <% } %>
+    </th>
 
 
   </thead>
@@ -106,3 +148,11 @@
 </table>
 
 <% if (_.get(forestay,['config','forestay','index','footerHtml'])) { %><%- forestay.config.forestay.index.footerHtml %><% } %>
+
+<style>
+  .filterBox {
+    height: 32px;
+
+  }
+
+</style>

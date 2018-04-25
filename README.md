@@ -92,6 +92,16 @@ make: {
 - `model.attributes[key].meta.forestay.hideInIndex === true` Hide this field in the forestay index
 - `model.attributes[key].meta.forestay.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
 - `model.forestay.actions` These actions create UI buttons for your model index or individual records
+- `model.forestay.index.beforeRender` callback, gets fired before the index page is rendered
+```javascript
+beforeRender: function (req, res, forestay, next) {
+  /* ... modify and return forestay .. */
+  var errors
+  if (errors) return next(errors)
+  return next(null,forestay)
+},
+```
+- Filtering via `model.attributes[key].meta.forstay.filterable` & `model.attributes[key].meta.forstay.hideFilter`
 ```javascript
 actions:{
     "/get-cpu/":{
@@ -121,13 +131,14 @@ actions:{
 - Ref attributes
 - datetime & date type UI
 - defaultsTo on create template
-- index beforeRender callback
+- index `beforeRender` callback
+- `beforeCreate` and `beforeUpdate`
 - More Validations
 - Separate controller actions for Index/createView/createPost/updateView/updatePost/delete so that they can be run through policies.
 - Hide record action button (used in beforeRender)
 - Modal action modals
 - Pagination
-- Filtering - `model.attributes[key].meta.forstay.filterable` & `model.attributes[key].meta.forstay.hideFilter`
+
 - Associations - Additional fields to show for associative lists
 - Associations - Show populateBy fields in index list.  Currently ids show for models, and nothing shows for collections
 - Edit button for each association from index along with "show associated edit button" in related model

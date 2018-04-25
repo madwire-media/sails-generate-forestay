@@ -12,8 +12,8 @@ module.exports = {
       showId: true,
       showCreatedAt: true,
       showUpdatedAt: true,
-      beforeRender: function (forestay, next) {
-        return next()
+      beforeRender: function (req, res, forestay, next) {
+        return next(null,forestay)
       },
       footerHtml: `<p style='font-size: 8px'>Note that these CRUD scaffolds are really meant only for administration purposes, and not for public users to use. Use at your own risk</p>`
     },
