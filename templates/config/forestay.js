@@ -7,7 +7,4 @@ module.exports = {
   */
 
   // defaultLayout: path.join(__dirname, '..', 'views', 'layouts', 'layout.ejs')
-  mainMenu: {
-    // "/link/":"Title"
-  }
 }

@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" href="/forestay/img/logo.png">
   </head>
 
+
   <body>
     <div id="page-wrap">
       <header id="page-header" class="navbar bg-dark flex-column flex-md-row justify-content-between">
@@ -104,8 +105,23 @@
         border-top:1px solid rgba(0,0,0,.1)
       }
       table{
-        background: white;
+        background: rgba(255,255,255,.8);
+        padding: 200px!important;
       }
+      h1 {
+        font-weight: 100  !important;
+        text-shadow:
+         -1px -1px 0 #fff,
+          1px -1px 0 #fff,
+          -1px 1px 0 #fff,
+           1px 1px 0 #fff;
+      }
+
+        <% console.log(forestay.localConfig); if(_.get(forestay.localConfig, ["background"])) { %>
+          body { background: url(<%= forestay.localConfig.background %>) ;
+          background-size: cover;}
+        <% } %>
+
    </style>
   </body>
 </html>
