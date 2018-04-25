@@ -47,18 +47,18 @@ You will then be shown the routing code to place into your `routes.js` file. Thi
 [Please visit the wiki article on using existing models](https://github.com/madwire-media/sails-generate-forestay/wiki/Using-Forestay-with-existing-models)
 
 
-### Attribute Features
-- `string` - Text inputs
-- `number` - Integers though input `number` attribute
-- `boolean` - truthy/falsey represented by HTML select
-- `enum` will show as a `<select>` list
+### Features
+- Model `string` - Text inputs
+- Model `number` - Integers though input `number` attribute
+- Model `boolean` - truthy/falsey represented by HTML select
+- Model `enum` will show as a `<select>` list
 ```javascript
 instrumentType: {
     type:"string",
     enum: ["stringed","woodwind","keys","electronic","brass"]
   },
 ```
-- `collection` - association of many records. Note that `populateBy` is required for the UI to know which field to use.
+- Association type `collection` - association of many records. Note that `populateBy` is required for the UI to know which field to use.
 ```javascript
 musicians: {
     collection:"musician",
@@ -70,7 +70,7 @@ musicians: {
     }
   }
 ```
-- `model` - association of a single record. `populateBy` is also required here.
+- Association type `model` - association of a single record. `populateBy` is also required here.
 ```javascript
 make: {
     model: 'make',
@@ -81,14 +81,24 @@ make: {
     }
 }
 ```
-
-### Attribute Property Features
-- `required` - Suppored by `required` input attribute
-
-
-### Attribute meta features
+- `model.attributes.required` - Supported by `required` input attribute
 - `model.attributes.meta.hideInIndex === true` Hide this field in the forestay index
 - `model.attributes.meta.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
+- `model.forestay.actions` These actions create UI buttons for your model index or individual records
+```javascript
+actions:{
+    "/get-cpu/":{
+      type:"index",
+      label: "Get CPU Value"
+    },
+    "/instrument/play/:id":{
+      type:"record",
+      label: "Play Instrument"
+    }
+  },
+```
+<img src="https://user-images.githubusercontent.com/444485/39222294-33550f88-47f9-11e8-800b-c6e565184d69.png" width="500">
+
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
