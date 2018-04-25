@@ -93,6 +93,7 @@ make: {
 - `model.attributes[key].meta.forestay.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
 - `model.forestay.actions` These actions create UI buttons for your model index or individual records
 - `model.forestay.index.beforeRender` callback, gets fired before the index page is rendered
+- `model.attributes[key].meta.forestay.prefillable === true` Allow values to be prefilled from the URL query when this is set to true.  For example a query parm of `?pet=12` will prefill the `pet` field with the value of `12` on the create form.
 ```javascript
 beforeRender: function (req, res, forestay, next) {
   /* ... modify and return forestay .. */

@@ -3,19 +3,24 @@
   <% } else { %>
     <select name="<%= attrKey %>">
       <option></option>
-      
+
     <% forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
         <%
           var selected = "";
         %>
         <%
+
           if(forestay.id){
             var sv = forestay.config.attributes[attrKey].selectedValue[0]
-            var sv = sv[forestay.config.attributes[attrKey].model]
+
               if(typeof sv != "undefined" && sv) {
 
                 if(sv.id == av.id) selected = "selected"
               }
+          } else if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
+            if(av.id == parseInt(forestay.prefills[attrKey])){
+              selected = "selected"
+            }
           }
         %>
         <option  value="<%= av.id %>" <%= selected %>><%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></option>

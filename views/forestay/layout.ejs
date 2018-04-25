@@ -126,7 +126,7 @@
            1px 1px 0 #fff;
       }
 
-        <% console.log(forestay.localConfig); if(_.get(forestay.localConfig, ["background"])) { %>
+        <% if(_.get(forestay.localConfig, ["background"])) { %>
           body { background: url(<%= forestay.localConfig.background %>) ;
           background-size: cover;}
         <% } %>
