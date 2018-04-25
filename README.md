@@ -1,18 +1,10 @@
 # <img src="https://github.com/madwire-media/sails-generate-forestay/raw/master/templates/assets/forestay/img/logo.png" width="40"> sails-generate-forestay
 
-Built and tested as of SailsJS version 1.01
-
 Build dynamic user interfaces quickly and easily! Use the `forestay` generator to scaffold complete CRUD interfaces using just your SailsJS model attributes.
 
-Index:
+## Why?
 
-<img src="https://user-images.githubusercontent.com/444485/39219498-11545dbe-47e8-11e8-87e7-3f655e2e7fda.png" width="400">
-
-Create/Update:
-
-<img src="https://user-images.githubusercontent.com/444485/39218824-d2618770-47e3-11e8-8bf5-ae7b90819618.png" width="400">
-
-Note that this is an early release of this generator;
+*Structure First.* Sometimes building great user interfaces requires a full understanding of how data could be structured and how user interact with the system. Forestay is a way for you to quickly build data models with a sensible, basic user interface.
 
 ## Installation
 
@@ -39,13 +31,28 @@ $ sails generate forestay (modelname)
 
 You will then be shown the routing code to place into your `routes.js` file. This will route actions through the Forestay controllers and give you a complete CRUD interface.
 
-![2018-04-20 11_06_07](https://user-images.githubusercontent.com/444485/39064195-d8ec12ec-448a-11e8-9d7b-ead98a718039.gif)
+
+
 
 
 
 ### Using forestay with existing models
 [Please visit the wiki article on using existing models](https://github.com/madwire-media/sails-generate-forestay/wiki/Using-Forestay-with-existing-models)
 
+## Demo
+
+##### Index:
+
+<img src="https://user-images.githubusercontent.com/444485/39219498-11545dbe-47e8-11e8-87e7-3f655e2e7fda.png" width="400">
+
+##### Create/Update:
+
+<img src="https://user-images.githubusercontent.com/444485/39218824-d2618770-47e3-11e8-8bf5-ae7b90819618.png" width="400">
+
+Note that this is an early release of this generator;
+
+##### The Setup
+![2018-04-20 11_06_07](https://user-images.githubusercontent.com/444485/39064195-d8ec12ec-448a-11e8-9d7b-ead98a718039.gif)
 
 ### Features
 - Model `string` - Text inputs
@@ -127,6 +134,8 @@ actions:{
 
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
+
+Built and tested as of SailsJS version 1.01
 
 ## License
 
