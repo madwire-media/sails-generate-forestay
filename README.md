@@ -4,7 +4,7 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 
 ## Why?
 
-*Structure First.* Sometimes building great user interfaces requires a full understanding of how data could be structured and how user interact with the system. Forestay is a way for you to quickly build data models with a sensible, basic user interface.
+*Data First.* Sometimes building great user interfaces requires a full understanding of how data is structured and how user interact with that system. Forestay is a way for you to quickly build data models with a sensible, basic user interface.
 
 ## Installation
 
