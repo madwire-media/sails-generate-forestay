@@ -130,6 +130,7 @@ actions:{
 - Alternate layout per model
 - `forestay.js` global configurations in config folder
 - Main title/header
+- isIn ==== Enum
 
 
 
