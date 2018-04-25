@@ -116,6 +116,7 @@ actions:{
 ### TODO
 
 - JSON editor
+- Create defaults from other routes. Use case: A user can create an item with a default reference to an existing item in another model.
 - Wysiwyg editor
 - Ref attributes
 - datetime & date type UI
@@ -126,14 +127,18 @@ actions:{
 - Hide record action button (used in beforeRender)
 - Modal action modals
 - Pagination
-- Filtering
+- Filtering - `model.attributes[key].meta.forstay.filterable` & `model.attributes[key].meta.forstay.hideFilter`
 - Associations - Additional fields to show for associative lists
 - Associations - Show populateBy fields in index list.  Currently ids show for models, and nothing shows for collections
+- Edit button for each association from index along with "show associated edit button" in related model
 - Alternate layout per model
 - `forestay.js` global configurations in config folder
 - Main title/header
 - isIn ==== Enum
 - Menu groups for forestay layout
+- index sort by and `model.attributes[key].meta.forestay.sortable`
+- Create/Update custom return route/url
+
 
 
 
