@@ -89,8 +89,8 @@ make: {
 }
 ```
 - `model.attributes.required` - Supported by `required` input attribute
-- `model.attributes.meta.hideInIndex === true` Hide this field in the forestay index
-- `model.attributes.meta.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
+- `model.attributes[key].meta.forestay.hideInIndex === true` Hide this field in the forestay index
+- `model.attributes[key].meta.forestay.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
 - `model.forestay.actions` These actions create UI buttons for your model index or individual records
 ```javascript
 actions:{
