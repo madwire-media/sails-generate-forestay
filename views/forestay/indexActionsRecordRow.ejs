@@ -1,6 +1,6 @@
 <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
   <%Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
-    <% if(forestay.config.forestay.actions[actionKey].type == "record"){ %>
+    <% if(_.get(forestay.config.forestay.actions,[actionKey,"type"]) == "record"){ %>
       <td>
         <% if(typeof _.get(row.actions[actionKey],['link']) !== "undefined") {%>
           <a href="<%= row.actions[actionKey].link %>" class="btn btn-success"><%= row.actions[actionKey].label %></a>

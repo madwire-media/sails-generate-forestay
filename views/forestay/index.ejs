@@ -13,7 +13,7 @@
 <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(forestay, ["model","name"]) %> </button></a>
 <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
   <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
-    <% if(forestay.config.forestay.actions[actionKey].type == "index"){ %>
+    <% if(_.get(forestay.config.forestay.actions, [actionKey, "type"]) == "index"){ %>
       <a href="<%= actionKey %>" class="btn btn-success"><%= forestay.config.forestay.actions[actionKey].label %></a>
     <% } %>
   <% }) %>
@@ -21,6 +21,7 @@
 <hr/>
 <table class="table">
   <thead>
+    <form>
     <% if(showId){ %>
       <th>ID
         <% if (_.get(forestay,"hasFilters") === true) { %>
@@ -52,7 +53,9 @@
             <% if(_.get(this_attr, ["meta","forestay","filterable"]) == true) { %>
               <% var value = "" %>
               <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
-              <input value="<%= value %>">
+
+                <input value="<%= value %>" name="<%= attrKey %>">
+
             <% } %>
         <% if (_.get(forestay,"hasFilters") === true) { %>
           </div>
@@ -86,7 +89,7 @@
     </th>
     <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
       <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
-        <% if(forestay.config.forestay.actions[actionKey].type == "record"){ %>
+        <% if(_.get(forestay.config.forestay.actions,[actionKey,"type"]) == "record"){ %>
           <th>
             <%= forestay.config.forestay.actions[actionKey].label %>
             <% if (_.get(forestay,"hasFilters") === true) { %>
@@ -99,11 +102,11 @@
     <th>
       Edit
       <% if (_.get(forestay,"hasFilters") === true) { %>
-        <div class="filterBox"></div>
+        <div class="filterBox"><input type="submit" value="filter"></div>
       <% } %>
     </th>
 
-
+    </form>
   </thead>
   <% forestay.records.forEach(function(row, index){ %>
 
