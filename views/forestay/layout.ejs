@@ -35,7 +35,7 @@
                     link.toLowerCase().startsWith("delete") ||
                     link.toLowerCase().startsWith("options") || link.toLowerCase().startsWith("head") ||
                     link.toLowerCase().startsWith("head") ||
-                    _.get(forestay.routes[link], "hideFromMenu") === true
+                    _.get(forestay.routes[link], ["forestay","hideFromMenu"]) === true
                     ) return
 
 

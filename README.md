@@ -105,6 +105,8 @@ actions:{
   },
 ```
 <img src="https://user-images.githubusercontent.com/444485/39222294-33550f88-47f9-11e8-800b-c6e565184d69.png" width="500">
+- `routes.js` rendered menu in Forestay layouts.  Set `forestay.hideFromMenu = true` to hide a route from the menu.  Any `GET` items will otherwise end up in here.  Also use `forestay.linkName` to specify display friendly names and `forestay.model` so forestay understands what model the router is going to use.
+
 
 
 ### `config/forestay.js` Features
@@ -131,6 +133,7 @@ actions:{
 - `forestay.js` global configurations in config folder
 - Main title/header
 - isIn ==== Enum
+- Menu groups for forestay layout
 
 
 
