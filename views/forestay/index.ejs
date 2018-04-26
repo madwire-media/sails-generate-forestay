@@ -140,14 +140,14 @@
       <td>
         <form method="post" action="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/delete">
           <input type="hidden" name='_csrf' value='<%= _csrf %>'>
-          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger btn-sm">Delete</button>
         </form>
       </td>
 
       <% include indexActionsRecordRow.ejs %>
 
       <td>
-        <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info">Edit</a>
+        <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info btn-sm">Edit</a>
       </td>
     </tr>
 

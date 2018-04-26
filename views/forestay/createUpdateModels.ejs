@@ -1,4 +1,4 @@
-<% if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","populateBy"]) != "string"){ %>
+<% console.log("--->",forestay.prefill); if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","populateBy"]) != "string"){ %>
   <p>Please add attribute <strong>populateBy</strong> to your model to display these optoins, or hide this field from the form.</p>
   <% } else { %>
     <select name="<%= attrKey %>">
@@ -7,6 +7,7 @@
     <% forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
         <%
           var selected = "";
+
         %>
         <%
 
@@ -17,8 +18,9 @@
                   selected = "selected"
                 }
               }
-          } else if(typeof _.get(forestay,["prefill",attrKey]) != "undefined"){
-            if(av.id == parseInt(forestay.prefill[attrKey])){
+          } else if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
+            console.log("--->",forestay.prefills[attrKey])
+            if(av.id == parseInt(forestay.prefills[attrKey])){
               selected = "selected"
             }
           }

@@ -3,9 +3,10 @@
     <% if(_.get(forestay.config.forestay.actions,[actionKey,"type"]) == "record"){ %>
       <td>
         <% if(typeof _.get(row.actions[actionKey],['link']) !== "undefined") {%>
-          <a href="<%= row.actions[actionKey].link %>" class="btn btn-success"><%= row.actions[actionKey].label %></a>
+          <a href="<%= row.actions[actionKey].link %>" class="btn btn-sm btn-success"><%= row.actions[actionKey].label %></a>
         <% } %>
       </td>
     <% } %>
   <% }) %>
 <% } %>
+ 
