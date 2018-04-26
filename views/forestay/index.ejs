@@ -10,7 +10,10 @@
 
 %>
 <h1><%= pageTitle %></h1>
-<a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(forestay, ["model","name"]) %> </button></a>
+<% if (_.get(forestay,['config','forestay','index','hideAddButton']) !== true) { %>
+  <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(forestay, ["model","name"]) %> </button></a>
+<% } %>
+
 <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
   <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
     <% if(_.get(forestay.config.forestay.actions, [actionKey, "type"]) == "index"){ %>
@@ -136,6 +139,7 @@
       <% } %>
       <td>
         <form method="post" action="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/delete">
+          <input type="hidden" name='_csrf' value='<%= _csrf %>'>
           <button class="btn btn-danger">Delete</button>
         </form>
       </td>
