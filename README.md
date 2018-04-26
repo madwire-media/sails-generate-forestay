@@ -155,6 +155,7 @@ actions:{
 - action buttons need tooltips
 - ability to use images for action buttons
 - CreateUpdate/Create/Update/Index - Custom HTML that goes in footers.  For scripts
+- Input type="hidden"
 
 
 
