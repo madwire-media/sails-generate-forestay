@@ -12,13 +12,13 @@
 
           if(forestay.id){
             var sv = forestay.config.attributes[attrKey].selectedValue[0]
-
               if(typeof sv != "undefined" && sv) {
-
-                if(sv.id == av.id) selected = "selected"
+                if(_.get(sv,[attrKey, "id"]) == av.id || _.get(sv,[attrKey] == av.id)){
+                  selected = "selected"
+                }
               }
-          } else if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
-            if(av.id == parseInt(forestay.prefills[attrKey])){
+          } else if(typeof _.get(forestay,["prefill",attrKey]) != "undefined"){
+            if(av.id == parseInt(forestay.prefill[attrKey])){
               selected = "selected"
             }
           }
