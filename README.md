@@ -151,6 +151,10 @@ actions:{
 - `model.forestay.index.hideEditButton` hide edit button in indexes
 - default sort
 - Create/Update custom return route/url
+- Actions should have bootstrap `.btn` class alteration.  Maybe class replacement.
+- action buttons need tooltips
+- ability to use images for action buttons
+- CreateUpdate/Create/Update/Index - Custom HTML that goes in footers.  For scripts
 
 
 
