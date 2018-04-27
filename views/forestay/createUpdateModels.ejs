@@ -1,4 +1,4 @@
-<% console.log("--->",forestay.prefill); if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","populateBy"]) != "string"){ %>
+<% if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","populateBy"]) != "string"){ %>
   <p>Please add attribute <strong>populateBy</strong> to your model to display these optoins, or hide this field from the form.</p>
   <% } else { %>
     <select name="<%= attrKey %>">
@@ -10,7 +10,7 @@
 
         %>
         <%
-
+        console.log("jjjj",forestay.config.attributes["contract"].meta.forestay.updateCreateFilterBy)
           if(forestay.id){
             var sv = forestay.config.attributes[attrKey].selectedValue[0]
               if(typeof sv != "undefined" && sv) {
@@ -19,13 +19,24 @@
                 }
               }
           } else if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
-            console.log("--->",forestay.prefills[attrKey])
             if(av.id == parseInt(forestay.prefills[attrKey])){
               selected = "selected"
             }
           }
+
+          if(typeof _.get(forestay.config.attributes[attrKey], ['meta','forestay','updateCreateFilterBy']) === "object"){
+            var removal = true
+
+            Object.keys(forestay.config.attributes[attrKey].meta.forestay.updateCreateFilterBy).forEach(function(filterAttr){
+
+              if(av[filterAttr] === forestay.config.attributes[attrKey].meta.forestay.updateCreateFilterBy[filterAttr]) removal = false
+            })
+          }
         %>
-        <option  value="<%= av.id %>" <%= selected %>><%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></option>
+        <% if(!removal){ %>
+            <option  value="<%= av.id %>" <%= selected %>><%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></option>
+        <% } %>
+
       <% }) %>
     </select>
 <% } /* end else popualteBy !=string */ %>

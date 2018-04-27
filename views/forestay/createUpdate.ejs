@@ -44,10 +44,24 @@
       if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
       attributeType = attributeType.toLowerCase();
 
-      if(attributeType == "string" && Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))){
-        attributeType = "enum"
-        var enumOptions = _.get(forestay.config.attributes[attrKey],["validations","isIn"])
+
+      if(attrKey == "userOrUserGroup") console.log(forestay.config.attributes[attrKey])
+      var enumOptions
+
+      if(attributeType == "string"){
+        // I've seen both formats for
+        if (Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))) {
+          enumOptions = _.get(forestay.config.attributes[attrKey],["validations","isIn"])
+          attributeType = "enum"
+        }
+        if (Array.isArray(_.get(forestay.config.attributes[attrKey],["isIn"]))){
+          enumOptions = _.get(forestay.config.attributes[attrKey],["isIn"])
+          attributeType = "enum"
+       }
+
       }
+
+
 
       var value = "";
       var required = "";

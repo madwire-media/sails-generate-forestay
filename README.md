@@ -92,9 +92,9 @@ make: {
 - `model.attributes[key].meta.forestay.hideInIndex === true` Hide this field in the forestay index
 - `model.attributes[key].meta.forestay.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
 - `model.forestay.actions` These actions create UI buttons for your model index or individual records
-- `model.forestay.index.beforeRender` callback, gets fired before the index page is rendered
 - `model.forestay.index.hideAddButton` Removes the "Add" record button from index.  You can alternately create an action button to replace it.
 - `model.attributes[key].meta.forestay.prefillable === true` Allow values to be prefilled from the URL query when this is set to true.  For example a query parm of `?pet=12` will prefill the `pet` field with the value of `12` on the create form.
+- `model.forestay.index.beforeRender` callback, gets fired before the index page is rendered
 ```javascript
 beforeRender: function (req, res, forestay, next) {
   /* ... modify and return forestay .. */
@@ -102,6 +102,13 @@ beforeRender: function (req, res, forestay, next) {
   if (errors) return next(errors)
   return next(null,forestay)
 },
+```
+- `model.forestay.createUpdate.beforeUpdateCreateView` callback, gets fired before the create/update page is rendered.  
+```javascript
+beforeUpdateCreateView: function (req, res, forestay, next){
+  /* ... */
+  return next(null,forestay)
+}
 ```
 - Filtering via `model.attributes[key].meta.forstay.filterable` & `model.attributes[key].meta.forstay.hideFilter`
 ```javascript
@@ -118,6 +125,7 @@ actions:{
 ```
 <img src="https://user-images.githubusercontent.com/444485/39222294-33550f88-47f9-11e8-800b-c6e565184d69.png" width="500">
 - `routes.js` rendered menu in Forestay layouts.  Set `forestay.hideFromMenu = true` to hide a route from the menu.  Any `GET` items will otherwise end up in here.  Also use `forestay.linkName` to specify display friendly names and `forestay.model` so forestay understands what model the router is going to use.
+- `model.attributes[key].meta.forestay.updateCreateFilterBy` for Models Create Filter By - Only show models with specified property value. for example, only models related to a specific record by id
 
 
 
@@ -156,6 +164,8 @@ actions:{
 - ability to use images for action buttons
 - CreateUpdate/Create/Update/Index - Custom HTML that goes in footers.  For scripts
 - Input type="hidden"
+- `model.attributes[key].meta.forestay.updateCreateFilterBy` for collections - (object) Model - Create Filter By - Only show models with specified value. for example, only models related to a specific record
+- Subtitles on each page
 
 
 
