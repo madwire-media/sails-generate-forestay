@@ -44,8 +44,6 @@
       if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
       attributeType = attributeType.toLowerCase();
 
-
-      if(attrKey == "userOrUserGroup") console.log(forestay.config.attributes[attrKey])
       var enumOptions
 
       if(attributeType == "string"){
