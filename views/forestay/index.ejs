@@ -127,7 +127,11 @@
         }
         else { %>
           <td>
-            <%= row[attrKey] %>
+            <% if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","replaceIndexHtml"]) == "string"){%>
+              <%- forestay.config.attributes[attrKey].meta.forestay.replaceIndexHtml %>
+            <% } else { %>
+              <%= row[attrKey] %>
+            <% } %>
           </td>
         <% } // end else for if hideInIndex %>
       <% }) %>
