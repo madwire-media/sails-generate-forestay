@@ -6,6 +6,13 @@ Build dynamic user interfaces quickly and easily! Use the `forestay` generator t
 
 *Data First.* Sometimes building great user interfaces requires a full understanding of how data are structured and how users interact with them. Forestay is a way to quickly build data models with a sensible, basic user interface.
 
+*Data manipulation.* When you get your data, a lot of times you want to display it in a different way. That's why the forestay object is completely mutable throughout the request process.
+
+> Forestay isn't meant to be your final UI.  
+> It's meant to be your first UI.
+
+Instant gratification
+
 ## Installation
 
 ```sh
@@ -166,6 +173,7 @@ actions:{
 - Input type="hidden"
 - `model.attributes[key].meta.forestay.updateCreateFilterBy` for collections - (object) Model - Create Filter By - Only show models with specified value. for example, only models related to a specific record
 - Subtitles on each page
+- `model.attributes[key].meta.forestay.position` field position in index and form
 
 
 
