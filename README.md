@@ -65,6 +65,7 @@ Note that this is an early release of this generator;
 - Model `string` - Text inputs
 - Model `number` - Integers though input `number` attribute
 - Model `boolean` - truthy/falsey represented by HTML select
+- Model `text` - HTML Text Area
 - Model `enum` will show as a `<select>` list
 ```javascript
 instrumentType: {
