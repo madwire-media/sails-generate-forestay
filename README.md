@@ -149,7 +149,13 @@ replaceIndexRowHtml: function (req, res, forestay, row, cb) {
   cb(null, forestay, row);
 },
 ```
-
+- `beforeRoute` Before each route, call this callback
+```Javascript
+beforeRoute: function(req, res, forestay, next){
+  console.log("cool!")
+  return next(null, forestay)
+},
+```
 
 
 ### `config/forestay.js` Features
