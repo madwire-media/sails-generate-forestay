@@ -157,6 +157,7 @@ beforeRoute: function(req, res, forestay, next){
 },
 ```
 - `model.forestay.index.hideEditButton` hide edit button in indexes
+- `model.forestay.index.hideDeleteButton` hide delete button in indexes
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout

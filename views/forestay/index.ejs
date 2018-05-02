@@ -84,12 +84,14 @@
         <% } %>
       </th>
     <% } %>
-    <th>
-      Delete
-      <% if (_.get(forestay,"hasFilters") === true) { %>
-        <div class="filterBox"></div>
-      <% } %>
-    </th>
+    <% if(_.get(forestay,['config','forestay','index','hideDeleteButton']) !== true){ %>
+      <th>
+        Delete
+        <% if (_.get(forestay,"hasFilters") === true) { %>
+          <div class="filterBox"></div>
+        <% } %>
+      </th>
+    <% } %>
     <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
       <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
         <% if(_.get(forestay.config.forestay.actions,[actionKey,"type"]) == "record"){ %>
@@ -147,12 +149,14 @@
       <% if(showUpdatedAt){ %>
         <td><%= moment(row.updatedAt).fromNow() %></td>
       <% } %>
+      <% if(_.get(forestay,['config','forestay','index','hideDeleteButton']) !== true){ %>
       <td>
         <form method="post" action="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/delete">
           <input type="hidden" name='_csrf' value='<%= _csrf %>'>
           <button class="btn btn-danger btn-sm">Delete</button>
         </form>
       </td>
+      <% } %>
 
       <% include indexActionsRecordRow.ejs %>
       <% if(_.get(forestay,['config','forestay','index','hideEditButton']) !== true){ %>
