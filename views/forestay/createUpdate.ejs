@@ -15,7 +15,7 @@
     <% if(forestay.id) { %><%= forestay.id %><% } %>
   </h6>
   <hr/>
-  <form method="post">
+  <form method="post" class="form form-<%= forestay.model.name %>">
     <table class="table">
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <%
@@ -78,21 +78,33 @@
               %>
 
               <% if(attributeType == "string"){ %>
-                  <input style="width:100%" name="<%= attrKey %>" <%- value %> <%= required %>>
+                  <input style="width:100%" name="<%= attrKey %>" class="input input-<%= attrKey %>" <%- value %> <%= required %>>
                 <% } else if(attributeType == "number"){ %>
-                  <input style="width:100%" type="number" name="<%= attrKey %>" <%- value %> <%= required %>>
+                  <input style="width:100%" type="number" name="<%= attrKey %>" class="number-input number-input-<%= attrKey %>" <%- value %> <%= required %>>
                 <% } else if(attributeType == "text"){ %>
-                  <textarea style="width:100%; height: 200px" name="<%= attrKey %>" <%= required %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
+                  <textarea style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
                 <% } else if(attributeType == "boolean"){
                     var trueSelected = ""
                     var falseSelected = ""
                     if(forestay.id && record[attrKey] == true) trueSelected = "selected"
                     if(forestay.id && record[attrKey] == false) falseSelected = "selected"
                   %>
-                  <select name="<%= attrKey %>" <%= required %>>
+                  <select name="<%= attrKey %>" <%= required %> class="boolean-input boolean-input-<%= attrKey %>">
                     <option></option>
-                    <option value="true" <%= trueSelected %>>True</option>
-                    <option value="false" <%= falseSelected %>>False</option>
+                    <option value="true" <%= trueSelected %>>
+                      <% if(typeof _.get(forestay.config.attributes[attrKey],["meta","forestay","booleanLabels","true"]) === "string"){ %>
+                        <%= forestay.config.attributes[attrKey].meta.forestay.booleanLabels.true %>
+                      <% } else { %>
+                        True
+                      <% } %>
+                    </option>
+                    <option value="false" <%= falseSelected %>>
+                      <% if(typeof _.get(forestay.config.attributes[attrKey],["meta","forestay","booleanLabels","false"]) === "string"){ %>
+                        <%= forestay.config.attributes[attrKey].meta.forestay.booleanLabels.false %>
+                      <% } else { %>
+                        False
+                      <% } %>
+                    </option>
                   </select>
                 <% } else if (attributeType == "enum"){ %>
                   <select name="<%= attrKey %>" <%= required %>>

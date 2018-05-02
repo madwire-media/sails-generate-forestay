@@ -114,27 +114,41 @@
     <% } %>
     </form>
   </thead>
+
+
   <% forestay.records.forEach(function(row, index){ %>
 
 
     <tr>
       <% if(showId){ %>
-        <td>
+        <td class="id id-<%= row-id %>">
           <%= row.id %>
         </td>
       <% } %>
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
+        <%
 
+        var attributeType = _.get(forestay.config.attributes[attrKey], 'type') || _.get(forestay.config.attributes, [attrKey]) || ''
+
+        %>
       <% if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","hideInIndex"]) === true){
           // do nothing if this field is meant to be hidden
         }
         else { %>
-          <td>
+          <td class="field field-<%= attrKey %>">
             <% if(typeof _.get(row, ['forestay_replace',attrKey])==="string"){ %>
               <%- row.forestay_replace[attrKey] %>
             <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["model"]) == "string") { %>
               <% /* todo: show something here based on populateBy... maybe? */ %>
               <%= row[attrKey] %>
+            <% } else if (attributeType == "boolean") { %>
+              <% if(typeof _.get(forestay.config.attributes[attrKey],["meta","forestay","booleanLabels","true"]) === "string" && row[attrKey] === true){ %>
+                <%= forestay.config.attributes[attrKey].meta.forestay.booleanLabels.true %>
+              <% } else if(typeof _.get(forestay.config.attributes[attrKey],["meta","forestay","booleanLabels","false"]) === "string" && row[attrKey] === false){ %>
+                <%= forestay.config.attributes[attrKey].meta.forestay.booleanLabels.false %>
+              <% } else { %>
+                <%= row[attrKey] %>
+              <% } %>
             <%} else if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","replaceIndexHtml"]) == "string"){%>
               <%- forestay.config.attributes[attrKey].meta.forestay.replaceIndexHtml %>
             <% } else { %>
