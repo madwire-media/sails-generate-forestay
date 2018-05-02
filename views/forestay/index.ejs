@@ -102,13 +102,14 @@
         <% } %>
       <% }) %>
     <% } %>
-    <th>
-      Edit
-      <% if (_.get(forestay,"hasFilters") === true) { %>
-        <div class="filterBox"><input type="submit" value="filter"></div>
-      <% } %>
-    </th>
-
+    <% if(_.get(forestay,['config','forestay','index','hideEditButton']) !== true){ %>
+      <th>
+        Edit
+        <% if (_.get(forestay,"hasFilters") === true) { %>
+          <div class="filterBox"><input type="submit" value="filter"></div>
+        <% } %>
+      </th>
+    <% } %>
     </form>
   </thead>
   <% forestay.records.forEach(function(row, index){ %>
@@ -127,9 +128,11 @@
         }
         else { %>
           <td>
-
             <% if(typeof _.get(row, ['forestay_replace',attrKey])==="string"){ %>
               <%- row.forestay_replace[attrKey] %>
+            <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["model"]) == "string") { %>
+              <% /* todo: show something here based on populateBy... maybe? */ %>
+              <%= row[attrKey] %>
             <%} else if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","replaceIndexHtml"]) == "string"){%>
               <%- forestay.config.attributes[attrKey].meta.forestay.replaceIndexHtml %>
             <% } else { %>
@@ -152,10 +155,12 @@
       </td>
 
       <% include indexActionsRecordRow.ejs %>
+      <% if(_.get(forestay,['config','forestay','index','hideEditButton']) !== true){ %>
+        <td>
+          <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info btn-sm">Edit</a>
+        </td>
+      <% } %>
 
-      <td>
-        <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info btn-sm">Edit</a>
-      </td>
     </tr>
 
   <% }) %>

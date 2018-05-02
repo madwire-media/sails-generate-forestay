@@ -156,7 +156,7 @@ beforeRoute: function(req, res, forestay, next){
   return next(null, forestay)
 },
 ```
-
+- `model.forestay.index.hideEditButton` hide edit button in indexes
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
@@ -185,7 +185,6 @@ beforeRoute: function(req, res, forestay, next){
 - isIn ==== Enum
 - Menu groups for forestay layout
 - index sort by and `model.attributes[key].meta.forestay.sortable`
-- `model.forestay.index.hideEditButton` hide edit button in indexes
 - default sort
 - Create/Update custom return route/url
 - Actions should have bootstrap `.btn` class alteration.  Maybe class replacement.
@@ -197,6 +196,7 @@ beforeRoute: function(req, res, forestay, next){
 - Subtitles on each page
 - `model.attributes[key].meta.forestay.position` field position in index and form
 - `model.attributes[key].meta.forestay.populate === true` for models and controllers, populate result in `forestay.records` object
+- Are you sure? on delete
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
 
