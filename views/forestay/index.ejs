@@ -127,7 +127,10 @@
         }
         else { %>
           <td>
-            <% if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","replaceIndexHtml"]) == "string"){%>
+
+            <% if(typeof _.get(row, ['forestay_replace',attrKey])==="string"){ %>
+              <%- row.forestay_replace[attrKey] %>
+            <%} else if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","replaceIndexHtml"]) == "string"){%>
               <%- forestay.config.attributes[attrKey].meta.forestay.replaceIndexHtml %>
             <% } else { %>
               <%= row[attrKey] %>
