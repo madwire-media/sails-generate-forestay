@@ -176,6 +176,7 @@ privacy: {
   }
 },
 ```
+- `forestay.config.forestay.index.filterOverride` override filters with sailsJS filter syntax https://sailsjs.com/documentation/concepts/models-and-orm/query-language
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
