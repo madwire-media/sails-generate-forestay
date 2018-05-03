@@ -121,7 +121,7 @@
 
     <tr>
       <% if(showId){ %>
-        <td class="id id-<%= row-id %>">
+        <td class="id id-<%= row.id %>">
           <%= row.id %>
         </td>
       <% } %>
@@ -189,7 +189,10 @@
 <style>
   .filterBox {
     height: 32px;
-
+    <% if(_.get(forestay.config.forestay.index, ['hideFilter']) === true) { %>
+      display:none;
+    <% } %>
   }
+
 
 </style>
