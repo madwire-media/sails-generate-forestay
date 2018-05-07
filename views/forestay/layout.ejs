@@ -25,7 +25,7 @@
           </a> Menu
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
+        <% if(typeof forestay === "object") { %>
           <% Object.keys(forestay.routes).forEach(function(link){ %>
 
               <%
@@ -49,7 +49,7 @@
               %>
               <a href="<%= l %>" class="dropdown-item" ><%= _.get(forestay.routes[link], ["forestay","linkName"]) || l %></a>
           <%  }) %>
-
+        <% } %>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
            1px 1px 0 #fff;
       }
 
-        <% if(_.get(forestay.localConfig, ["background"])) { %>
+        <% if(typeof forestay === "object" && _.get(forestay.localConfig, ["background"])) { %>
           body { background: url(<%= forestay.localConfig.background %>) ;
           background-size: cover;}
         <% } %>
