@@ -158,6 +158,7 @@ beforeRoute: function(req, res, forestay, next){
   return next(null, forestay)
 },
 ```
+- `model.forestay.index.aboveTableCustomHtml` hide edit button in indexes
 - `model.forestay.index.hideEditButton` hide edit button in indexes
 - `model.forestay.index.hideDeleteButton` hide delete button in indexes
 - `model.forestay.index.filterLogicalOperator === "or"` set to "or" and filters will user "or" logical oporator.  Default is "and"
@@ -217,6 +218,11 @@ privacy: {
 - `model.attributes[key].meta.forestay.position` field position in index and form
 - `model.attributes[key].meta.forestay.populate === true` for models and controllers, populate result in `forestay.records` object
 - Are you sure? on delete
+- bug: in index, given a record's property value (like category: 7), if that model does not exist, it crashes the app.
+- text type doesn't exist anymore
+- `beforeCreate` shouldn't be a method of `forestay.index` but rather `fotestay`
+
+
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
 

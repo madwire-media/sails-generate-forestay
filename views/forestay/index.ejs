@@ -22,6 +22,10 @@
   <% }) %>
 <% } %>
 <hr/>
+
+<% if (_.get(forestay.config, ["forestay","index","aboveTableCustomHtml"])){ %>
+  <%- forestay.config.forestay.index.aboveTableCustomHtml %>
+<% } %>
 <table class="table">
   <thead>
     <form>
