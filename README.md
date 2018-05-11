@@ -223,8 +223,8 @@ privacy: {
 - `beforeCreate` shouldn't be a method of `forestay.index` but rather `fotestay`
 - run all html into htmlSanitize filter to prevent xss
 - bug - Model collection not "uncheckable"
-- Descriptions and popovers in form
-- bug: - can't edit text field with semi quote "'"
+- Optional description in indexes
+- After edit, forward to alternate URL instead of Index
 
 
 
