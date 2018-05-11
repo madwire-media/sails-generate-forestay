@@ -102,7 +102,7 @@ make: {
 - `model.attributes[key].meta.forestay.replaceIndexHtml` - When in the index, replace with given HTML template. (TODO: Can be a EJS template!) - Warning, this will evaluate all HTML, EJS and Javascript and could be an entry to your system.  If you make this user editable, you are potentially introducing a security risk if you are not sanitizing your inputs
 - `model.forestay.actions` These actions create UI buttons for your model index or individual records
 - `model.forestay.index.hideAddButton` Removes the "Add" record button from index.  You can alternately create an action button to replace it.
-
+- `model.attributes[key].description` shows in CREATE/Update views
 - `model.attributes[key].meta.forestay.prefillable === true` Allow values to be prefilled from the URL query when this is set to true.  For example a query parm of `?pet=12` will prefill the `pet` field with the value of `12` on the create form.
 - `model.forestay.index.beforeCreate`  - we opted to use this instead of Sails beforeCreate callback, because we have the req and res objects available.
 ```Javascript
@@ -158,7 +158,7 @@ beforeRoute: function(req, res, forestay, next){
   return next(null, forestay)
 },
 ```
-- `model.forestay.index.aboveTableCustomHtml` hide edit button in indexes
+- `model.forestay.index.aboveTableCustomHtml` Custom html that gets displayed above the table
 - `model.forestay.index.hideEditButton` hide edit button in indexes
 - `model.forestay.index.hideDeleteButton` hide delete button in indexes
 - `model.forestay.index.filterLogicalOperator === "or"` set to "or" and filters will user "or" logical oporator.  Default is "and"
@@ -221,6 +221,9 @@ privacy: {
 - bug: in index, given a record's property value (like category: 7), if that model does not exist, it crashes the app.
 - text type doesn't exist anymore
 - `beforeCreate` shouldn't be a method of `forestay.index` but rather `fotestay`
+- run all html into htmlSanitize filter to prevent xss
+- bug - Model collection not "uncheckable"
+- Descriptions and popovers in form
 
 
 

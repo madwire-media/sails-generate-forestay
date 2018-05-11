@@ -27,11 +27,19 @@
       else {
     %>
           <tr>
-            <td style="width: <%= _.get(forestay.config.forestay, ["createUpdate","labelWidth"]) || 200 %>px; text-align: right">
-              <%=
-          _.get(this_attr, ["meta","forestay","label"]) ||
-          attrKey
-        %>:
+            <td class="form form-<%=attrKey %>" style="width: <%= _.get(forestay.config.forestay, ["createUpdate","labelWidth"]) || 200 %>px; text-align: right">
+              <div class="label">
+                <%=
+                  _.get(this_attr, ["meta","forestay","label"]) ||
+                  attrKey
+                %>:
+              </div>
+              <% if(_.get(this_attr, ["description"])) { %>
+                <div class="description">
+                  <%= this_attr.description %>
+                </div>
+              <% } %>
+
             </td>
             <td>
               <%
@@ -136,3 +144,10 @@
     <input type="hidden" name='_csrf' value='<%= _csrf %>'>
     <button class="btn btn-info" style="width:100%">Submit</button>
   </form>
+
+  <style>
+    .description {
+      font-size: 12px;
+      color: #888
+    }
+  </style>

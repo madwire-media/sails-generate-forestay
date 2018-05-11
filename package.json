@@ -33,6 +33,7 @@
     "moment": "^2.22.1",
     "ncp": "^2.0.0",
     "route-parser": "0.0.5",
+    "sanitize-html": "^1.18.2",
     "underscore.string": "^3.3.4",
     "xss": "^0.3.8"
   },
