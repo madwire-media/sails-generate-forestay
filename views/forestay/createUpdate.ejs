@@ -71,6 +71,7 @@
 
       var value = "";
       var required = "";
+      var v
 
 
 
@@ -78,7 +79,13 @@
         required = "required"
       }
       if (forestay.id) {
-        value = `value='${record[attrKey]}'`
+
+        if(typeof record[attrKey] === "string") v = record[attrKey].split('"').join("&quot;") //.replace(/\"/g,'&quot;')
+        else v = record[attrKey]
+
+        if (record[attrKey] === null) v = ""
+
+        value = `value="${v}"`
       }
 
 

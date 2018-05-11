@@ -224,6 +224,7 @@ privacy: {
 - run all html into htmlSanitize filter to prevent xss
 - bug - Model collection not "uncheckable"
 - Descriptions and popovers in form
+- bug: - can't edit text field with semi quote "'"
 
 
 
