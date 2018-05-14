@@ -163,7 +163,7 @@ function getTagsFromApi(){
 function cleanString(){
   var s = $("#tagging-ui-<%= attrKey %>").val()
   <% if (_.get(forestay.config.attributes[attrKey],['meta','forestay','allowAllCharacters']) !== true){ %>
-     $("#tagging-ui-<%= attrKey %>").val(s.replace(/[^a-zA-Z ]/g, ""))
+     $("#tagging-ui-<%= attrKey %>").val(s.replace(/[\W_]+/g," ");)
   <% } else { %>
     return
   <% } %>
