@@ -178,6 +178,7 @@ privacy: {
 },
 ```
 - `forestay.config.forestay.index.filterOverride` override filters with sailsJS filter syntax https://sailsjs.com/documentation/concepts/models-and-orm/query-language
+- `model.attributes[key].meta.forestay.createUpdateUi:'tagging'` - A collection UI for tagging on create/update. New tags are created if `allowAddition===true` 
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
@@ -219,7 +220,7 @@ privacy: {
 - bug: in index, given a record's property value (like category: 7), if that model does not exist, it crashes the app.
 - text type doesn't exist anymore
 - `beforeCreate` shouldn't be a method of `forestay.index` but rather `fotestay`
-- run all html into htmlSanitize filter to prevent xss.  Add mode sanitize: false, or give the user the option to set their own sanitation rules 
+- run all html into htmlSanitize filter to prevent xss.  Add mode sanitize: false, or give the user the option to set their own sanitation rules
 - bug - Model collection not "uncheckable"
 - Optional description in indexes
 - tag UI style collections, new entries get added to model.
