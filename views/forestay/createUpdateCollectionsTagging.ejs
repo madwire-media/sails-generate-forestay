@@ -1,0 +1,187 @@
+<div id="attachedTags"></div>
+<hr/>
+<div id="tagSearch"></div>
+
+
+<input id="tagging-ui-<%= attrKey %>" placeholder="Tag Search">
+<p>(press enter to add to the list)</p>
+
+<input type="hidden" id="<%= attrKey %>-tags" name="<%= attrKey %>">
+
+
+
+
+
+<script>
+var populateBy = "<%= _.get(forestay.config.attributes[attrKey],['meta','forestay','populateBy']) %>"
+var attachedTags = []
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  $(document).ready(function(){
+    $("#<%= attrKey %>-tags").val("[]")
+    <% if(forestay.id){ %>
+
+      var url ="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= forestay. id %>/get-record-tag/<%= attrKey %>"
+      console.log(url,'k')
+      $.post({
+        type: "POST",
+        url: url,
+        data:{},
+        success: function(d){
+          console.log(d)
+
+          d.forEach(function(tag){
+            var re = {}
+            re[populateBy] = tag[populateBy]
+            re.id = tag.id
+            addTag(re)
+            renderTags()
+          })
+
+        },
+      })
+
+    <% } %>
+    $('#tagging-ui-<%= attrKey %>').keyup(function(e){
+      if(e.keyCode == 13){
+        $(this).trigger("enterKey");
+        cleanString()
+        return searchEnterKey()
+      }
+      getTagsFromApi()
+    })
+  })
+});
+function searchEnterKey(){
+  console.log('enter key!')
+  apiTagSearch({type:'exact'},function(result){
+    if(result.length>0){
+      addTag(result[0])
+      return renderTags()
+    }
+    else{
+      var found = false
+      attachedTags.forEach(function(tag){
+        if($("#tagging-ui-<%= attrKey %>").val() == tag[populateBy]) found = true
+      })
+      var d = {
+        new: true
+      }
+      d[populateBy] = $("#tagging-ui-<%= attrKey %>").val()
+
+      if(!found) attachedTags.push(d)
+
+      return renderTags()
+    }
+  })
+}
+
+function addTag(object){
+  var found = false
+  attachedTags.forEach(function(tag){
+    if(tag.id === object.id) found = true
+  })
+  console.log(found)
+  if(!found) attachedTags.push(object)
+  return found
+}
+
+function bindSuggestionClicks(){
+  $( ".foundTag").unbind( "click" );
+  cleanString
+  $(".foundTag").click(function(){
+    console.log('click')
+    var d = {
+      id: $(this).attr('data-id'),
+    }
+    d[populateBy] = $(this).html()
+    addTag(d)
+    $('#tagging-ui-<%= attrKey %>').val("")
+    $('#tagSearch').html("")
+    renderTags()
+  })
+
+}
+function bindTagClicks(){
+  $( ".removeTag").unbind( "click" );
+  $(".removeTag").click(function(){
+    var that = this
+    attachedTags.forEach(function(e,i){
+      console.log(e, populateBy, $(that).attr("tagname"))
+      if(e.id == parseInt($(that).attr("tagid"))) attachedTags.splice(i, 1);
+      else if (e.new && e[populateBy] == $(that).attr("tagname")) attachedTags.splice(i, 1);
+      renderTags()
+    })
+  })
+}
+function renderTags(){
+  $('#tagging-ui-<%= attrKey %>').val("")
+  var html = ""
+  attachedTags.forEach(function(tag){
+    html+=`<span class='removeTag btn btn-sm btn-secondary' tagname="${tag.name}" tagid="${tag.id || 'new'}"><span class="removeTag">x</span>
+      <span class="tagName">${tag.name}</span>
+    </span> `
+  })
+  $("#attachedTags").html(html)
+  $("#tagSearch").html("")
+  $("#<%= attrKey %>-tags").val(JSON.stringify(attachedTags))
+  bindTagClicks()
+}
+function apiTagSearch(opts, cb){
+  var data = {
+    search: $("#tagging-ui-<%= attrKey %>").val(),
+    populateBy: populateBy,
+    type: opts.type
+  }
+
+
+  $.post({
+    type: "POST",
+    url: "/<%= _.get(forestay.config.attributes[attrKey],"collection") %>/tag-auto-complete/nl",
+    data: data,
+    success: function done(d){
+      return cb(d)
+    },
+  })
+}
+
+
+function getTagsFromApi(){
+  apiTagSearch({type:'startsWith'}, function(result){
+    var html = "<strong></strong> "
+    var pre = ""
+    result.forEach(function (tag){
+      html+=`${pre}<span class="foundTag" data-id="${tag.id}">${tag[populateBy]}</span>`
+      pre = ", "
+    })
+    $("#tagSearch").html(html)
+    bindSuggestionClicks()
+
+  })
+}
+
+function cleanString(){
+  var s = $("#tagging-ui-<%= attrKey %>").val()
+  <% if (_.get(forestay.config.attributes[attrKey],['meta','forestay','allowAllCharacters']) !== true){ %>
+     $("#tagging-ui-<%= attrKey %>").val(s.replace(/[^a-zA-Z ]/g, ""))
+  <% } else { %>
+    return
+  <% } %>
+}
+</script>
+<style>
+  .foundTag {
+    color:blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .removeTag {
+    color: rgba(0,0,0,.5);
+    font-size: 10px;
+    margin-top:1px;
+
+  }
+  .tagName {
+    margin-left: 10px
+  }
+</style>

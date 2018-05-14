@@ -189,24 +189,22 @@ privacy: {
 - Ref attributes
 - datetime & date type UI
 - defaultsTo on create template
-- index `beforeRender` callback
-- `beforeCreate` and `beforeUpdate`
+- `beforeUpdate` callback like `beforeCreate`
 - More Validations
-- Separate controller actions for Index/createView/createPost/updateView/updatePost/delete so that they can be run through policies.
-- Hide record action button (used in beforeRender)
-- Modal action modals
+- Separate controller actions for Index/createView/createPost/updateView/updatePost/delete so that they can be run through policies - This can be done now but needs to be documented
+- Better docs
+- Model action modals
 - Pagination
 - `model.attributes[key].meta.forestay.mutable === false` - Field can be edited on create, but not after create.
 - Associations - Additional fields to show for associative lists
 - Associations - Show populateBy fields in index list.  Currently ids show for models, and nothing shows for collections
 - Edit button for each association from index along with "show associated edit button" in related model
 - Alternate layout per model
-- `forestay.js` global configurations in config folder
 - Main title/header
-- isIn ==== Enum
+- isIn ==== Enum - This appears to not be working in some cases
 - Menu groups for forestay layout
 - index sort by and `model.attributes[key].meta.forestay.sortable`
-- default sort
+- default sort property
 - Create/Update custom return route/url
 - Actions should have bootstrap `.btn` class alteration.  Maybe class replacement.
 - action buttons need tooltips
@@ -221,11 +219,10 @@ privacy: {
 - bug: in index, given a record's property value (like category: 7), if that model does not exist, it crashes the app.
 - text type doesn't exist anymore
 - `beforeCreate` shouldn't be a method of `forestay.index` but rather `fotestay`
-- run all html into htmlSanitize filter to prevent xss
+- run all html into htmlSanitize filter to prevent xss.  Add mode sanitize: false, or give the user the option to set their own sanitation rules 
 - bug - Model collection not "uncheckable"
 - Optional description in indexes
-- After edit, forward to alternate URL instead of Index
-
+- tag UI style collections, new entries get added to model.
 
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
