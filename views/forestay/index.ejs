@@ -193,14 +193,14 @@
   <ul class="pagination pg-blue justify-content-end">
 
     <li class="page-item">
-        <a href="?pg=1" aria-label="Previous">
+        <a href="?pg=1<%= queryString %>" aria-label="Previous">
             &lt;&lt;
         </a>
     </li>
 
           <% if(pg > 1) { %>
           <li class="page-item">
-              <a href="?pg=<%= parseInt(pg) - 1 %>" aria-label="Previous">
+              <a href="?pg=<%= parseInt(pg) - 1 %><%= queryString %>" aria-label="Previous">
                   <span aria-hidden="true">&lt;</span>
               </a>
           </li>
@@ -218,7 +218,7 @@
 
 <% if(pg < number_of_pages) { %>
   <li class="page-item">
-      <a href="?pg=<%= parseInt(pg) + 1 %>" aria-label="Next">
+      <a href="?pg=<%= parseInt(pg) + 1 %><%= queryString %>" aria-label="Next">
           &gt;
       </a>
   </li>
@@ -231,7 +231,7 @@
     <% } %>
 
     <li class="page-item">
-        <a href="?pg=<%= number_of_pages %>" aria-label="Previous">
+        <a href="?pg=<%= number_of_pages %><%= queryString %>" aria-label="Previous">
             &gt;&gt;
         </a>
     </li>
@@ -251,18 +251,18 @@
     <% } %>
   }
 
-ul.pagination {
+  ul.pagination {
   font-size: 1.2em;
   background-color: #FFF;
-}
-ul.pagination  > li{
-  padding-left:7px;
-  padding-right:7px;
-}
+  }
 
-ul.pagination > li.disabled a {
-  color: #D3D3D3;
-}
+  ul.pagination  > li{
+    padding-left:7px;
+    padding-right:7px;
+  }
 
+  ul.pagination > li.disabled a {
+    color: #D3D3D3;
+  }
 </style>
 
