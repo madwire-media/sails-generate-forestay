@@ -105,9 +105,12 @@ make: {
 - `model.attributes[key].description` shows in CREATE/Update views
 - `model.attributes[key].meta.forestay.prefillable === true` Allow values to be prefilled from the URL query when this is set to true.  For example a query parm of `?pet=12` will prefill the `pet` field with the value of `12` on the create form.
 - `model.forestay.beforeCreate`  - we opted to use this instead of Sails beforeCreate callback, because we have the req and res objects available.  the `forestay.save` object will contain the values that will be saved
-- `model.forestay.beforeUpdate` - We use this instead of the Saild beforeUpdate callback, because we want access to REQ,RES and saved ids.  The saved values are contained in `forestay.save` and the original ID is `forestay.id` if you need to look up pre-saved values in the database
 ```Javascript
   beforeCreate: function(req, res, forestay, next)
+```
+- `model.forestay.beforeUpdate` - We use this instead of the Sails beforeUpdate callback, because we want access to REQ,RES and saved ids.  The saved values are contained in `forestay.save` and the original ID is `forestay.id` if you need to look up pre-saved values in the database
+```Javascript
+  beforeUpdate: function(req, res, forestay, next)
 ```
 - `model.forestay.index.beforeRender` callback, gets fired before the index page is rendered
 ```javascript
