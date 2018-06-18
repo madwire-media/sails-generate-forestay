@@ -188,6 +188,59 @@
   <% }) %>
 </table>
 
+<% if(number_of_pages > 1) { %>
+<nav aria-label="Page navigation example">
+  <ul class="pagination pg-blue justify-content-end">
+
+    <li class="page-item">
+        <a href="?pg=1<%= queryString %>" aria-label="Previous">
+            &lt;&lt;
+        </a>
+    </li>
+
+          <% if(pg > 1) { %>
+          <li class="page-item">
+              <a href="?pg=<%= parseInt(pg) - 1 %><%= queryString %>" aria-label="Previous">
+                  <span aria-hidden="true">&lt;</span>
+              </a>
+          </li>
+          <% } else { %>
+            <li class="page-item disabled ">
+                <a href="javascript:void(0);" aria-label="Previous">
+                    &lt;
+                </a>
+            </li>
+            <% } %>
+
+<li class="page-item">
+            <a class="text-primary">Page <%= pg %>/<%= number_of_pages%></a>
+</li>
+
+<% if(pg < number_of_pages) { %>
+  <li class="page-item">
+      <a href="?pg=<%= parseInt(pg) + 1 %><%= queryString %>" aria-label="Next">
+          &gt;
+      </a>
+  </li>
+  <% } else { %>
+    <li class="page-item disabled">
+        <a href="javascript:void(0);" aria-label="Next">
+            &gt;
+        </a>
+    </li>
+    <% } %>
+
+    <li class="page-item">
+        <a href="?pg=<%= number_of_pages %><%= queryString %>" aria-label="Previous">
+            &gt;&gt;
+        </a>
+    </li>
+
+      </ul>
+
+</nav>
+<% } %>
+
 <% if (_.get(forestay,['config','forestay','index','footerHtml'])) { %><%- forestay.config.forestay.index.footerHtml %><% } %>
 
 <style>
@@ -198,5 +251,18 @@
     <% } %>
   }
 
+  ul.pagination {
+  font-size: 1.2em;
+  background-color: #FFF;
+  }
 
+  ul.pagination  > li{
+    padding-left:7px;
+    padding-right:7px;
+  }
+
+  ul.pagination > li.disabled a {
+    color: #D3D3D3;
+  }
 </style>
+

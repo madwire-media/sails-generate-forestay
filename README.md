@@ -178,52 +178,13 @@ privacy: {
 },
 ```
 - `forestay.config.forestay.index.filterOverride` override filters with sailsJS filter syntax https://sailsjs.com/documentation/concepts/models-and-orm/query-language
-- `model.attributes[key].meta.forestay.createUpdateUi:'tagging'` - A collection UI for tagging on create/update. New tags are created if `allowAddition===true` 
+- `model.attributes[key].meta.forestay.createUpdateUi:'tagging'` - A collection UI for tagging on create/update. New tags are created if `allowAddition===true`
+ - Pagination:  Pagination is built in.  Just set `forestay.config.forestay.itemsPerPage` to an integer.
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
 - `background` - the URL location of a background image like `/images/bg.jpg`
 
-### TODO
-
-- Create defaults from other routes. Use case: A user can create an item with a default reference to an existing item in another model.
-- Ref attributes
-- datetime & date type UI
-- defaultsTo on create template
-- `beforeUpdate` callback like `beforeCreate`
-- More Validations
-- Separate controller actions for Index/createView/createPost/updateView/updatePost/delete so that they can be run through policies - This can be done now but needs to be documented
-- Better docs
-- Model action modals
-- Pagination
-- `model.attributes[key].meta.forestay.mutable === false` - Field can be edited on create, but not after create.
-- Associations - Additional fields to show for associative lists
-- Associations - Show populateBy fields in index list.  Currently ids show for models, and nothing shows for collections
-- Edit button for each association from index along with "show associated edit button" in related model
-- Alternate layout per model
-- Main title/header
-- isIn ==== Enum - This appears to not be working in some cases
-- Menu groups for forestay layout
-- index sort by and `model.attributes[key].meta.forestay.sortable`
-- default sort property
-- Create/Update custom return route/url
-- Actions should have bootstrap `.btn` class alteration.  Maybe class replacement.
-- action buttons need tooltips
-- ability to use images for action buttons
-- CreateUpdate/Create/Update/Index - Custom HTML that goes in footers.  For scripts
-- Input type="hidden"
-- `model.attributes[key].meta.forestay.updateCreateFilterBy` for collections - (object) Model - Create Filter By - Only show models with specified value. for example, only models related to a specific record
-- Subtitles on each page
-- `model.attributes[key].meta.forestay.position` field position in index and form
-- `model.attributes[key].meta.forestay.populate === true` for models and controllers, populate result in `forestay.records` object
-- Are you sure? on delete
-- bug: in index, given a record's property value (like category: 7), if that model does not exist, it crashes the app.
-- text type doesn't exist anymore
-- `beforeCreate` shouldn't be a method of `forestay.index` but rather `fotestay`
-- run all html into htmlSanitize filter to prevent xss.  Add mode sanitize: false, or give the user the option to set their own sanitation rules
-- bug - Model collection not "uncheckable"
-- Optional description in indexes
-- tag UI style collections, new entries get added to model.
 
 
 [![NPM](https://nodei.co/npm/sails-generate-forestay.png?downloads=true)](http://npmjs.com/package/sails-generate-forestay)
