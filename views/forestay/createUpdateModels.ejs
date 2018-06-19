@@ -11,7 +11,7 @@
           if(forestay.id){
             var sv = forestay.config.attributes[attrKey].selectedValue[0]
               if(typeof sv != "undefined" && sv) {
-                if(_.get(sv,[attrKey, "id"]) == av.id || _.get(sv,[attrKey] == av.id)){
+                if(_.get(sv,[attrKey, "id"]) == av.id || _.get(sv,[attrKey] == av.id) || av.id == record[attrKey]){
                   selected = "selected"
                 }
               }
