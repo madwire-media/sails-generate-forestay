@@ -111,6 +111,13 @@ make: {
     return next(forestay)
   }
 ```
+- `model.forestay.afterCreate` - This gets run after a new record is created.
+```javascript
+afterCreate: function(req,res,forestay,next){
+    console.log("AFTER CREATE!", forestay.saved)
+    return next(null, forestay)
+  },
+```
 - `model.forestay.beforeUpdate` - We use this instead of the Sails beforeUpdate callback, because we want access to REQ,RES and saved ids.  The saved values are contained in `forestay.save` and the original ID is `forestay.id` if you need to look up pre-saved values in the database
 ```Javascript
   beforeUpdate: function(req, res, forestay, next){
