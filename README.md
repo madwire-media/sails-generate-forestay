@@ -136,6 +136,10 @@ beforeRender: function (req, res, forestay, next) {
   return next(null,forestay)
 },
 ```
+- `model.forestay.createUpdateReturnUrl` Return URL after create/update. Can use standard express-style routing parameters.
+```Javascript
+createUpdateReturnUrl: "/user/:id/view",
+```
 - `model.forestay.createUpdate.beforeUpdateCreateView` callback, gets fired before the create/update page is rendered.  
 ```javascript
 beforeUpdateCreateView: function (req, res, forestay, next){
