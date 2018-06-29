@@ -102,6 +102,13 @@ make: {
 - `model.attributes[key].meta.forestay.replaceIndexHtml` - When in the index, replace with given HTML template. (TODO: Can be a EJS template!) - Warning, this will evaluate all HTML, EJS and Javascript and could be an entry to your system.  If you make this user editable, you are potentially introducing a security risk if you are not sanitizing your inputs
 - `model.forestay.actions` These actions create UI buttons for your model index or individual records
 - `model.forestay.index.hideAddButton` Removes the "Add" record button from index.  You can alternately create an action button to replace it.
+- `model.forestay.index.defaultSort` Default sort column for index.  Default method is "ASC" for ascending, can also use "DESC" for descending
+```Javascript
+{
+ attribute: "title",
+ method: "ASC"
+},
+```
 - `model.attributes[key].description` shows in CREATE/Update views
 - `model.attributes[key].meta.forestay.prefillable === true` Allow values to be prefilled from the URL query when this is set to true.  For example a query parm of `?pet=12` will prefill the `pet` field with the value of `12` on the create form.
 - `model.forestay.beforeCreate`  - we opted to use this instead of Sails beforeCreate callback, because we have the req and res objects available.  the `forestay.save` object will contain the values that will be saved
