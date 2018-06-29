@@ -169,7 +169,7 @@
       <% } %>
       <% if(_.get(forestay,['config','forestay','index','hideDeleteButton']) !== true){ %>
       <td>
-        <form method="post" action="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/delete">
+        <form onsubmit="return confirm('Are you sure?');" method="post" action="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/delete">
           <input type="hidden" name='_csrf' value='<%= _csrf %>'>
           <button class="btn btn-danger btn-sm">Delete</button>
         </form>
@@ -265,4 +265,3 @@
     color: #D3D3D3;
   }
 </style>
-
