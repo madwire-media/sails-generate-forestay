@@ -38,11 +38,6 @@ $ sails generate forestay (modelname)
 
 You will then be shown the routing code to place into your `routes.js` file. This will route actions through the Forestay controllers and give you a complete CRUD interface.
 
-
-
-
-
-
 ### Using forestay with existing models
 [Please visit the wiki article on using existing models](https://github.com/madwire-media/sails-generate-forestay/wiki/Using-Forestay-with-existing-models)
 
@@ -115,7 +110,7 @@ make: {
 ```javascript
   beforeCreate: function(req, res, forestay, next){
     /* ... */
-    return next(forestay)
+    return next(null, forestay)
   }
 ```
 - `model.forestay.afterCreate` - This gets run after a new record is created.
