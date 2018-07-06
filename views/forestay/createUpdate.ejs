@@ -64,6 +64,10 @@
           enumOptions = _.get(forestay.config.attributes[attrKey],["isIn"])
           attributeType = "enum"
        }
+       if (Array.isArray(_.get(forestay.config.attributes[attrKey],["enum"]))){
+         enumOptions = _.get(forestay.config.attributes[attrKey],["enum"])
+         attributeType = "enum"
+       }
 
       }
 
