@@ -7,7 +7,7 @@
   var showId = (_.get(forestay.config.forestay.index, ["showId"]) === true)
   var showCreatedAt = (_.get(forestay.config.forestay.index, ["showCreatedAt"]) === true)
   var showUpdatedAt = (_.get(forestay.config.forestay.index, ["showUpdatedAt"]) === true)
-
+  var buttonClass;
 %>
 <h1><%= pageTitle %></h1>
 <% if (_.get(forestay,['config','forestay','index','hideAddButton']) !== true) { %>
@@ -17,7 +17,17 @@
 <% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
   <% Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
     <% if(_.get(forestay.config.forestay.actions, [actionKey, "type"]) == "index"){ %>
-      <a href="<%= actionKey %>" class="btn btn-success"><%= forestay.config.forestay.actions[actionKey].label %></a>
+    <%  /* Override buttonClass */
+        if(_.get(forestay.config.forestay.actions,[actionKey,"buttonClass"])){
+          buttonClass = 'btn '+forestay.config.forestay.actions[actionKey].buttonClass;
+        } else {
+          buttonClass = 'btn btn-success';
+        }
+        if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){ %>
+          <a href="<%= actionKey %>" class="<%= buttonClass %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+          <% } else { %>
+            <a href="<%= actionKey %>" class="<%= buttonClass %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+      <% } %>
     <% } %>
   <% }) %>
 <% } %>
