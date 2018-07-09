@@ -1,12 +1,24 @@
-<% if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
+<%
+var buttonClass;
+if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
   <%Object.keys(forestay.config.forestay.actions).forEach(function (actionKey) { %>
     <% if(_.get(forestay.config.forestay.actions,[actionKey,"type"]) == "record"){ %>
       <td>
-        <% if(typeof _.get(row.actions[actionKey],['link']) !== "undefined") {%>
-          <a href="<%= row.actions[actionKey].link %>" class="btn btn-sm btn-success"><%= row.actions[actionKey].label %></a>
-        <% } %>
+        <% if(typeof _.get(row.actions[actionKey],['link']) !== "undefined") {
+            /* Override buttonClass */
+            if(_.get(forestay.config.forestay.actions,[actionKey,"buttonClass"])){
+              buttonClass = 'btn btn-sm '+forestay.config.forestay.actions[actionKey].buttonClass;
+            } else {
+              buttonClass = 'btn btn-sm btn-success';
+            }
+            /* set imageUrl */
+            if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){ %>
+              <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+              <% } else { %>
+                <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>"><%= row.actions[actionKey].label %></a>
+              <% } %>
+          <% } %>
       </td>
     <% } %>
   <% }) %>
 <% } %>
- 
