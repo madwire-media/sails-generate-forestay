@@ -24,9 +24,9 @@
           buttonClass = 'btn btn-success';
         }
         if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){ %>
-          <a href="<%= actionKey %>" class="<%= buttonClass %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+          <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
           <% } else { %>
-            <a href="<%= actionKey %>" class="<%= buttonClass %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+            <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
       <% } %>
     <% } %>
   <% }) %>
@@ -199,56 +199,32 @@
 </table>
 
 <% if(number_of_pages > 1) { %>
-<nav aria-label="Page navigation example">
-  <ul class="pagination pg-blue justify-content-end">
-
-    <li class="page-item">
-        <a href="?pg=1<%= queryString %>" aria-label="Previous">
-            &lt;&lt;
-        </a>
-    </li>
-
-          <% if(pg > 1) { %>
-          <li class="page-item">
-              <a href="?pg=<%= parseInt(pg) - 1 %><%= queryString %>" aria-label="Previous">
-                  <span aria-hidden="true">&lt;</span>
-              </a>
-          </li>
-          <% } else { %>
-            <li class="page-item disabled ">
-                <a href="javascript:void(0);" aria-label="Previous">
-                    &lt;
-                </a>
-            </li>
-            <% } %>
-
-<li class="page-item">
-            <a class="text-primary">Page <%= pg %>/<%= number_of_pages%></a>
-</li>
-
-<% if(pg < number_of_pages) { %>
-  <li class="page-item">
-      <a href="?pg=<%= parseInt(pg) + 1 %><%= queryString %>" aria-label="Next">
-          &gt;
-      </a>
-  </li>
-  <% } else { %>
-    <li class="page-item disabled">
-        <a href="javascript:void(0);" aria-label="Next">
-            &gt;
-        </a>
-    </li>
-    <% } %>
-
-    <li class="page-item">
-        <a href="?pg=<%= number_of_pages %><%= queryString %>" aria-label="Previous">
-            &gt;&gt;
-        </a>
-    </li>
-
-      </ul>
-
-</nav>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination pg-blue justify-content-end">
+      <% if(pg == 1) { %>
+        <li class="page-item disabled"><a href="javascript:void(0);" aria-label="Previous">&lt;&lt;</a></li>
+      <% } else { %>
+        <li class="page-item"><a href="?pg=1<%= queryString %>" aria-label="Previous">&lt;&lt;</a></li>
+      <% } %>
+      <% if(pg > 1) { %>
+        <li class="page-item"><a href="?pg=<%= parseInt(pg) - 1 %><%= queryString %>" aria-label="Previous"><span aria-hidden="true">&lt;</span></a></li>
+      <% } else { %>
+        <li class="page-item disabled "><a href="javascript:void(0);" aria-label="Previous">&lt;</a></li>
+      <% } %>
+        <li class="page-item"><a class="text-primary">Page <%= pg %>/<%= number_of_pages%></a></li>
+      <% if(pg < number_of_pages) { %>
+        <li class="page-item"><a href="?pg=<%= parseInt(pg) + 1 %><%= queryString %>" aria-label="Next">&gt;</a></li>
+      <% } else { %>
+        <li class="page-item disabled"><a href="javascript:void(0);" aria-label="Next">&gt;</a></li>
+      <% } %>
+      <% if(pg == number_of_pages) { %>
+        <li class="page-item disabled">
+        <a href="javascript:void(0);" aria-label="Previous">&gt;&gt;</a></li>
+      <% } else { %>
+        <li class="page-item"><a href="?pg=<%= number_of_pages %><%= queryString %>" aria-label="Previous">&gt;&gt;</a></li>
+      <% } %>
+    </ul>
+  </nav>
 <% } %>
 
 <% if (_.get(forestay,['config','forestay','index','footerHtml'])) { %><%- forestay.config.forestay.index.footerHtml %><% } %>
