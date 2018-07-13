@@ -13,9 +13,9 @@ if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
             }
             /* set imageUrl */
             if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){ %>
-              <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+              <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
               <% } else { %>
-                <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>"><%= row.actions[actionKey].label %></a>
+                <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><%= row.actions[actionKey].label %></a>
               <% } %>
           <% } %>
       </td>
