@@ -9,6 +9,8 @@ https://nodejs.org/en/download/
 npm install sails -g
 ```
 
+We recommend using an "Empty" project, but you can use "Webapp", too
+
 ### Create new app called projectmanage
 
 ```bash
