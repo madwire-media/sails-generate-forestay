@@ -80,7 +80,7 @@ musicians: {
     }
   }
 ```
-- Collections as multi-select list
+- Collections as multi-select list (Thanks @ReversedK)
 ```Javascript
   users:{
     collection:"User",
