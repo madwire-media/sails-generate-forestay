@@ -4,34 +4,36 @@
     <% if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","createUpdateUi"]) === 'tagging') { %>
       <% include createUpdateCollectionsTagging.ejs %>
     <% } else { // end createUpdateUi Type%>
-      <% 
-      cpt=0;
+      <%
+      var cpt=0;
       forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
-        
+
           <%
             var selected = "";
           %>
           <%
             if(forestay.id){
               forestay.config.attributes[attrKey].selectedValues.forEach(function(sv){
-                if(sv.id == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs!=="select") selected = "checked";
-                if(sv.id == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs==="select") selected = "selected";
+                if(sv.id == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs!=="select") selected = "checked"
+                else if(sv.id == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs==="select") selected = "selected";
               })
             }
           %>
-           <%
-            if(forestay.config.attributes[attrKey].meta.forestay.displayAs!=="select"){
-            %>
-            <div>
-          <input type="checkbox" name="<%= attrKey %>[]" value="<%= av.id %>" <%= selected %>>
-          <label for="<%= attrKey %>[]"><%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></label>
+           <% if(forestay.config.attributes[attrKey].meta.forestay.displayAs ==="select"){ %>
+
+             <% if(cpt++==0) {%> <select class="select-<%= attrKey %>" multiple name="<%= attrKey %>[]" style="min-width: 300px"> <% } %>
+            <option value="<%= av.id %>" <%= selected %>>
+              <%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %>
+            </option>
+          <% } else { %>
+            <div >
+              <input type="checkbox" name="<%= attrKey %>[]" value="<%= av.id %>" <%= selected %>>
+              <label for="<%= attrKey %>[]">
+                <%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %>
+              </label>
            </div>
-          <% } else {
-          
-          if(cpt++==0) {%> <select multiple name="<%= attrKey %>[]"> <% } %> 
-         <option value="<%= av.id %>" <%= selected %>> <%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></option>
-          <% } %> 
-       
+          <% } %>
+
         <% })
 
  if(forestay.config.attributes[attrKey].meta.forestay.displayAs=="select"){%> </select>  <% }%>
