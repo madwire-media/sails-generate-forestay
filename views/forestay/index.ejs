@@ -23,10 +23,18 @@
         } else {
           buttonClass = 'btn btn-success';
         }
-        if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){ %>
-          <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+        if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){
+          if(_.get(forestay.config.forestay.actions,[actionKey,"warningMessage"])) { %>
+            <a onclick="return confirm('<%= forestay.config.forestay.actions[actionKey].warningMessage %>')" href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
           <% } else { %>
-            <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+            <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+          <% } %>
+          <% } else {
+            if(_.get(forestay.config.forestay.actions,[actionKey,"warningMessage"])){ %>
+              <a onclick="return confirm('<%= forestay.config.forestay.actions[actionKey].warningMessage %>')" href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+            <% } else { %>
+              <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+            <% } %>
       <% } %>
     <% } %>
   <% }) %>

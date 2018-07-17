@@ -12,10 +12,18 @@ if (typeof _.get(forestay.config.forestay,["actions"]) == "object") { %>
               buttonClass = 'btn btn-sm btn-success';
             }
             /* set imageUrl */
-            if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){ %>
-              <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
-              <% } else { %>
-                <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><%= row.actions[actionKey].label %></a>
+            if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){
+                if(_.get(forestay.config.forestay.actions,[actionKey,"warningMessage"])) { %>
+                  <a onclick="return confirm('<%= forestay.config.forestay.actions[actionKey].warningMessage %>')" href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+                <% } else { %>
+                  <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+                <% } %>
+              <% } else {
+                if(_.get(forestay.config.forestay.actions,[actionKey,"warningMessage"])){ %>
+                  <a onclick="return confirm('<%= forestay.config.forestay.actions[actionKey].warningMessage %>')" href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><%= row.actions[actionKey].label %></a>
+                <% } else { %>
+                  <a href="<%= row.actions[actionKey].link %>" class="<%= buttonClass %>" title="<%= row.actions[actionKey].label %>"><%= row.actions[actionKey].label %></a>
+                <% } %>
               <% } %>
           <% } %>
       </td>
