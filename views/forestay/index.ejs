@@ -23,10 +23,18 @@
         } else {
           buttonClass = 'btn btn-success';
         }
-        if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){ %>
-          <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+        if(_.get(forestay.config.forestay.actions,[actionKey,"imageUrl"])){
+          if(_.get(forestay.config.forestay.actions,[actionKey,"warningMessage"])) { %>
+            <a onclick="return confirm('<%= forestay.config.forestay.actions[actionKey].warningMessage %>')" href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
           <% } else { %>
-            <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+            <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><img src="<%= forestay.config.forestay.actions[actionKey].imageUrl %>"></a>
+          <% } %>
+          <% } else {
+            if(_.get(forestay.config.forestay.actions,[actionKey,"warningMessage"])){ %>
+              <a onclick="return confirm('<%= forestay.config.forestay.actions[actionKey].warningMessage %>')" href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+            <% } else { %>
+              <a href="<%= actionKey %>" class="<%= buttonClass %>" title="<%= forestay.config.forestay.actions[actionKey].label %>"><%= forestay.config.forestay.actions[actionKey].label %></a>
+            <% } %>
       <% } %>
     <% } %>
   <% }) %>
@@ -41,7 +49,7 @@
     <form>
     <% if(showId){ %>
       <th>ID
-        <% if (_.get(forestay,"hasFilters") === true) { %>
+        <% if (_.get(forestay, ["config","forestay","hasFilters"]) === true) { %>
           <div class="filterBox"></div>
         <% } %>
       </th>
@@ -64,20 +72,15 @@
           _.get(this_attr, ["meta","forestay","label"]) ||
           attrKey
         %>
-        <% if (_.get(forestay,"hasFilters") === true) { %>
+        <% if (_.get(forestay, ["config","forestay","hasFilters"]) === true) { %>
           <div class="filterBox">
-        <% } %>
             <% if(_.get(this_attr, ["meta","forestay","filterable"]) == true) { %>
               <% var value = "" %>
               <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
-
                 <input value="<%= value %>" name="<%= attrKey %>">
-
             <% } %>
-        <% if (_.get(forestay,"hasFilters") === true) { %>
           </div>
         <% } %>
-
 
       </th>
       <% } // end hideInIndex else %>
@@ -85,7 +88,7 @@
     <% if(showCreatedAt){ %>
       <th>
         Created
-        <% if (_.get(forestay,"hasFilters") === true) { %>
+        <% if (_.get(forestay, ["config","forestay","hasFilters"]) === true) { %>
           <div class="filterBox"></div>
         <% } %>
       </th>
@@ -93,7 +96,7 @@
     <% if(showUpdatedAt){ %>
       <th>
         Updated
-        <% if (_.get(forestay,"hasFilters") === true) { %>
+        <% if (_.get(forestay, ["config","forestay","hasFilters"]) === true) { %>
           <div class="filterBox"></div>
         <% } %>
       </th>
@@ -101,7 +104,7 @@
     <% if(_.get(forestay,['config','forestay','index','hideDeleteButton']) !== true){ %>
       <th>
         Delete
-        <% if (_.get(forestay,"hasFilters") === true) { %>
+        <% if (_.get(forestay, ["config","forestay","hasFilters"]) === true) { %>
           <div class="filterBox"></div>
         <% } %>
       </th>
@@ -111,7 +114,7 @@
         <% if(_.get(forestay.config.forestay.actions,[actionKey,"type"]) == "record"){ %>
           <th>
             <%= forestay.config.forestay.actions[actionKey].label %>
-            <% if (_.get(forestay,"hasFilters") === true) { %>
+            <% if (_.get(forestay, ["config","forestay","hasFilters"]) === true) { %>
               <div class="filterBox"></div>
             <% } %>
           </th>
@@ -121,7 +124,7 @@
     <% if(_.get(forestay,['config','forestay','index','hideEditButton']) !== true){ %>
       <th>
         Edit
-        <% if (_.get(forestay,"hasFilters") === true) { %>
+        <% if (_.get(forestay, ["config","forestay","hasFilters"]) === true) { %>
           <div class="filterBox"><input type="submit" value="filter"></div>
         <% } %>
       </th>
@@ -232,7 +235,7 @@
 <style>
   .filterBox {
     height: 32px;
-    <% if(_.get(forestay.config.forestay.index, ['hideFilter']) === true) { %>
+    <% if(_.get(forestay, ["config","forestay","hasFilters"]) !== true) { %>
       display:none;
     <% } %>
   }

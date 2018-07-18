@@ -80,6 +80,19 @@ musicians: {
     }
   }
 ```
+- Collections as multi-select list (Thanks @ReversedK)
+```Javascript
+  users:{
+    collection:"User",
+    via:"usergroups",
+    meta:{
+      forestay:{
+        displayAs:'select',
+        populateBy: "name"
+      }
+    }
+  }
+```
 - Association type `model` - association of a single record. `populateBy` is also required here.
 ```javascript
 make: {
