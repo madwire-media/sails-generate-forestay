@@ -157,7 +157,9 @@
               <%- row.forestay_replace[attrKey] %>
               <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["model"]) == "string") { %>
                 <% /* todo: show something here based on populateBy... maybe? */ %>
-                <%= row[attrKey][_.get(forestay.config.attributes[attrKey],["meta","forestay","populateBy"])] %>
+                <% if(row[attrKey] && _.get(forestay.config.attributes[attrKey],["meta","forestay","populateBy"])) { %>
+                  <%= row[attrKey][_.get(forestay.config.attributes[attrKey],["meta","forestay","populateBy"])] %>
+                <% } %>
               <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["collection"]) == "string") { %>
                 <% /* todo: show something collection here based on populateBy... maybe? */ %>
                 <% if (row[attrKey]) { %>
