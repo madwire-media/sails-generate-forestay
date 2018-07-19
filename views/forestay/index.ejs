@@ -77,7 +77,9 @@
             <% if(_.get(this_attr, ["meta","forestay","filterable"]) == true) { %>
               <% var value = "" %>
               <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
+              <% if(_.get(this_attr, ["type"]) == 'string' || _.get(this_attr, ["type"]) == 'number') { %>
                 <input value="<%= value %>" name="<%= attrKey %>">
+              <% } %>
             <% } %>
           </div>
         <% } %>
@@ -155,9 +157,18 @@
           <td class="field field-<%= attrKey %>">
             <% if(typeof _.get(row, ['forestay_replace',attrKey])==="string"){ %>
               <%- row.forestay_replace[attrKey] %>
-            <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["model"]) == "string") { %>
-              <% /* todo: show something here based on populateBy... maybe? */ %>
-              <%= row[attrKey] %>
+              <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["model"]) == "string") { %>
+                <% /* todo: show something here based on populateBy... maybe? */ %>
+                <% if(row[attrKey] && _.get(forestay.config.attributes[attrKey],["meta","forestay","populateBy"])) { %>
+                  <%= row[attrKey][_.get(forestay.config.attributes[attrKey],["meta","forestay","populateBy"])] %>
+                <% } %>
+              <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["collection"]) == "string") { %>
+                <% /* todo: show something collection here based on populateBy... maybe? */ %>
+                <% if (row[attrKey]) { %>
+                  <% row[attrKey].forEach(function (arrayItem) { %>
+                    <%= arrayItem[_.get(forestay.config.attributes[attrKey],["meta","forestay","populateBy"])] %>
+                  <% }) %>
+                <% } %>
             <% } else if (attributeType == "boolean") { %>
               <% if(typeof _.get(forestay.config.attributes[attrKey],["meta","forestay","booleanLabels","true"]) === "string" && row[attrKey] === true){ %>
                 <%= forestay.config.attributes[attrKey].meta.forestay.booleanLabels.true %>
