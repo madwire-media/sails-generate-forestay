@@ -77,7 +77,9 @@
             <% if(_.get(this_attr, ["meta","forestay","filterable"]) == true) { %>
               <% var value = "" %>
               <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
+              <% if(_.get(this_attr, ["type"]) == 'string' || _.get(this_attr, ["type"]) == 'number') { %>
                 <input value="<%= value %>" name="<%= attrKey %>">
+              <% } %>
             <% } %>
           </div>
         <% } %>
