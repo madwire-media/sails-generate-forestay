@@ -1,0 +1,25 @@
+<select name="<%= attrKey %>" style="width:100%">
+  <option></option>
+  <% if( _.get(forestay.config.attributes[attrKey],["availableValues"])) { %>
+  <% forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
+        <%
+          var selected = "";
+          if(av.id == value){
+            selected = "selected"
+          }
+          if(typeof _.get(forestay.config.attributes[attrKey], ['meta','forestay','updateCreateFilterBy']) === "object"){
+            var removal = true
+
+            Object.keys(forestay.config.attributes[attrKey].meta.forestay.updateCreateFilterBy).forEach(function(filterAttr){
+
+              if(av[filterAttr] === forestay.config.attributes[attrKey].meta.forestay.updateCreateFilterBy[filterAttr]) removal = false
+            })
+          }
+        %>
+        <% if(!removal){ %>
+            <option  value="<%= av.id %>" <%= selected %>><%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %></option>
+        <% } %>
+
+  <% }) %>
+  <% } %>
+</select>
