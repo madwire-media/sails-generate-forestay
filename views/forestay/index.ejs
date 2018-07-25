@@ -67,6 +67,32 @@
 
         <%
           var this_attr = forestay.config.attributes[attrKey]
+          var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
+
+          if(typeof attributeType != "string") attributeType ="";
+
+          if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
+          if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
+          attributeType = attributeType.toLowerCase();
+
+          var enumOptions
+
+          if(attributeType == "string"){
+            // I've seen both formats for
+            if (Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))) {
+              enumOptions = _.get(forestay.config.attributes[attrKey],["validations","isIn"])
+              attributeType = "enum"
+            }
+            if (Array.isArray(_.get(forestay.config.attributes[attrKey],["isIn"]))){
+              enumOptions = _.get(forestay.config.attributes[attrKey],["isIn"])
+              attributeType = "enum"
+           }
+           if (Array.isArray(_.get(forestay.config.attributes[attrKey],["enum"]))){
+             enumOptions = _.get(forestay.config.attributes[attrKey],["enum"])
+             attributeType = "enum"
+           }
+
+          }
         %>
         <%=
           _.get(this_attr, ["meta","forestay","label"]) ||
@@ -77,7 +103,9 @@
             <% if(_.get(this_attr, ["meta","forestay","filterable"]) == true) { %>
               <% var value = "" %>
               <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
-              <% if(_.get(this_attr, ["type"]) == 'string' || _.get(this_attr, ["type"]) == 'number') { %>
+              <% if (attributeType == "model"){ %>
+                <% include filterByModel.ejs %>
+              <% } else if (attributeType == "string" || attributeType == "number"){ %>
                 <input value="<%= value %>" name="<%= attrKey %>">
               <% } %>
             <% } %>
