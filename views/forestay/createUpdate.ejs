@@ -20,9 +20,10 @@
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <%
       var this_attr = forestay.config.attributes[attrKey]
-
-      if (_.get(this_attr, ["meta","forestay","hideInForm"]) === true){
+      
+      if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","hideInForm"]) === true){
         // do nothing if this field is meant to be hidden
+
       }
       else {
     %>
