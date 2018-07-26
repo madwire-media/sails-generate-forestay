@@ -8,6 +8,7 @@
   var showCreatedAt = (_.get(forestay.config.forestay.index, ["showCreatedAt"]) === true)
   var showUpdatedAt = (_.get(forestay.config.forestay.index, ["showUpdatedAt"]) === true)
   var buttonClass;
+  var booleanValues = {0:'false',1:'true'};
 %>
 <h1><%= pageTitle %></h1>
 <% if (_.get(forestay,['config','forestay','index','hideAddButton']) !== true) { %>
@@ -107,12 +108,24 @@
                 <% include filterByModel.ejs %>
               <% } else if (attributeType == "string" || attributeType == "number"){ %>
                 <input value="<%= value %>" name="<%= attrKey %>">
-                <% } else if (attributeType == "enum"){ %>
+                <% } else if (attributeType == "boolean"){ %>
                   <select name="<%= attrKey %>" >
+                      <option></option>
+                      <% Object.keys(booleanValues).forEach(function(key) { %>
+                        <% var isSelected = "" %>
+                        <%
+                        if (typeof _.get(req.query, [attrKey]) !== 'undefined' && _.get(req.query, [attrKey]) !== '') {
+                          if(key == _.get(req.query, [attrKey])) isSelected = "selected"
+                        }
+                        %>
+                        <option value="<%= key %>" <%= isSelected %>><%= booleanValues[key] %></option>
+                      <% }) %>
+                  </select>
+                <% } else if (attributeType == "enum"){ %>
+                <select name="<%= attrKey %>" >
                     <option></option>
                     <% enumOptions.forEach(function(o){ %>
                       <% var isSelected = "" %>
-
                       <%
                       if (typeof _.get(req.query, [attrKey]) !== 'undefined' && _.get(req.query, [attrKey]) !== '') {
                         if(o == _.get(req.query, [attrKey])) isSelected = "selected"
