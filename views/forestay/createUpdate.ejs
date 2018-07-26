@@ -91,7 +91,11 @@
         if (record[attrKey] === null) v = ""
 
         value = `value="${v}"`
-      }
+      }  else {
+      if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
+            value = `value="${forestay.prefills[attrKey]}"`
+            }
+    }
 
 
 
