@@ -93,14 +93,18 @@
 
         value = `value="${v}"`
       }  else {
+
+      if (_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])) {
+        value = `value="${_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])}"`
+        attributeValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])
+      }
+
       if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
-            value = `value="${forestay.prefills[attrKey]}"`
-            attributeValue = forestay.prefills[attrKey]
-            }
+        value = `value="${forestay.prefills[attrKey]}"`
+        attributeValue = forestay.prefills[attrKey]
+      }
+
     }
-
-
-
               %>
 
               <% if(attributeType == "string"){ %>

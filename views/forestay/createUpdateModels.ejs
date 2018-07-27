@@ -19,6 +19,10 @@
             if(av.id == parseInt(forestay.prefills[attrKey])){
               selected = "selected"
             }
+          } else if(_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])){
+            if(av.id == parseInt(forestay.config.attributes[attrKey].meta.forestay.defaultValue)){
+              selected = "selected"
+            }
           }
 
           if(typeof _.get(forestay.config.attributes[attrKey], ['meta','forestay','updateCreateFilterBy']) === "object"){
