@@ -61,7 +61,7 @@ Note that this is an early release of this generator;
 - Model `number` - Integers though input `number` attribute
 - Model `boolean` - truthy/falsey represented by HTML select
 - Model `text` - HTML Text Area
-- Model `enum` will show as a `<select>` list
+- Model `enum` will show as a `<select>` list for `string` and `number` types
 ```javascript
 instrumentType: {
     type:"string",
@@ -225,6 +225,9 @@ privacy: {
 - `forestay.config.forestay.index.filterOverride` override filters with sailsJS filter syntax https://sailsjs.com/documentation/concepts/models-and-orm/query-language
 - `model.attributes[key].meta.forestay.createUpdateUi:'tagging'` - A collection UI for tagging on create/update. New tags are created if `allowAddition===true`
  - Pagination:  Pagination is built in.  Just set `forestay.config.forestay.itemsPerPage` to an integer.
+ - `forestay.args` - You have access to the URL arguments through `forestay.args`.  You can use this throughout the request process.
+ ```Javascript
+ ```
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
