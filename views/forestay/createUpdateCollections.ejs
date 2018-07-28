@@ -17,6 +17,11 @@
                 if(sv.id == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs!=="select") selected = "checked"
                 else if(sv.id == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs==="select") selected = "selected";
               })
+            } else if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue']) != "undefined") {
+              _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue']).forEach(function(value) {
+                if(value == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs!=="select") selected = "checked"
+                else if(value == av.id && forestay.config.attributes[attrKey].meta.forestay.displayAs==="select") selected = "selected";
+              });
             }
           %>
            <% if(forestay.config.attributes[attrKey].meta.forestay.displayAs ==="select"){ %>

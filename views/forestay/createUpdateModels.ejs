@@ -19,7 +19,7 @@
             if(av.id == parseInt(forestay.prefills[attrKey])){
               selected = "selected"
             }
-          } else if(_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])){
+          } else if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue']) != "undefined") {
             if(av.id == parseInt(forestay.config.attributes[attrKey].meta.forestay.defaultValue)){
               selected = "selected"
             }
