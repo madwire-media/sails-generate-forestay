@@ -145,7 +145,7 @@
     <% if(showCreatedAt){ %>
       <th>
         <% var createdAtLabelValue;
-        if(_.get(forestay.config.forestay, ["createdAtLabel"]) != "") {
+        if(typeof _.get(forestay.config.forestay, ["createdAtLabel"]) != "undefined") {
           createdAtLabelValue = forestay.config.forestay.createdAtLabel
         } else {
           createdAtLabelValue = "Created"
@@ -159,7 +159,7 @@
     <% if(showUpdatedAt){ %>
       <th>
         <% var createdAtLabelValue;
-        if(_.get(forestay.config.forestay, ["updatedAtLabel"]) != "") {
+        if(typeof _.get(forestay.config.forestay, ["updatedAtLabel"]) != "undefined") {
           updatedAtLabelValue = forestay.config.forestay.updatedAtLabel
         } else {
           updatedAtLabelValue = "Updated"
