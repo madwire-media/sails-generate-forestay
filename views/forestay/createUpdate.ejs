@@ -94,7 +94,7 @@
         value = `value="${v}"`
       }  else {
 
-      if (_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])) {
+      if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue']) != "undefined") {
         value = `value="${_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])}"`
         attributeValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])
       }
@@ -117,7 +117,9 @@
                     var trueSelected = ""
                     var falseSelected = ""
                     if(forestay.id && record[attrKey] == true) trueSelected = "selected"
+                    if(! forestay.id && attributeValue == true) trueSelected = "selected"
                     if(forestay.id && record[attrKey] == false) falseSelected = "selected"
+                    if(! forestay.id && attributeValue == false) falseSelected = "selected"
                   %>
                   <select name="<%= attrKey %>" <%= required %> class="boolean-input boolean-input-<%= attrKey %>">
                     <option></option>
