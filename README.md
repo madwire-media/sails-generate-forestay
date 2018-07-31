@@ -207,6 +207,7 @@ beforeRoute: function(req, res, forestay, next){
 - `model.forestay.index.hideEditButton` hide edit button in indexes
 - `model.forestay.index.hideDeleteButton` hide delete button in indexes
 - `model.forestay.index.filterLogicalOperator === "or"` set to "or" and filters will user "or" logical oporator.  Default is "and"
+- `model.forestay.createdAtLabel` - Label for the "Created At" label
 - `boolean` type replacement text   
 ```Javascript
 privacy: {
