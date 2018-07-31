@@ -224,6 +224,8 @@
           <td class="field field-<%= attrKey %>">
             <% if(typeof _.get(row, ['forestay_replace',attrKey])==="string"){ %>
               <%- row.forestay_replace[attrKey] %>
+              <% } else if(_.get(forestay.config.attributes[attrKey], ["type"]) ==="json"){ %>
+                <%- JSON.stringify(row[attrKey]) %>
               <% } else if (typeof _.get(forestay.config.attributes[attrKey], ["model"]) == "string") { %>
                 <% /* todo: show something here based on populateBy... maybe? */ %>
                 <% if(row[attrKey] && _.get(forestay.config.attributes[attrKey],["meta","forestay","populateBy"])) { %>
