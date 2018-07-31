@@ -144,7 +144,13 @@
     <% }) %>
     <% if(showCreatedAt){ %>
       <th>
-        Created
+        <% var createdAtLabelValue;
+        if(typeof _.get(forestay.config.forestay, ["createdAtLabel"]) != "undefined") {
+          createdAtLabelValue = forestay.config.forestay.createdAtLabel
+        } else {
+          createdAtLabelValue = "Created"
+        } %>
+        <%= createdAtLabelValue %>
         <% if (_.get(forestay, ["hasFilters"]) === true) { %>
           <div class="filterBox"></div>
         <% } %>
@@ -152,7 +158,13 @@
     <% } %>
     <% if(showUpdatedAt){ %>
       <th>
-        Updated
+        <% var updatedAtLabelValue;
+        if(typeof _.get(forestay.config.forestay, ["updatedAtLabel"]) != "undefined") {
+          updatedAtLabelValue = forestay.config.forestay.updatedAtLabel
+        } else {
+          updatedAtLabelValue = "Updated"
+        } %>
+        <%= updatedAtLabelValue %>
         <% if (_.get(forestay, ["hasFilters"]) === true) { %>
           <div class="filterBox"></div>
         <% } %>
