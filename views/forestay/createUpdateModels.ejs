@@ -23,6 +23,10 @@
             if(av.id == parseInt(forestay.config.attributes[attrKey].meta.forestay.defaultValue)){
               selected = "selected"
             }
+          } else if(typeof _.get(req.query,["errorMessage"]) != "undefined" && typeof _.get(req.query,[attrKey]) != "undefined" ) {
+            if(av.id == parseInt(_.get(req.query,[attrKey]))){
+              selected = "selected"
+            }
           }
 
           if(typeof _.get(forestay.config.attributes[attrKey], ['meta','forestay','updateCreateFilterBy']) === "object"){
