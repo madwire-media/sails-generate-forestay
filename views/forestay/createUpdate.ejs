@@ -15,6 +15,18 @@
     <% if(forestay.id) { %><%= forestay.id %><% } %>
   </h6>
   <hr/>
+
+<% if(typeof _.get(req.query,["errorMessage"]) != "undefined"){ %>
+<div class="alert alert-danger">
+  <% var validationErrors = req.query.errorMessage.split("\n"); %>
+  <% if(validationErrors.length > 0) { %>
+    <% for (var i = 0; i < validationErrors.length; i++) { %>
+    <%= validationErrors[i] %><br/>
+    <% } %>
+  <% } %>
+</div>
+<% }  %>
+
   <form method="post" class="form form-<%= forestay.model.name %>">
     <table class="table">
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
@@ -107,6 +119,11 @@
         attributeValue = forestay.prefills[attrKey]
       }
 
+      if(typeof _.get(req.query,["errorMessage"]) != "undefined" && typeof _.get(req.query,[attrKey]) != "undefined" ) {
+        value = `value="${_.get(req.query,[attrKey])}"`
+        attributeValue = _.get(req.query,[attrKey])
+      }
+
     }
               %>
 
@@ -121,7 +138,11 @@
                 <% } else if(attributeType == "number"){ %>
                   <input style="width:100%" type="number" name="<%= attrKey %>" class="number-input number-input-<%= attrKey %>" <%- value %> <%= required %>>
                 <% } else if(attributeType == "text"){ %>
-                  <textarea style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
+                  <% if(forestay.id) { %>
+                    <textarea style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
+                  <% } else { %>
+                    <textarea style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%- attributeValue %></textarea>
+                  <% } %>
                 <% } else if(attributeType == "boolean"){
                     var trueSelected = ""
                     var falseSelected = ""
@@ -149,7 +170,6 @@
                   </select>
                 <% } else if (attributeType == "enum"){ %>
                   <select name="<%= attrKey %>" <%= required %>>
-                    <option></option>
                     <% enumOptions.forEach(function(o){ %>
                       <% var isSelected = "" %>
                       <% if(forestay.id && o === record[attrKey]) isSelected = "selected" %>
