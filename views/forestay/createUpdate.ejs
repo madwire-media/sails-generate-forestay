@@ -3,8 +3,6 @@
     _.get(forestay, ["config","forestay","title"]) ||
     _.get(forestay, ["model","name"]) ||
     "forestay Model";
-
-
 %>
 
   <h1><%= pageTitle %></h1>
@@ -15,7 +13,7 @@
     <% if(forestay.id) { %><%= forestay.id %><% } %>
   </h6>
   <hr/>
-  <form method="post" class="form form-<%= forestay.model.name %>">
+  <form onsubmit="return validateField(<%= JSON.stringify(forestay.config.attributes) %>)"  method="post" class="form form-<%= forestay.model.name %>">
     <table class="table">
       <% Object.keys(forestay.config.attributes).forEach(function(attrKey, i){ %>
         <%
@@ -108,20 +106,25 @@
       }
 
     }
-              %>
+%>
 
               <% if(attributeType == "string"){ %>
-                  <input style="width:100%" name="<%= attrKey %>" class="input input-<%= attrKey %>" <%- value %> <%= required %>>
+                  <input id="attr-<%= attrKey %>"  style="width:100%" name="<%= attrKey %>" class="input input-<%= attrKey %>" <%- value %> <%= required %>>
+                  <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "json"){ %>
                 <% if(forestay.id) { %>
-                  <textarea style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%- JSON.stringify(record[attrKey]) %></textarea>
+                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%- JSON.stringify(record[attrKey]) %></textarea>
+                  <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else { %>
-                  <textarea style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%- JSON.stringify(attributeValue) %></textarea>
+                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%- JSON.stringify(attributeValue) %></textarea>
+                  <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } %>
                 <% } else if(attributeType == "number"){ %>
-                  <input style="width:100%" type="number" name="<%= attrKey %>" class="number-input number-input-<%= attrKey %>" <%- value %> <%= required %>>
+                  <input id="attr-<%= attrKey %>"  style="width:100%" type="number" name="<%= attrKey %>" class="number-input number-input-<%= attrKey %>" <%- value %> <%= required %>>
+                  <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "text"){ %>
-                  <textarea style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
+                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
+                  <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "boolean"){
                     var trueSelected = ""
                     var falseSelected = ""
@@ -130,7 +133,7 @@
                     if(forestay.id && record[attrKey] == false) falseSelected = "selected"
                     if(! forestay.id && attributeValue == false) falseSelected = "selected"
                   %>
-                  <select name="<%= attrKey %>" <%= required %> class="boolean-input boolean-input-<%= attrKey %>">
+                  <select id="attr-<%= attrKey %>"  name="<%= attrKey %>" <%= required %> class="boolean-input boolean-input-<%= attrKey %>">
                     <option></option>
                     <option value="true" <%= trueSelected %>>
                       <% if(typeof _.get(forestay.config.attributes[attrKey],["meta","forestay","booleanLabels","true"]) === "string"){ %>
@@ -147,9 +150,10 @@
                       <% } %>
                     </option>
                   </select>
+                  <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if (attributeType == "enum"){ %>
-                  <select name="<%= attrKey %>" <%= required %>>
-                    <option></option>
+                  <select id="attr-<%= attrKey %>"  name="<%= attrKey %>" <%= required %>>
+                    <option>88</option>
                     <% enumOptions.forEach(function(o){ %>
                       <% var isSelected = "" %>
                       <% if(forestay.id && o === record[attrKey]) isSelected = "selected" %>
@@ -157,6 +161,7 @@
                       <option value="<%= o %>" <%= isSelected %>><%= o %></option>
                     <% }) %>
                 </select>
+                <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if (attributeType == "collection"){ %>
                   <%- include createUpdateCollections.ejs %>
                 <% } else if (attributeType == "model"){ %>
@@ -185,3 +190,409 @@
       color: #888
     }
   </style>
+
+
+<script>
+
+function hide (elements) {
+  elements = elements.length ? elements : [elements];
+  for (var index = 0; index < elements.length; index++) {
+    elements[index].style.display = 'none';
+  }
+}
+
+hide(document.querySelectorAll('.alert.alert-danger'));
+
+function validateField(attributes){
+  var validationsProperties = ['custom','isAfter','isBefore','isBoolean','isCreditCard','isEmail','isHexColor','isIn','isInteger','isIP','isNotEmptyString','isNotIn','isNumber','isString','isURL','isUUID','max','min','maxLength','minLength','regex'];
+  var attrVal = errorNote= "";
+  var validationsProperties;
+  var hideInForm;
+  var attributeObj;
+  var errorCount = 0;
+  var status;
+  Object.keys(attributes).forEach(function(attrKey) {
+    //console.log('Key : ' + key + ', Value : ' + attributes[key])
+    hideInForm = false;
+    attributeObj = attributes[attrKey]
+
+    if(typeof attributeObj.meta.forestay.hideInForm != "undefined"){
+      if(attributeObj.meta.forestay.hideInForm == true) {
+        hideInForm = true
+      } else if(attributeObj.meta.forestay.hideInForm == false) {
+        hideInForm = false;
+      } else {
+        hideInForm = false;
+      }
+    }
+
+    if(hideInForm == false) {
+        if (typeof attributeObj.type != "undefined") {
+          if(attributeObj.type == 'string' || attributeObj.type == 'number') {
+          attrVal = document.getElementById("attr-"+attrKey).value;
+          for (var i = 0; i < validationsProperties.length; i++) {
+          if (typeof attributeObj[validationsProperties[i]] != "undefined") {
+            //console.log(validationsProperties[i],attributeObj[validationsProperties[i]]);
+
+
+            switch(validationsProperties[i]) {
+              case "min":
+              if(validationsProperties[i] == 'min' && typeof attributeObj['isIn'] == "undefined") {
+              //if (typeof attributeObj['description'] != "undefined") errorNote = attributeObj['description'];
+              status = ValPropMin(attrKey,attrVal,attributeObj[validationsProperties[i]])
+              if(status == false) errorCount++
+              }
+              break;
+
+              case "max":
+              if(validationsProperties[i] == 'max' && typeof attributeObj['isIn'] == "undefined") {
+              status = ValPropMax(attrKey,attrVal,attributeObj[validationsProperties[i]])
+              if(status == false) errorCount++
+              }
+              break;
+
+              case "isIn":
+              if(validationsProperties[i] == 'isIn') {
+              status = ValPropIsIn(attrKey,attrVal,attributeObj[validationsProperties[i]])
+              if(status == false) errorCount++
+              }
+              break;
+
+              case "isEmail":
+              if(validationsProperties[i] == 'isEmail') {
+                status = ValPropIsEmail(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isBoolean":
+              if(validationsProperties[i] == 'isBoolean') {
+                status = ValPropIsBoolean(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isNotEmptyString":
+              if(validationsProperties[i] == 'isNotEmptyString') {
+                status = ValPropIsNotEmptyString(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isNumber":
+              if(validationsProperties[i] == 'isNumber') {
+                status = ValPropIsNumber(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isString":
+              if(validationsProperties[i] == 'isString') {
+                status = ValPropIsString(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isURL":
+              if(validationsProperties[i] == 'isURL') {
+                status = ValPropIsURL(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "maxLength":
+              if(validationsProperties[i] == 'maxLength') {
+                status = ValPropMaxLength(attrKey,attrVal,attributeObj[validationsProperties[i]])
+                if(status == false) errorCount++
+              }
+              break
+
+              case "minLength":
+              if(validationsProperties[i] == 'minLength') {
+                status = ValPropMinLength(attrKey,attrVal,attributeObj[validationsProperties[i]])
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isInteger":
+              if(validationsProperties[i] == 'isInteger') {
+                status = ValPropIsInteger(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isIP":
+              if(validationsProperties[i] == 'isIP') {
+                status = ValPropIsIP(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isHexColor":
+              if(validationsProperties[i] == 'isHexColor') {
+                status = ValPropIsHexColor(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "regex":
+              if(validationsProperties[i] == 'regex') {
+                status = ValPropRegex(attrKey,attrVal,attributeObj[validationsProperties[i]])
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isUUID":
+              if(validationsProperties[i] == 'isUUID') {
+                status = ValPropIsUUID(attrKey,attrVal)
+                if(status == false) errorCount++
+              }
+              break
+
+              case "isNotIn":
+              if(validationsProperties[i] == 'isNotIn') {
+                var isNotIn = [];
+                status = ValPropIsNotIn(attrKey,attrVal,isNotIn)
+                if(status == false) errorCount++
+              }
+              break
+
+
+            }
+
+          }
+        }
+        }
+      }
+    }
+  })
+  //return false;
+  console.log("errorCount",errorCount);
+  if(errorCount == 0){
+    return true;
+  } else {
+    return false;
+  }
+
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+/***********************************************/
+function ValPropMin(attrKey,attrVal,expectedValue) {
+  var node = document.getElementById('error-'+attrKey);
+  var errorMessage = "";
+  if(attrVal < expectedValue) {
+    errorMessage = "Please enter value greater than or equal to "+expectedValue;
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropMax(attrKey,attrVal,expectedValue) {
+  var node = document.getElementById('error-'+attrKey);
+  var errorMessage = "";
+  if(attrVal > expectedValue) {
+    errorMessage = "Please enter value less than or equal to "+expectedValue
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsIn(attrKey,attrVal,expectedValue) {
+  var status = false;
+  var errorMessage = "";
+  for(var i=0; i < expectedValue.length; i++){
+    var element = expectedValue[i];
+    if(element == attrVal){
+      status = true;
+      break;
+    }
+  }
+  if(status == false) {
+    errorMessage = "value should be exist in "+ expectedValue.join(',');
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsEmail(attrKey,attrVal) {
+  var status = validateEmail(attrVal);
+  if(status == false) {
+    errorMessage = "Enter valid email";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsBoolean(attrKey,attrVal) {
+  if(attrVal == "true" || attrVal == "false"){
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  } else {
+    errorMessage = "Expected value is only true or false";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  }
+}
+
+function ValPropIsNotEmptyString(attrKey,attrVal) {
+  if(attrVal == '' || attrVal == null) {
+    errorMessage = "empty value not allowed";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsNumber(attrKey,attrVal) {
+  var isnum = /^[0-9.]*$/.test(attrVal);
+  if(isnum) {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  } else {
+    errorMessage = "only numbers allowed";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  }
+}
+
+function ValPropIsInteger(attrKey,attrVal) {
+  var isnum = /^[0-9]*$/.test(attrVal);
+  if(isnum) {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  } else {
+    errorMessage = "only integer numbers allowed";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  }
+}
+
+function ValPropIsString(attrKey,attrVal) {
+  if (!attrVal.match(/^[0-9a-z]+$/)) {
+  errorMessage = "only alphanumeric allowed";
+  document.getElementById("error-"+attrKey).innerHTML = errorMessage
+  document.getElementById("error-"+attrKey).style.display = 'block';
+  return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsURL(attrKey,attrVal) {
+  var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/
+  if(!regex .test(attrVal)) {
+    errorMessage = "url is not valid";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropMaxLength(attrKey,attrVal,expectedValue) {
+  if(attrVal.length > expectedValue) {
+    errorMessage = "maximum length of characters is "+expectedValue;
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropMinLength(attrKey,attrVal,expectedValue) {
+  if(attrVal.length < expectedValue) {
+    errorMessage = "minimum length of characters is "+expectedValue;
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsIP(attrKey,attrVal) {
+  var regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+  if(!regex .test(attrVal)) {
+    errorMessage = "is not valid IP";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsHexColor(attrKey,attrVal) {
+  var regex = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i
+  if(!regex .test(attrVal)) {
+    errorMessage = "is not valid Hex Color";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropRegex(attrKey,attrVal,expectedValue) {
+  var regex = new RegExp(expectedValue, "i");
+  if(!regex.test(attrVal)) {
+    errorMessage = "allowed regex is  "+expectedValue;
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+function ValPropIsUUID(attrKey,attrVal) {
+  var regex = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
+  if(!regex.test(attrVal)) {
+    errorMessage = "UUID is not valid";
+    document.getElementById("error-"+attrKey).innerHTML = errorMessage
+    document.getElementById("error-"+attrKey).style.display = 'block';
+    return false;
+  } else {
+    document.getElementById("error-"+attrKey).style.display = 'none';
+    return true;
+  }
+}
+
+</script>
