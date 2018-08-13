@@ -386,7 +386,7 @@ function validateField(attributes){
   })
 
   for (var key in total_errors) {
-    document.getElementById(key).innerHTML = total_errors[key]
+    document.getElementById(key).innerHTML = "<strong>Error</strong>: "+ total_errors[key]
     document.getElementById(key).style.display = 'block';
   }
   if(errorCount == 0){
