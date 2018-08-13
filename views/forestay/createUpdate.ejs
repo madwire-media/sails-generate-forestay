@@ -153,7 +153,7 @@
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if (attributeType == "enum"){ %>
                   <select id="attr-<%= attrKey %>"  name="<%= attrKey %>" <%= required %>>
-                    <option>88</option>
+                    <option></option>
                     <% enumOptions.forEach(function(o){ %>
                       <% var isSelected = "" %>
                       <% if(forestay.id && o === record[attrKey]) isSelected = "selected" %>
@@ -228,8 +228,12 @@ function validateField(attributes){
 
     if(hideInForm == false) {
         if (typeof attributeObj.type != "undefined") {
-          if(attributeObj.type == 'string' || attributeObj.type == 'number') {
+          if(attributeObj.type == 'string' || attributeObj.type == 'number' || attributeObj.type == 'json') {
           attrVal = document.getElementById("attr-"+attrKey).value;
+          if(attributeObj.type == 'json') {
+              status = ValPropIsTypeJson(attrKey,attrVal)
+              if(status == false) errorCount++
+          }
           for (var i = 0; i < validationsProperties.length; i++) {
           if (typeof attributeObj[validationsProperties[i]] != "undefined") {
             //console.log(validationsProperties[i],attributeObj[validationsProperties[i]]);
@@ -466,6 +470,28 @@ function ValPropIsNotEmptyString(attrKey,attrVal) {
     document.getElementById("error-"+attrKey).style.display = 'none';
     return true;
   }
+}
+
+function ValPropIsTypeJson(attrKey,attrVal) {
+  if(attrVal == '' || attrVal == null) {
+    document.getElementById("attr-"+attrKey).value = '{}';
+    return true;
+  }
+
+  try {
+          JSON.parse(attrVal);
+          if(attrVal[0] != '"') {
+            document.getElementById("attr-"+attrKey).value = '"'+attrVal+'"';
+            attrVal = '"'+attrVal.toString()+'"';
+          }
+      } catch (e) {
+        errorMessage = "only json string allowed";
+        document.getElementById("error-"+attrKey).innerHTML = errorMessage
+        document.getElementById("error-"+attrKey).style.display = 'block';
+        return false;
+      }
+      document.getElementById("error-"+attrKey).style.display = 'none';
+      return true;
 }
 
 function ValPropIsNumber(attrKey,attrVal) {
