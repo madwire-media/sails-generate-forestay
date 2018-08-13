@@ -480,10 +480,6 @@ function ValPropIsTypeJson(attrKey,attrVal) {
 
   try {
           JSON.parse(attrVal);
-          if(attrVal[0] != '"') {
-            document.getElementById("attr-"+attrKey).value = '"'+attrVal+'"';
-            attrVal = '"'+attrVal.toString()+'"';
-          }
       } catch (e) {
         errorMessage = "only json string allowed";
         document.getElementById("error-"+attrKey).innerHTML = errorMessage
