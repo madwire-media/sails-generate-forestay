@@ -206,24 +206,24 @@ hide(document.querySelectorAll('.alert.alert-danger'));
 function validateField(attributes){
   var validationsProperties = ['custom','isAfter','isBefore','isBoolean','isCreditCard','isEmail','isHexColor','isIn','isInteger','isIP','isNotEmptyString','isNotIn','isNumber','isString','isURL','isUUID','max','min','maxLength','minLength','regex'];
   var errorMessages = {
-    "min":"Value should not less than",
-    "max":"Value should not greater than",
-    "isIn":"Value should exist in",
-    "isNotIn":"Value should not exist in",
-    "isEmail":"Not a valid emailAddress",
-    "isBoolean":"Value should be true or false",
-    "isNotEmptyString":"Value is required",
-    "isNumber":"Value should be number",
-    "isString":"Value should be alphanumeric",
-    "isURL":"Value should be valid URL",
-    "maxLength":"Maximum number of character should be",
-    "minLength":"Minimum number of character should be",
-    "isInteger":"Value should be Integer",
-    "isIP":"Value should be IP Address",
-    "isHexColor":"Value should be css color code",
-    "regex":"Value should follow regex",
-    "isUUID":"Value should be UUID"
-  }
+   "min":"Value should not be less than",
+   "max":"Value should not be greater than",
+   "isIn":"Value should exist in",
+   "isNotIn":"Value should not exist in",
+   "isEmail":"Not a valid email address",
+   "isBoolean":"Value should be true or false",
+   "isNotEmptyString":"Value is required",
+   "isNumber":"Value should be number",
+   "isString":"Value should be alphanumeric",
+   "isURL":"Value should be valid URL",
+   "maxLength":"Maximum number of character is",
+   "minLength":"Minimum number of character is",
+   "isInteger":"Value should be Integer",
+   "isIP":"Value should be a valid IP Address",
+   "isHexColor":"Value should be a valid css color code",
+   "regex":"Invalid value",
+   "isUUID":"Invalid value"
+ }
   var attrVal = errorNote= "";
   var validationsProperties;
   var hideInForm;
