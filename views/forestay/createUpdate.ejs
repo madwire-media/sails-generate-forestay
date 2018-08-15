@@ -49,9 +49,9 @@
 
       if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
       if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
-      if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) == 'textarea') {
-        attributeType = 'text';
-      }
+      if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) == 'textarea') attributeType = 'text';
+      if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'uiType']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'uiType']) == 'textarea') attributeType = 'text';
+
       attributeType = attributeType.toLowerCase();
 
       var enumOptions
