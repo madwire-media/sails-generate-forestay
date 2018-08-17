@@ -26,7 +26,7 @@
           %>
            <% if(forestay.config.attributes[attrKey].meta.forestay.displayAs ==="select"){ %>
 
-             <% if(cpt++==0) {%> <select class="select-<%= attrKey %>" multiple name="<%= attrKey %>[]" style="min-width: 300px"> <% } %>
+             <% if(cpt++==0) {%> <select class="select-<%= attrKey %>" multiple name="<%= attrKey %>[]" style="min-width: 300px" <%= attributeMutable %> > <% } %>
             <option value="<%= av.id %>" <%= selected %>>
               <%= av[forestay.config.attributes[attrKey].meta.forestay.populateBy] %>
             </option>

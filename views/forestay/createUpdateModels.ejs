@@ -1,7 +1,7 @@
 <% if (typeof _.get(forestay.config.attributes[attrKey], ["meta","forestay","populateBy"]) != "string"){ %>
   <p>Please add attribute <strong>populateBy</strong> to your model to display these optoins, or hide this field from the form.</p>
   <% } else { %>
-    <select name="<%= attrKey %>" <%= required %>>
+    <select name="<%= attrKey %>" <%= required %><%= attributeMutable %>>
       <option></option>
 
     <% forestay.config.attributes[attrKey].availableValues.forEach(function(av){ %>
