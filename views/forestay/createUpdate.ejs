@@ -73,14 +73,11 @@
 
       }
 
-
-
       var value = "";
       var required = "";
       var v
       var attributeValue
-
-
+      var attributeMutable = '';
 
       if (_.get(forestay.config.attributes[attrKey], "required") === true) {
         required = "required"
@@ -106,24 +103,30 @@
       }
 
     }
-%>
 
+    if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'mutable']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'mutable']) == false) {
+      attributeMutable = 'readonly';
+      if(['boolean','enum','collection','model'].indexOf(attributeType) > -1) {
+        attributeMutable = 'disabled';
+      }
+    }
+%>
               <% if(attributeType == "string"){ %>
-                  <input id="attr-<%= attrKey %>"  style="width:100%" name="<%= attrKey %>" class="input input-<%= attrKey %>" <%- value %> <%= required %>>
+                  <input id="attr-<%= attrKey %>"  style="width:100%" name="<%= attrKey %>" class="input input-<%= attrKey %>" <%- value %> <%= required %> <%= attributeMutable %>>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "json"){ %>
                 <% if(forestay.id) { %>
-                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%- JSON.stringify(record[attrKey]) %></textarea>
+                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> <%= attributeMutable %> ><%- JSON.stringify(record[attrKey]) %></textarea>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else { %>
-                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%- JSON.stringify(attributeValue) %></textarea>
+                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> <%= attributeMutable %> ><%- JSON.stringify(attributeValue) %></textarea>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } %>
                 <% } else if(attributeType == "number"){ %>
-                  <input id="attr-<%= attrKey %>"  style="width:100%" type="number" name="<%= attrKey %>" class="number-input number-input-<%= attrKey %>" <%- value %> <%= required %>>
+                  <input id="attr-<%= attrKey %>"  style="width:100%" type="number" name="<%= attrKey %>" class="number-input number-input-<%= attrKey %>" <%- value %> <%= required %> <%= attributeMutable %>>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "text"){ %>
-                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
+                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> <%= attributeMutable %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "boolean"){
                     var trueSelected = ""
@@ -133,7 +136,7 @@
                     if(forestay.id && record[attrKey] == false) falseSelected = "selected"
                     if(! forestay.id && attributeValue == false) falseSelected = "selected"
                   %>
-                  <select id="attr-<%= attrKey %>"  name="<%= attrKey %>" <%= required %> class="boolean-input boolean-input-<%= attrKey %>">
+                  <select id="attr-<%= attrKey %>"  name="<%= attrKey %>" <%= required %> <%= attributeMutable %> class="boolean-input boolean-input-<%= attrKey %>">
                     <option></option>
                     <option value="true" <%= trueSelected %>>
                       <% if(typeof _.get(forestay.config.attributes[attrKey],["meta","forestay","booleanLabels","true"]) === "string"){ %>
@@ -152,7 +155,7 @@
                   </select>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if (attributeType == "enum"){ %>
-                  <select id="attr-<%= attrKey %>"  name="<%= attrKey %>" <%= required %>>
+                  <select id="attr-<%= attrKey %>"  name="<%= attrKey %>" <%= required %> <%= attributeMutable %>>
                     <option></option>
                     <% enumOptions.forEach(function(o){ %>
                       <% var isSelected = "" %>
