@@ -66,7 +66,10 @@
           var this_attr = forestay.config.attributes[attrKey]
           var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
           var headerColumnTitle = "";
+          var showFilter = true;
           if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showDescriptionInIndex']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showDescriptionInIndex']) == true && typeof _.get(this_attr, ["description"]) != "undefined") {  headerColumnTitle = `title=${_.get(this_attr, ['description'])}`  }
+          if(typeof _.get(this_attr, ["meta","forestay","hideFilter"]) != "undefined" && _.get(this_attr, ["meta","forestay","hideFilter"]) == true) {  showFilter = false;  }
+
           if(typeof attributeType != "string") attributeType ="";
 
           if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
@@ -97,8 +100,9 @@
           _.get(this_attr, ["meta","forestay","label"]) ||
           attrKey
         %>
-        <% if (_.get(forestay, ["hasFilters"]) === true) { %>
-          <div class="filterBox">
+
+        <div class="filterBox">
+        <% if (_.get(forestay, ["hasFilters"]) === true && showFilter == true) { %>
             <% if(_.get(this_attr, ["meta","forestay","filterable"]) == true) { %>
               <% var value = "" %>
               <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
@@ -134,8 +138,8 @@
                   </select>
                 <% } %>
             <% } %>
-          </div>
         <% } %>
+        </div>
 
       </th>
       <% } // end hideInIndex else %>
