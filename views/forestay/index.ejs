@@ -62,20 +62,16 @@
         // do nothing if this field is meant to be hidden
       }
       else {
-      %>
-      <th>
 
-
-        <%
           var this_attr = forestay.config.attributes[attrKey]
           var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
-
+          var headerColumnTitle = "";
+          if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showDescriptionInIndex']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showDescriptionInIndex']) == true && typeof _.get(this_attr, ["description"]) != "undefined") {  headerColumnTitle = `title=${_.get(this_attr, ['description'])}`  }
           if(typeof attributeType != "string") attributeType ="";
 
           if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
           if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
           attributeType = attributeType.toLowerCase();
-
           var enumOptions
 
           if(attributeType == "string" || attributeType == "number"){
@@ -95,6 +91,8 @@
 
           }
         %>
+
+        <th <%= headerColumnTitle %>>
         <%=
           _.get(this_attr, ["meta","forestay","label"]) ||
           attrKey
