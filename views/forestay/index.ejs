@@ -1,4 +1,12 @@
 <%
+  var headerHTML = ""
+  headerHTML = _.get(forestay,['config','forestay','headerHtml']) ? _.get(forestay,['config','forestay','headerHtml']) : headerHTML
+  headerHTML = _.get(forestay,['config','forestay','index','headerHtml']) ? _.get(forestay,['config','forestay','index','headerHtml']) : headerHTML
+
+  var footerHTML = ""
+  footerHTML = _.get(forestay,['config','forestay','footerHtml']) ? _.get(forestay,['config','forestay','footerHtml']) : footerHTML
+  footerHTML = _.get(forestay,['config','forestay','index','footerHtml']) ? _.get(forestay,['config','forestay','index','footerHtml']) : footerHTML
+
   var pageTitle =
     _.get(forestay, ["config","forestay","title"]) ||
     _.get(forestay, ["model","name"]) ||
@@ -10,6 +18,7 @@
   var buttonClass;
   var booleanValues = {0:'false',1:'true'};
 %>
+<%- headerHTML %>
 <h1><%= pageTitle %></h1>
 <% if (_.get(forestay,['config','forestay','index','hideAddButton']) !== true) { %>
   <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %>create"><button class="btn btn-primary">Add <%= _.get(forestay, ["model","name"]) %> </button></a>
@@ -312,7 +321,7 @@
   </nav>
 <% } %>
 
-<% if (_.get(forestay,['config','forestay','index','footerHtml'])) { %><%- forestay.config.forestay.index.footerHtml %><% } %>
+<%- footerHTML %>
 
 <style>
   .filterBox {
