@@ -1,10 +1,26 @@
 <%
+  var headerHTML = ""
+  headerHTML = _.get(forestay,['config','forestay','headerHtml']) ? _.get(forestay,['config','forestay','headerHtml']) : headerHTML
+  headerHTML = _.get(forestay,['config','forestay','createUpdate','headerHtml']) ? _.get(forestay,['config','forestay','createUpdate','headerHtml']) : headerHTML
+  if(forestay.id)
+    headerHTML = _.get(forestay,['config','forestay','update','headerHtml']) ? _.get(forestay,['config','forestay','update','headerHtml']) : headerHTML
+  else
+    headerHTML = _.get(forestay,['config','forestay','create','headerHtml']) ? _.get(forestay,['config','forestay','create','headerHtml']) : headerHTML
+
+  var footerHTML = ""
+  footerHTML = _.get(forestay,['config','forestay','footerHtml']) ? _.get(forestay,['config','forestay','footerHtml']) : footerHTML
+  footerHTML = _.get(forestay,['config','forestay','createUpdate','footerHtml']) ? _.get(forestay,['config','forestay','createUpdate','footerHtml']) : footerHTML
+  if(forestay.id)
+    footerHTML = _.get(forestay,['config','forestay','update','footerHtml']) ? _.get(forestay,['config','forestay','update','footerHtml']) : footerHTML
+  else
+    footerHTML = _.get(forestay,['config','forestay','create','footerHtml']) ? _.get(forestay,['config','forestay','create','footerHtml']) : footerHTML
+
   var pageTitle =
     _.get(forestay, ["config","forestay","title"]) ||
     _.get(forestay, ["model","name"]) ||
     "forestay Model";
 %>
-
+  <%- headerHTML %>
   <h1><%= pageTitle %></h1>
   <h6>
     <% if(!forestay.id) { %>Create New<% } %>
@@ -178,14 +194,12 @@
           <% } // End if !== hideInForm %>
           <% }) %>
 
-
-
-
-
     </table>
     <input type="hidden" name='_csrf' value='<%= _csrf %>'>
     <button class="btn btn-info" style="width:100%">Submit</button>
   </form>
+
+<%- footerHTML %>
 
   <style>
     .description {
