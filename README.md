@@ -106,7 +106,11 @@ make: {
 ```
 - `model.attributes.required` - Supported by `required` input attribute
 - `model.attributes[key].meta.forestay.hideInIndex === true` Hide this field in the forestay index
+- `model.attributes[key].meta.forestay.mutable === false` - Field can be edited on create, but not after create.
+
 - `model.attributes[key].meta.forestay.hideInForm === true` Hide this field in all forms (may cause problems if the field is required!)
+- `model.attributes[key].meta.forestay.showDescriptionInIndex` Will show a description for this attribute on the index as a popover
+- `model.attributes[key].meta.forestay.uiType = “textarea”` Show a text area for string types
 - `model.attributes[key].meta.forestay.replaceIndexHtml` - When in the index, replace with given HTML template. (TODO: Can be a EJS template!) - Warning, this will evaluate all HTML, EJS and Javascript and could be an entry to your system.  If you make this user editable, you are potentially introducing a security risk if you are not sanitizing your inputs
 - `model.forestay.actions` These actions create UI buttons for your model index or individual records
 - `model.forestay.index.hideAddButton` Removes the "Add" record button from index.  You can alternately create an action button to replace it.
@@ -182,7 +186,24 @@ actions:{
 ```
 
 <img src="https://user-images.githubusercontent.com/444485/39222294-33550f88-47f9-11e8-800b-c6e565184d69.png" width="500">
-
+- Custom filter criteria:
+```Javascript
+foo:{
+type: 'collection',
+via :'bar',
+Meta:{
+  Forestay:{
+    filterCriteria: function(req,res, forestay, cb){
+    return {
+        where:{
+          owner: req.user.id
+        }
+      }
+    }
+  }
+ }
+}
+```
 - `model.forestay.actions.[actionKey].buttonClass` Custom classes for your action buttons
 - `model.forestay.actions.[actionKey].imageUrl` Custom image for your action buttons
 - `routes.js` rendered menu in Forestay layouts.  Set `forestay.hideFromMenu = true` to hide a route from the menu.  Any `GET` items will otherwise end up in here.  Also use `forestay.linkName` to specify display friendly names and `forestay.model` so forestay understands what model the router is going to use.
@@ -207,7 +228,7 @@ beforeRoute: function(req, res, forestay, next){
 - `model.forestay.index.hideEditButton` hide edit button in indexes
 - `model.forestay.index.hideDeleteButton` hide delete button in indexes
 - `model.forestay.index.filterLogicalOperator === "or"` set to "or" and filters will user "or" logical oporator.  Default is "and"
-- `model.forestay.createdAtLabel` - Label for the "Created At" label
+- `model.forestay.createdAtLabel` - Label for the "Created At" label.  For example, if you wanted to change "Created At to "Connected" in the index and
 - `boolean` type replacement text   
 ```Javascript
 privacy: {
@@ -224,6 +245,12 @@ privacy: {
 },
 ```
 - `forestay.config.forestay.index.filterOverride` override filters with sailsJS filter syntax https://sailsjs.com/documentation/concepts/models-and-orm/query-language
+- custom headers/footers: Properties exposed in model.forestay (global), model.forestay.index (index only), model.forestay.create (create only), model.forestay.update (update only), model.forestay.createUpdate (create and update)
+```javascript
+footerHtml: “<h1>This is the footer</h1>”,
+headerHtml: “<h1>This is the header</h1>”,
+```
+
 - `model.attributes[key].meta.forestay.createUpdateUi:'tagging'` - A collection UI for tagging on create/update. New tags are created if `allowAddition===true`
  - Pagination:  Pagination is built in.  Just set `forestay.config.forestay.itemsPerPage` to an integer.
  - `forestay.args` - You have access to the URL arguments through `forestay.args`.  You can use this throughout the request process.
