@@ -187,6 +187,7 @@ actions:{
 
 <img src="https://user-images.githubusercontent.com/444485/39222294-33550f88-47f9-11e8-800b-c6e565184d69.png" width="500">
 - Custom filter criteria:
+
 ```Javascript
 foo:{
 type: 'collection',
