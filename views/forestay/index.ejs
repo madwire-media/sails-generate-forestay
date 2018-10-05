@@ -76,8 +76,10 @@
           var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
           var headerColumnTitle = "";
           var showFilter = true;
+          var sortable = false;
           if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showDescriptionInIndex']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showDescriptionInIndex']) == true && typeof _.get(this_attr, ["description"]) != "undefined") {  headerColumnTitle = `title=${_.get(this_attr, ['description'])}`  }
           if(typeof _.get(this_attr, ["meta","forestay","hideFilter"]) != "undefined" && _.get(this_attr, ["meta","forestay","hideFilter"]) == true) {  showFilter = false;  }
+          if(typeof _.get(this_attr, ["meta","forestay","sortable"]) != "undefined" && _.get(this_attr, ["meta","forestay","sortable"]) == true) {  sortable = true;  }
 
           if(typeof attributeType != "string") attributeType ="";
 
@@ -105,10 +107,21 @@
         %>
 
         <th <%= headerColumnTitle %>>
-        <%=
-          _.get(this_attr, ["meta","forestay","label"]) ||
-          attrKey
-        %>
+        <% if(sortable == true) { %>
+        <a here="javascript:void(0);" onclick="forstaySortBy('<%= attrKey %>')">
+          <%=
+            _.get(this_attr, ["meta","forestay","label"]) ||
+            attrKey
+          %>
+        <i class="fa fa-fw fa-sort"></i>
+        </a>
+        <% } else { %>
+          <%=
+            _.get(this_attr, ["meta","forestay","label"]) ||
+            attrKey
+          %>
+        <% } %>
+
 
         <div class="filterBox">
         <% if (_.get(forestay, ["hasFilters"]) === true && showFilter == true) { %>
@@ -323,6 +336,7 @@
 
 <%- footerHTML %>
 
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
   .filterBox {
     height: 32px;
@@ -344,4 +358,43 @@
   ul.pagination > li.disabled a {
     color: #D3D3D3;
   }
+
+  th a {
+    cursor: pointer;
+  }
+
+  th .fa-sort{
+    float: right !important;
+  }
 </style>
+
+<script type="text/javascript">
+function forstaySortBy(attrKey){
+  var url = window.location.href;
+  if(url.includes('?')) {
+  var search = location.search.substring(1);
+  var prms = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+  if (typeof prms.forstaySortBy !== 'undefined' && prms.forstaySortBy !== '') {
+    var oldSortParam = prms.forstaySortBy;
+    // privious key and current key matches
+    if(oldSortParam.includes(attrKey)) {
+      // check previous sort is 'desc'
+      if(oldSortParam.includes('desc')) {
+        prms.forstaySortBy = attrKey
+      } else {
+        prms.forstaySortBy = attrKey +" desc"
+      }
+    } else {
+      prms.forstaySortBy = attrKey
+    }
+  } else {
+    prms.forstaySortBy = attrKey
+  }
+} else {
+  var prms = {'forstaySortBy': attrKey }
+}
+  var url = [location.protocol, '//', location.host, location.pathname].join('');
+  var result = $.param(prms);
+  window.location.href = url +"?"+ result;
+}
+</script>
