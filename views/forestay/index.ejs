@@ -17,6 +17,7 @@
   var showUpdatedAt = (_.get(forestay.config.forestay.index, ["showUpdatedAt"]) === true)
   var buttonClass;
   var booleanValues = {0:'false',1:'true'};
+  var searchable = _.get(forestay.config.forestay.index, ['searchable']) ? _.get(forestay.config.forestay.index, ['searchable']) : false;
 %>
 <%- headerHTML %>
 <h1><%= pageTitle %></h1>
@@ -54,6 +55,16 @@
 <% if (_.get(forestay.config, ["forestay","index","aboveTableCustomHtml"])){ %>
   <%- forestay.config.forestay.index.aboveTableCustomHtml %>
 <% } %>
+
+<% if(searchable == true) { %>
+  <div class="forestaySearchGlobal-container">
+    <form>
+      <input name="forstaySearchGlobal" type="text" placeholder="Search..">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+<% } %>
+
 <table class="table">
   <thead>
     <form>
@@ -366,6 +377,14 @@
   th .fa-sort{
     float: right !important;
   }
+
+  .forestaySearchGlobal-container {
+    float: right;
+    padding: 6px;
+    border: none;
+    font-size: 17px;
+  }
+
 </style>
 
 <script type="text/javascript">
