@@ -50,11 +50,6 @@
     <% } %>
   <% }) %>
 <% } %>
-<hr/>
-
-<% if (_.get(forestay.config, ["forestay","index","aboveTableCustomHtml"])){ %>
-  <%- forestay.config.forestay.index.aboveTableCustomHtml %>
-<% } %>
 
 <% if(searchable == true) { %>
   <div class="forestaySearchGlobal-container">
@@ -63,6 +58,12 @@
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
   </div>
+<% } %>
+
+<hr/>
+
+<% if (_.get(forestay.config, ["forestay","index","aboveTableCustomHtml"])){ %>
+  <%- forestay.config.forestay.index.aboveTableCustomHtml %>
 <% } %>
 
 <table class="table">
