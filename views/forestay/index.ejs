@@ -54,7 +54,7 @@
 <% if(searchable == true) { %>
   <div class="forestaySearchGlobal-container">
     <form>
-      <input name="forstaySearchGlobal" type="text" placeholder="Search..">
+      <input name="forstaySearchGlobal" type="text" placeholder="Search.." value="<%= forestay.forstaySearchGlobal %>">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
   </div>
@@ -119,7 +119,7 @@
         %>
 
         <th <%= headerColumnTitle %>>
-        <% if(sortable == true) { %>
+        <% if(sortable == true && (attributeType == 'string' || attributeType == 'number')) { %>
         <a here="javascript:void(0);" onclick="forstaySortBy('<%= attrKey %>')">
           <%=
             _.get(this_attr, ["meta","forestay","label"]) ||
