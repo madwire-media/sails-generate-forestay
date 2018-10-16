@@ -258,6 +258,9 @@ headerHtml: “<h1>This is the header</h1>”,
  ```Javascript
  ```
 
+ - `model.attributes[key].meta.forestay.sortable` - For string attributes, allow index sorting
+ - `model.attributes[key].meta.forestay.searchable` - for string and model attributes, enable searching.
+
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
 - `background` - the URL location of a background image like `/images/bg.jpg`
