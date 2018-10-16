@@ -259,7 +259,7 @@ headerHtml: “<h1>This is the header</h1>”,
  ```
 
  - `model.attributes[key].meta.forestay.sortable` - For string attributes, allow index sorting
- - `model.attributes[key].meta.forestay.searchable` - for string and model attributes, enable searching.
+ - `forestay.index['searchable'] = true` - for string and model attributes, enable searching.
 
 ### `config/forestay.js` Features
 - `defaultLayout` - use an alternate local layout instead of the default Forestay layout
