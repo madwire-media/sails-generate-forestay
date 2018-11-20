@@ -35,12 +35,97 @@
         <%
       var this_attr = forestay.config.attributes[attrKey]
 
-      if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","hideInForm"]) === true){
+      if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","hideInForm"]) === true || hideIfCondition){
         // do nothing if this field is meant to be hidden
 
       }
       else {
+
+        var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
+
+              if(typeof attributeType != "string") attributeType ="";
+
+              if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
+              if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
+              if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) == 'textarea') attributeType = 'text';
+              if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'uiType']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'uiType']) == 'textarea') attributeType = 'text';
+
+              attributeType = attributeType.toLowerCase();
+
+              var enumOptions
+
+              if(attributeType == "string" || attributeType == "number"){
+                // I've seen both formats for
+                if (Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))) {
+                  enumOptions = _.get(forestay.config.attributes[attrKey],["validations","isIn"])
+                  attributeType = "enum"
+                }
+                if (Array.isArray(_.get(forestay.config.attributes[attrKey],["isIn"]))){
+                  enumOptions = _.get(forestay.config.attributes[attrKey],["isIn"])
+                  attributeType = "enum"
+               }
+               if (Array.isArray(_.get(forestay.config.attributes[attrKey],["enum"]))){
+                 enumOptions = _.get(forestay.config.attributes[attrKey],["enum"])
+                 attributeType = "enum"
+               }
+
+              }
+
+              var value = "";
+              var required = "";
+              var v
+              var attributeValue
+              var attributeMutable = '';
+
+              if (_.get(forestay.config.attributes[attrKey], "required") === true) {
+                required = "required"
+              }
+              if (forestay.id) {
+
+                if(typeof record[attrKey] === "string") v = record[attrKey].split('"').join("&quot;") //.replace(/\"/g,'&quot;')
+                else v = record[attrKey]
+
+                if (record[attrKey] === null) v = ""
+
+                value = `value="${v}"`
+              }  else {
+
+              if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue']) != "undefined") {
+                value = `value="${_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])}"`
+                attributeValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])
+              }
+
+              if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
+                value = `value="${forestay.prefills[attrKey]}"`
+                attributeValue = forestay.prefills[attrKey]
+              }
+
+            }
+
+            if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'mutable']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'mutable']) == false) {
+              attributeMutable = 'readonly';
+              if(['boolean','enum','collection','model'].indexOf(attributeType) > -1) {
+                attributeMutable = 'disabled';
+              }
+            }
+
+            var hideIfCondition = false;
+            var showIfCondition = true;
+            if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','value']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','value']) != '') {
+              hideIfValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','value']);
+              if(hideIfValue == record[attrKey]) {
+                hideIfCondition = true;
+              }
+            }
+
+            if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','value']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','value']) != '') {
+              showIfValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','value']);
+              if(showIfValue != record[attrKey]) {
+                showIfCondition = false;
+              }
+            }
     %>
+          <% if(hideIfCondition == false && showIfCondition == true) { %>
           <tr>
             <td class="form form-<%=attrKey %>" style="width: <%= _.get(forestay.config.forestay, ["createUpdate","labelWidth"]) || 200 %>px; text-align: right">
               <div class="label">
@@ -57,76 +142,7 @@
 
             </td>
             <td>
-              <%
 
-      var attributeType = _.get(forestay.config.attributes[attrKey],"type") ||  _.get(forestay.config.attributes, [attrKey]) || ""
-
-      if(typeof attributeType != "string") attributeType ="";
-
-      if (typeof _.get(forestay.config.attributes[attrKey], ['collection']) === 'string') attributeType = 'collection'
-      if (typeof _.get(forestay.config.attributes[attrKey], ['model']) === 'string') attributeType = 'model'
-      if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'displayAs']) == 'textarea') attributeType = 'text';
-      if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'uiType']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'uiType']) == 'textarea') attributeType = 'text';
-
-      attributeType = attributeType.toLowerCase();
-
-      var enumOptions
-
-      if(attributeType == "string" || attributeType == "number"){
-        // I've seen both formats for
-        if (Array.isArray(_.get(forestay.config.attributes[attrKey],["validations","isIn"]))) {
-          enumOptions = _.get(forestay.config.attributes[attrKey],["validations","isIn"])
-          attributeType = "enum"
-        }
-        if (Array.isArray(_.get(forestay.config.attributes[attrKey],["isIn"]))){
-          enumOptions = _.get(forestay.config.attributes[attrKey],["isIn"])
-          attributeType = "enum"
-       }
-       if (Array.isArray(_.get(forestay.config.attributes[attrKey],["enum"]))){
-         enumOptions = _.get(forestay.config.attributes[attrKey],["enum"])
-         attributeType = "enum"
-       }
-
-      }
-
-      var value = "";
-      var required = "";
-      var v
-      var attributeValue
-      var attributeMutable = '';
-
-      if (_.get(forestay.config.attributes[attrKey], "required") === true) {
-        required = "required"
-      }
-      if (forestay.id) {
-
-        if(typeof record[attrKey] === "string") v = record[attrKey].split('"').join("&quot;") //.replace(/\"/g,'&quot;')
-        else v = record[attrKey]
-
-        if (record[attrKey] === null) v = ""
-
-        value = `value="${v}"`
-      }  else {
-
-      if (typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue']) != "undefined") {
-        value = `value="${_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])}"`
-        attributeValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'defaultValue'])
-      }
-
-      if(typeof _.get(forestay,["prefills",attrKey]) != "undefined"){
-        value = `value="${forestay.prefills[attrKey]}"`
-        attributeValue = forestay.prefills[attrKey]
-      }
-
-    }
-
-    if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'mutable']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'mutable']) == false) {
-      attributeMutable = 'readonly';
-      if(['boolean','enum','collection','model'].indexOf(attributeType) > -1) {
-        attributeMutable = 'disabled';
-      }
-    }
-%>
               <% if(attributeType == "string"){ %>
                   <input id="attr-<%= attrKey %>"  style="width:100%" name="<%= attrKey %>" class="input input-<%= attrKey %>" <%- value %> <%= required %> <%= attributeMutable %>>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
@@ -191,6 +207,7 @@
             </td>
 
           </tr>
+          <% } %>
           <% } // End if !== hideInForm %>
           <% }) %>
 
