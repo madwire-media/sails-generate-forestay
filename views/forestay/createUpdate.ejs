@@ -109,18 +109,17 @@
               }
             }
 
-            var hideIfCondition = false;
-            var showIfCondition = true;
-            if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','value']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','value']) != '') {
-              hideIfValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','value']);
-              if(hideIfValue == record[attrKey]) {
+            var hideIfCondition = false;  var showIfCondition = true;
+            if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','isIn']) != "undefined" && Array.isArray(_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','isIn']))) {
+              hideIfValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'hideIf','isIn']);
+              if(hideIfValue.indexOf(record[attrKey]) > -1) {
                 hideIfCondition = true;
               }
             }
 
-            if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','value']) != "undefined" && _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','value']) != '') {
-              showIfValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','value']);
-              if(showIfValue != record[attrKey]) {
+            if (forestay.id && typeof _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','isIn']) != "undefined" && Array.isArray(_.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','isIn']))) {
+              showIfValue = _.get(forestay.config.attributes[attrKey], ['meta', 'forestay', 'showIf','isIn']);
+              if(showIfValue.indexOf(record[attrKey]) == -1) {
                 showIfCondition = false;
               }
             }
