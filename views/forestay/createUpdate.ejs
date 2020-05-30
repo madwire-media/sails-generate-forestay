@@ -157,7 +157,7 @@
                   <input id="attr-<%= attrKey %>"  style="width:100%" type="number" name="<%= attrKey %>" class="number-input number-input-<%= attrKey %>" <%- value %> <%= required %> <%= attributeMutable %>>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "text"){ %>
-                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> <%= attributeMutable %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %></textarea>
+                  <textarea id="attr-<%= attrKey %>"  style="width:100%; height: 200px" name="<%= attrKey %>" class="text-input text-input-<%= attrKey %>" <%= required %> <%= attributeMutable %> ><%if(forestay.id){ %><%- record[attrKey]%><% } %><%= attributeValue %></textarea>
                   <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if(attributeType == "boolean"){
                     var trueSelected = ""
