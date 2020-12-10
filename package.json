@@ -38,7 +38,7 @@
     "xss": "^0.3.8"
   },
   "devDependencies": {
-    "eslint": "3.19.0"
+    "eslint": "7.15.0"
   },
   "repository": {
     "type": "git",
