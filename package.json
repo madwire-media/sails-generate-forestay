@@ -35,7 +35,7 @@
     "route-parser": "0.0.5",
     "sanitize-html": "^1.18.2",
     "underscore.string": "^3.3.4",
-    "xss": "^0.3.8"
+    "xss": "^1.0.13"
   },
   "devDependencies": {
     "eslint": "7.15.0"
