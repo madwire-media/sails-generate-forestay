@@ -206,9 +206,9 @@
                 </select>
                 <div id="error-<%= attrKey %>" class="alert alert-danger"></div>
                 <% } else if (attributeType == "collection"){ %>
-                  <%- include createUpdateCollections.ejs %>
+                  <%- include ("createUpdateCollections.ejs", { attrKey: attrKey }); %>
                 <% } else if (attributeType == "model"){ %>
-                  <%- include createUpdateModels.ejs %>
+                  <%- include ("createUpdateModels.ejs", { attrKey: attrKey }); %>
                 <% }else { // unknown attribute type %>
                   (can't edit <strong><%= attributeType %></strong> attributes at this time)
                   <% }%>
