@@ -141,7 +141,7 @@
               <% var value = "" %>
               <% if (typeof _.get(forestay.filter,[attrKey]) != "undefined") value = forestay.filter[attrKey] %>
               <% if (attributeType == "model"){ %>
-                <% include filterByModel.ejs %>
+                <%- include ("filterByModel.ejs"); %>
               <% } else if (attributeType == "string" || attributeType == "number"){ %>
                 <input value="<%= value %>" name="<%= attrKey %>">
                 <% } else if (attributeType == "boolean"){ %>
@@ -305,7 +305,7 @@
       </td>
       <% } %>
 
-      <% include indexActionsRecordRow.ejs %>
+      <%- include ("indexActionsRecordRow.ejs"); %>
       <% if(_.get(forestay,['config','forestay','index','hideEditButton']) !== true){ %>
         <td>
           <a href="<%= _.get(forestay, ["config","forestay","urlPrefix"]) %><%= row.id %>/edit" class="btn btn-info btn-sm">Edit</a>
