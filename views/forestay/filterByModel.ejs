@@ -1,5 +1,3 @@
-<% if(typeof(attrKey) !== "undefined") { %>
-
 <select name="<%= attrKey %>" style="width:100%">
   <option></option>
   <% if( _.get(forestay.config.attributes[attrKey],["availableValues"])) { %>
@@ -25,5 +23,3 @@
   <% }) %>
   <% } %>
 </select>
-
-<% } %>
