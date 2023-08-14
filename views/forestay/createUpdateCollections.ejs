@@ -2,7 +2,7 @@
   <p>Please add attribute <strong>populateBy</strong> to your model to display these optoins, or hide this field from the form.</p>
   <% } else { %>
     <% if (_.get(forestay.config.attributes[attrKey], ["meta","forestay","createUpdateUi"]) === 'tagging') { %>
-      <% include createUpdateCollectionsTagging.ejs %>
+      <% include ("./createUpdateCollectionsTagging") %>
     <% } else { // end createUpdateUi Type%>
       <%
       var cpt=0;
